@@ -83,7 +83,7 @@ function TerminalDemo() {
             <span className="text-[11px] text-neutral-500 font-mono">grysics / verification</span>
           </div>
         </div>
-        <div className="p-5 sm:p-6 font-mono text-[12px] sm:text-[13px] leading-6 min-h-[340px]">
+        <div className="p-4 sm:p-6 font-mono text-[10px] sm:text-[13px] leading-5 sm:leading-6 min-h-[280px] sm:min-h-[340px] overflow-x-auto">
           {lines.slice(0, visibleLines).map((line, i) => (
             <motion.div
               key={i}
@@ -173,7 +173,7 @@ if report.passed:
   );
 }
 
-function EarlyAccessForm() {
+function EarlyAccessForm({ variant = 'dark' }: { variant?: 'dark' | 'light' }) {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -199,12 +199,14 @@ function EarlyAccessForm() {
           <Check className="w-4 h-4 text-green-600" />
         </div>
         <div>
-          <p className="text-sm font-semibold text-green-900">You're on the list!</p>
-          <p className="text-xs text-green-600">We'll notify you when Grysics launches.</p>
+          <p className="text-sm font-semibold text-green-900">You&apos;re on the list!</p>
+          <p className="text-xs text-green-600">We&apos;ll notify you when Grysics launches.</p>
         </div>
       </motion.div>
     );
   }
+
+  const isDark = variant === 'dark';
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 w-full max-w-md">
@@ -214,15 +216,26 @@ function EarlyAccessForm() {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         required
-        className="flex-1 px-5 py-3.5 rounded-full text-sm focus:outline-none transition-all placeholder:text-white/40 border border-white/20 bg-white/10 text-white backdrop-blur-sm focus:ring-2 focus:ring-white/20 focus:border-white/40"
+        aria-label="Email address"
+        className={`flex-1 px-5 py-3.5 rounded-full text-sm focus:outline-none transition-all ${
+          isDark
+            ? 'placeholder:text-white/40 border border-white/20 bg-white/10 text-white backdrop-blur-sm focus:ring-2 focus:ring-white/20 focus:border-white/40'
+            : 'placeholder:text-neutral-400 border border-neutral-200 bg-white text-neutral-900 focus:ring-2 focus:ring-neutral-900/10 focus:border-neutral-400'
+        }`}
       />
       <button
         type="submit"
         disabled={loading}
-        className="px-7 py-3.5 rounded-full font-medium text-sm transition-all disabled:opacity-60 flex items-center justify-center gap-2 flex-shrink-0 bg-white text-neutral-900 hover:bg-white/90"
+        className={`px-7 py-3.5 rounded-full font-medium text-sm transition-all disabled:opacity-60 flex items-center justify-center gap-2 flex-shrink-0 ${
+          isDark
+            ? 'bg-white text-neutral-900 hover:bg-white/90'
+            : 'bg-neutral-900 text-white hover:bg-black'
+        }`}
       >
         {loading ? (
-          <div className="w-4 h-4 border-2 rounded-full animate-spin border-neutral-300 border-t-neutral-900" />
+          <div className={`w-4 h-4 border-2 rounded-full animate-spin ${
+            isDark ? 'border-neutral-300 border-t-neutral-900' : 'border-white/30 border-t-white'
+          }`} />
         ) : (
           <>Get Early Access <ArrowRight className="w-4 h-4" /></>
         )}
@@ -237,7 +250,7 @@ export default function HomePage() {
       <div className="grain" />
       <Header />
 
-      <section className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 overflow-hidden">
+      <section className="relative min-h-[100svh] flex items-center justify-center px-5 sm:px-6 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
             src="/images/bg.png"
@@ -254,7 +267,7 @@ export default function HomePage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="font-serif text-4xl sm:text-5xl lg:text-7xl text-white tracking-tight leading-[1.05] mb-8"
+            className="font-serif text-3xl sm:text-5xl lg:text-7xl text-white tracking-tight leading-[1.1] mb-6 sm:mb-8"
           >
             Verify your AI
             <br />
@@ -265,7 +278,7 @@ export default function HomePage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="text-lg sm:text-xl text-white/70 leading-relaxed font-light mb-12 max-w-2xl mx-auto"
+            className="text-base sm:text-xl text-white/70 leading-relaxed font-light mb-10 sm:mb-12 max-w-2xl mx-auto px-2"
           >
             One command to test accuracy, latency, and memory across every target device. Catch failures before your users do.
           </motion.p>
@@ -280,7 +293,7 @@ export default function HomePage() {
             <p className="text-xs text-white/40 mt-4">Free during beta · No credit card required</p>
           </motion.div>
 
-          <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-3 mt-16">
+          <div className="flex flex-wrap justify-center items-center gap-x-6 sm:gap-x-8 gap-y-2 mt-12 sm:mt-16 px-2">
             {[
               "Pre-deploy verification",
               "12ms average check",
@@ -303,7 +316,7 @@ export default function HomePage() {
       </section>
 
       <section className="py-10 sm:py-16">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6">
+        <div className="max-w-3xl mx-auto px-5 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
@@ -314,18 +327,18 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="features" className="py-24 sm:py-32 border-t border-neutral-100">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+      <section id="features" className="py-16 sm:py-32 border-t border-neutral-100">
+        <div className="max-w-5xl mx-auto px-5 sm:px-6">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} variants={fadeUp} className="text-center mb-16">
-            <h2 className="font-serif text-3xl sm:text-5xl tracking-tight text-neutral-900">
+            <h2 className="font-serif text-2xl sm:text-5xl tracking-tight text-neutral-900">
               Any model. Any device.
             </h2>
-            <p className="text-neutral-500 mt-4 text-lg font-light max-w-2xl mx-auto">
+            <p className="text-neutral-500 mt-3 sm:mt-4 text-base sm:text-lg font-light max-w-2xl mx-auto">
               Vision, language, generative, audio. Grysics verifies it all on any hardware target.
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
             {[
               { name: "Computer Vision", examples: "Object detection, segmentation" },
               { name: "NLP & LLMs", examples: "Text generation, translation" },
@@ -353,11 +366,11 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-24 sm:py-32 border-t border-neutral-100">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-center">
+      <section className="py-16 sm:py-32 border-t border-neutral-100">
+        <div className="max-w-5xl mx-auto px-5 sm:px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} variants={fadeUp}>
-              <h2 className="font-serif text-3xl sm:text-5xl tracking-tight text-neutral-900 mb-6">
+              <h2 className="font-serif text-2xl sm:text-5xl tracking-tight text-neutral-900 mb-4 sm:mb-6">
                 Three lines to verify
               </h2>
               <p className="text-neutral-500 text-base sm:text-lg font-light leading-relaxed mb-8">
@@ -378,15 +391,15 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="performance" className="py-24 sm:py-32 bg-neutral-50/80 border-y border-neutral-100">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} variants={fadeUp} className="text-center mb-16">
-            <h2 className="font-serif text-3xl sm:text-5xl tracking-tight text-neutral-900">
+      <section id="performance" className="py-16 sm:py-32 bg-neutral-50/80 border-y border-neutral-100">
+        <div className="max-w-5xl mx-auto px-5 sm:px-6">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} variants={fadeUp} className="text-center mb-10 sm:mb-16">
+            <h2 className="font-serif text-2xl sm:text-5xl tracking-tight text-neutral-900">
               Built for speed
             </h2>
           </motion.div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-16">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-10 sm:mb-16">
             {[
               { value: 10, suffix: 'x', label: 'Faster verification' },
               { value: 50, suffix: '+', label: 'Hardware targets' },
@@ -400,9 +413,9 @@ export default function HomePage() {
                 viewport={{ once: true }}
                 custom={idx}
                 variants={fadeUp}
-                className="bg-white rounded-2xl p-6 sm:p-8 border border-neutral-100 text-center"
+                className="bg-white rounded-2xl p-5 sm:p-8 border border-neutral-100 text-center"
               >
-                <div className="font-serif text-3xl sm:text-4xl italic text-neutral-900 mb-2">
+                <div className="font-serif text-2xl sm:text-4xl italic text-neutral-900 mb-1 sm:mb-2">
                   <AnimatedCounter target={stat.value} suffix={stat.suffix} />
                 </div>
                 <p className="text-xs text-neutral-400">{stat.label}</p>
@@ -410,7 +423,7 @@ export default function HomePage() {
             ))}
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4">
             {[
               { label: "Verification Speed", grysics: "12ms", others: "180ms", grysicsWidth: "7%", othersWidth: "100%" },
               { label: "Accuracy Retention", grysics: "99.2%", others: "92%", grysicsWidth: "99%", othersWidth: "92%" },
@@ -463,10 +476,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="how-it-works" className="py-24 sm:py-32 border-b border-neutral-100">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} variants={fadeUp} className="text-center mb-20">
-            <h2 className="font-serif text-3xl sm:text-5xl tracking-tight text-neutral-900">
+      <section id="how-it-works" className="py-16 sm:py-32 border-b border-neutral-100">
+        <div className="max-w-5xl mx-auto px-5 sm:px-6">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} variants={fadeUp} className="text-center mb-12 sm:mb-20">
+            <h2 className="font-serif text-2xl sm:text-5xl tracking-tight text-neutral-900">
               Model to production in minutes
             </h2>
           </motion.div>
@@ -496,10 +509,10 @@ export default function HomePage() {
                 viewport={{ once: true }}
                 custom={idx}
                 variants={fadeUp}
-                className="relative px-8 py-10 sm:border-l first:border-l-0 border-neutral-200"
+                className="relative px-6 sm:px-8 py-8 sm:py-10 border-b sm:border-b-0 sm:border-l first:border-l-0 last:border-b-0 border-neutral-200"
               >
-                <span className="text-5xl sm:text-6xl font-serif italic text-neutral-100 block mb-4">{item.step}</span>
-                <h3 className="text-xl font-semibold text-neutral-900 mb-3">{item.title}</h3>
+                <span className="text-4xl sm:text-6xl font-serif italic text-neutral-100 block mb-3 sm:mb-4">{item.step}</span>
+                <h3 className="text-lg sm:text-xl font-semibold text-neutral-900 mb-2 sm:mb-3">{item.title}</h3>
                 <p className="text-neutral-500 text-sm leading-relaxed font-light">{item.description}</p>
               </motion.div>
             ))}
@@ -507,18 +520,18 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-24 sm:py-32 bg-neutral-50/80 border-b border-neutral-100">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} variants={fadeUp} className="text-center mb-16">
-            <h2 className="font-serif text-3xl sm:text-5xl tracking-tight text-neutral-900">
+      <section className="py-16 sm:py-32 bg-neutral-50/80 border-b border-neutral-100">
+        <div className="max-w-5xl mx-auto px-5 sm:px-6">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} variants={fadeUp} className="text-center mb-10 sm:mb-16">
+            <h2 className="font-serif text-2xl sm:text-5xl tracking-tight text-neutral-900">
               What Grysics catches
             </h2>
-            <p className="text-neutral-500 mt-4 text-base sm:text-lg font-light max-w-2xl mx-auto">
+            <p className="text-neutral-500 mt-3 sm:mt-4 text-base sm:text-lg font-light max-w-2xl mx-auto">
               Six categories of failures that silently break AI in production.
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
             {[
               { title: "Accuracy Degradation", description: "Detects when quantization or hardware conversion silently drops model accuracy below your thresholds.", severity: "Critical" },
               { title: "Latency Violations", description: "Identifies operations that exceed real-time constraints on your target edge devices.", severity: "High" },
@@ -553,17 +566,17 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="early-access" className="py-24 sm:py-36">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+      <section id="early-access" className="py-16 sm:py-36">
+        <div className="max-w-4xl mx-auto px-5 sm:px-6 text-center">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} variants={fadeUp}>
-            <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl tracking-tight text-neutral-900 mb-6">
+            <h2 className="font-serif text-2xl sm:text-5xl lg:text-6xl tracking-tight text-neutral-900 mb-4 sm:mb-6">
               Stop shipping untested AI
             </h2>
-            <p className="text-neutral-500 text-base sm:text-lg max-w-xl mx-auto mb-10 font-light leading-relaxed">
+            <p className="text-neutral-500 text-sm sm:text-lg max-w-xl mx-auto mb-8 sm:mb-10 font-light leading-relaxed">
               Join the waitlist. Be the first to verify your AI before it reaches production.
             </p>
             <div className="flex justify-center mb-4">
-              <EarlyAccessForm />
+              <EarlyAccessForm variant="light" />
             </div>
             <p className="text-xs text-neutral-400">Join 500+ developers already on the waitlist</p>
           </motion.div>

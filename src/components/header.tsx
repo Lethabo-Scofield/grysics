@@ -32,6 +32,7 @@ export default function Header() {
             width={32}
             height={32}
             className="rounded-lg transition-transform duration-200 group-hover:scale-105"
+            style={{ width: 32, height: 32 }}
           />
           <span className={`font-serif text-xl tracking-tight transition-colors duration-300 ${
             scrolled ? 'text-neutral-900' : 'text-white'
@@ -83,6 +84,7 @@ export default function Header() {
           }`}
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
+          aria-expanded={menuOpen}
         >
           <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
             {menuOpen ? (

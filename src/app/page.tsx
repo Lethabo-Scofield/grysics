@@ -237,7 +237,7 @@ export default function HomePage() {
       <div className="grain" />
       <Header />
 
-      <section className="relative pt-28 sm:pt-40 pb-16 sm:pb-24 px-4 sm:px-6 overflow-hidden">
+      <section className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
             src="/images/bg.png"

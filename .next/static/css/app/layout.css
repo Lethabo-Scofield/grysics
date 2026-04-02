@@ -987,17 +987,11 @@ video {
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
-.pb-16 {
-  padding-bottom: 4rem;
-}
 .pr-2 {
   padding-right: 0.5rem;
 }
 .pr-4 {
   padding-right: 1rem;
-}
-.pt-28 {
-  padding-top: 7rem;
 }
 .pt-6 {
   padding-top: 1.5rem;
@@ -1359,14 +1353,6 @@ video {
   .sm\:py-36 {
     padding-top: 9rem;
     padding-bottom: 9rem;
-  }
-
-  .sm\:pb-24 {
-    padding-bottom: 6rem;
-  }
-
-  .sm\:pt-40 {
-    padding-top: 10rem;
   }
 
   .sm\:text-4xl {

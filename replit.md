@@ -1,8 +1,8 @@
-# Grysics / Olyxee Landing Page
+# Grysics — AI Verification Engine Landing Page
 
 ## Overview
 
-A Next.js landing page for **Grysics**, an AI verification engine by Olyxee. The page showcases the product with animated sections, a terminal demo, code preview, and an early access email form.
+A standalone Next.js landing page for **Grysics**, an AI verification engine. Features animated sections, terminal demo, code preview, performance benchmarks, and an early access email signup form.
 
 ## Tech Stack
 
@@ -19,27 +19,33 @@ A Next.js landing page for **Grysics**, an AI verification engine by Olyxee. The
 ```
 src/
   app/
-    layout.tsx          - Root layout with global CSS import
-    page.tsx            - Home page (links to Grysics product)
-    globals.css         - Tailwind directives + grain effect
-    products/
-      grysics/
-        layout.tsx      - Grysics product metadata layout
-        page.tsx        - Full Grysics landing page
+    layout.tsx          - Root layout with metadata and global CSS
+    page.tsx            - Main landing page (all sections)
+    globals.css         - Tailwind directives + grain texture effect
   components/
-    header.tsx          - Shared site header with nav
-    footer.tsx          - Shared site footer
+    header.tsx          - Fixed header with anchor navigation
+    footer.tsx          - Footer with section links
 public/
   images/
-    grysics-logo.png    - Grysics product logo (placeholder)
+    grysics-logo.png    - Product logo
+next.config.js          - Next.js config (standalone output, unoptimized images)
+tailwind.config.ts      - Tailwind CSS config
+tsconfig.json           - TypeScript config
+postcss.config.js       - PostCSS config
+.gitignore              - Git ignore rules
 ```
 
-## Configuration
+## Page Sections
 
-- Dev server runs on port 5000 at `0.0.0.0` (required for Replit preview)
-- `next.config.js` - Next.js configuration
-- `tailwind.config.ts` - Tailwind CSS configuration
-- `tsconfig.json` - TypeScript configuration
+The landing page includes these sections (with anchor IDs):
+- Hero with logo, tagline, and early access form
+- Terminal demo animation
+- `#features` — Model & device support grid
+- SDK / code preview
+- `#performance` — Speed benchmarks and comparison bars
+- `#how-it-works` — 3-step process (Upload, Verify, Ship)
+- What Grysics catches — failure categories
+- `#early-access` — CTA with email signup
 
 ## Development
 
@@ -51,6 +57,5 @@ npm run start  # Start production server
 
 ## Deployment
 
-Configured for autoscale deployment:
-- Build: `npm run build`
-- Run: `npm run start`
+- **Vercel**: Ready for deployment. `next.config.js` uses `output: 'standalone'` and `images: { unoptimized: true }`.
+- **Replit**: Configured for autoscale deployment with `npm run build` + `npm run start`.

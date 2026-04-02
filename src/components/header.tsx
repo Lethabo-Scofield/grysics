@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState } from 'react';
 
 export default function Header() {
@@ -9,32 +10,30 @@ export default function Header() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-neutral-100">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-        <Link href="/" className="font-serif text-lg text-neutral-900 tracking-tight">
-          Olyxee
+        <Link href="/" className="flex items-center gap-2.5">
+          <Image src="/images/grysics-logo.png" alt="Grysics" width={28} height={28} className="rounded-lg" />
+          <span className="font-serif text-lg text-neutral-900 tracking-tight">Grysics</span>
         </Link>
 
         <nav className="hidden sm:flex items-center gap-8">
-          <Link href="/products/grysics" className="text-sm text-neutral-500 hover:text-neutral-900 transition-colors">
-            Grysics
-          </Link>
-          <Link href="#" className="text-sm text-neutral-500 hover:text-neutral-900 transition-colors">
-            Docs
-          </Link>
-          <Link href="#" className="text-sm text-neutral-500 hover:text-neutral-900 transition-colors">
-            Blog
-          </Link>
+          <a href="#features" className="text-sm text-neutral-500 hover:text-neutral-900 transition-colors">
+            Features
+          </a>
+          <a href="#how-it-works" className="text-sm text-neutral-500 hover:text-neutral-900 transition-colors">
+            How it works
+          </a>
+          <a href="#performance" className="text-sm text-neutral-500 hover:text-neutral-900 transition-colors">
+            Performance
+          </a>
         </nav>
 
         <div className="hidden sm:flex items-center gap-3">
-          <Link href="#" className="text-sm text-neutral-600 hover:text-neutral-900 transition-colors">
-            Sign in
-          </Link>
-          <Link
-            href="/products/grysics"
+          <a
+            href="#early-access"
             className="px-4 py-2 bg-neutral-900 text-white text-sm rounded-full hover:bg-black transition-colors"
           >
-            Get started
-          </Link>
+            Get Early Access
+          </a>
         </div>
 
         <button
@@ -54,10 +53,10 @@ export default function Header() {
 
       {menuOpen && (
         <div className="sm:hidden border-t border-neutral-100 bg-white px-4 py-4 flex flex-col gap-4">
-          <Link href="/products/grysics" className="text-sm text-neutral-600">Grysics</Link>
-          <Link href="#" className="text-sm text-neutral-600">Docs</Link>
-          <Link href="#" className="text-sm text-neutral-600">Blog</Link>
-          <Link href="#" className="text-sm text-neutral-600">Sign in</Link>
+          <a href="#features" className="text-sm text-neutral-600" onClick={() => setMenuOpen(false)}>Features</a>
+          <a href="#how-it-works" className="text-sm text-neutral-600" onClick={() => setMenuOpen(false)}>How it works</a>
+          <a href="#performance" className="text-sm text-neutral-600" onClick={() => setMenuOpen(false)}>Performance</a>
+          <a href="#early-access" className="text-sm text-neutral-600" onClick={() => setMenuOpen(false)}>Get Early Access</a>
         </div>
       )}
     </header>

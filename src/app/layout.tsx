@@ -5,6 +5,10 @@ export const metadata: Metadata = {
   title: "Grysics | AI Verification Engine",
   description:
     "Grysics is an AI verification engine. It ensures AI models work correctly before and after deployment with real-time monitoring, drift detection, and automated testing.",
+  icons: {
+    icon: "/favicon.png",
+    apple: "/favicon.png",
+  },
   openGraph: {
     title: "Grysics | AI Verification Engine",
     description:

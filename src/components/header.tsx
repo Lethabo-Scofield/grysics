@@ -46,9 +46,8 @@ export default function Header() {
             scrolled ? 'bg-neutral-100/80' : 'bg-white/10 backdrop-blur-sm'
           }`}>
             {[
-              { label: 'Features', href: '#features' },
-              { label: 'How it works', href: '#how-it-works' },
-              { label: 'Performance', href: '#performance' },
+              { label: 'What we cover', href: '#features' },
+              { label: 'Results', href: '#how-it-works' },
             ].map((link) => (
               <a
                 key={link.label}
@@ -107,9 +106,8 @@ export default function Header() {
           >
             <div className="px-5 py-5 flex flex-col gap-1">
               {[
-                { label: 'Features', href: '#features' },
-                { label: 'How it works', href: '#how-it-works' },
-                { label: 'Performance', href: '#performance' },
+                { label: 'What we cover', href: '#features' },
+                { label: 'Results', href: '#how-it-works' },
               ].map((link) => (
                 <a
                   key={link.label}

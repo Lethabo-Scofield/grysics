@@ -2,7 +2,7 @@
 
 import { motion, useInView } from 'framer-motion';
 import { useEffect, useRef, useState, FormEvent } from 'react';
-import { ArrowRight, Check, ArrowDown } from 'lucide-react';
+import { ArrowRight, Check, ArrowDown, Shield, Target, BarChart3, AlertTriangle } from 'lucide-react';
 import Image from 'next/image';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
@@ -35,138 +35,74 @@ function AnimatedCounter({ target, suffix = '', prefix = '' }: { target: number;
   return <span ref={ref}>{prefix}{value.toLocaleString()}{suffix}</span>;
 }
 
-function TerminalDemo() {
+function VerificationFlow() {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const [visibleLines, setVisibleLines] = useState(0);
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
 
-  const lines = [
-    { type: 'cmd', text: '$ grysics verify model.onnx --target jetson-orin' },
-    { type: 'info', text: '\u25FC Loading model... ResNet-50 (ONNX, 97.8MB)' },
-    { type: 'info', text: '\u25FC Target: NVIDIA Jetson Orin Nano (8GB)' },
-    { type: 'blank', text: '' },
-    { type: 'header', text: '  VERIFICATION RESULTS' },
-    { type: 'blank', text: '' },
-    { type: 'pass', text: '  \u2713 Accuracy retention     99.2%   (threshold: 95%)' },
-    { type: 'pass', text: '  \u2713 Inference latency      8.4ms   (threshold: 50ms)' },
-    { type: 'pass', text: '  \u2713 Memory footprint       412MB   (available: 8GB)' },
-    { type: 'pass', text: '  \u2713 Numerical stability    PASS    (no NaN detected)' },
-    { type: 'warn', text: '  \u26A0 INT8 quantization      97.1%   (minor accuracy loss)' },
-    { type: 'pass', text: '  \u2713 Throughput             119 fps  (target: 30 fps)' },
-    { type: 'blank', text: '' },
-    { type: 'result', text: '  5/6 passed \u00B7 1 warning \u00B7 0 failed' },
-    { type: 'success', text: '  \u2713 Model is ready for deployment' },
+  const checks = [
+    { label: 'Accuracy', value: '99.2%', status: 'pass', threshold: 'Above target' },
+    { label: 'Response Time', value: 'Fast', status: 'pass', threshold: 'Under limit' },
+    { label: 'Memory Usage', value: 'Low', status: 'pass', threshold: 'Within budget' },
+    { label: 'Stability', value: 'Stable', status: 'pass', threshold: 'No errors' },
+    { label: 'Optimisation', value: '97.1%', status: 'warn', threshold: 'Minor trade-off' },
+    { label: 'Throughput', value: 'High', status: 'pass', threshold: 'Above target' },
   ];
-
-  useEffect(() => {
-    if (!isInView) return;
-    let i = 0;
-    const timer = setInterval(() => {
-      i++;
-      setVisibleLines(i);
-      if (i >= lines.length) clearInterval(timer);
-    }, 120);
-    return () => clearInterval(timer);
-  }, [isInView, lines.length]);
 
   return (
     <div ref={ref} className="relative">
-      <div className="relative bg-[#0d1117] rounded-2xl border border-neutral-800 shadow-2xl overflow-hidden">
-        <div className="flex items-center gap-2 px-4 py-3 border-b border-neutral-800 bg-neutral-900/80">
-          <div className="flex items-center gap-1.5">
-            <div className="w-3 h-3 rounded-full bg-red-500/70" />
-            <div className="w-3 h-3 rounded-full bg-yellow-500/70" />
-            <div className="w-3 h-3 rounded-full bg-green-500/70" />
+      <div className="rounded-3xl border border-neutral-200 bg-white shadow-xl shadow-neutral-200/30 overflow-hidden">
+        <div className="px-6 sm:px-8 py-5 bg-neutral-50 border-b border-neutral-100 flex items-center justify-between">
+          <div>
+            <p className="text-sm font-semibold text-neutral-900">Verification Report</p>
+            <p className="text-xs text-neutral-400 mt-0.5">Your AI model &middot; Customer device</p>
           </div>
-          <div className="flex-1 flex items-center justify-center">
-            <span className="text-[11px] text-neutral-500 font-mono">grysics / verification</span>
+          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-50 border border-green-200">
+            <div className="w-2 h-2 rounded-full bg-green-500" />
+            <span className="text-xs font-medium text-green-700">Ready to deploy</span>
           </div>
         </div>
-        <div className="p-4 sm:p-6 font-mono text-[10px] sm:text-[13px] leading-5 sm:leading-6 min-h-[260px] sm:min-h-[320px] overflow-x-auto">
-          {lines.slice(0, visibleLines).map((line, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, x: -5 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.15 }}
-              className={
-                line.type === 'cmd' ? 'text-white font-semibold' :
-                line.type === 'pass' ? 'text-green-400' :
-                line.type === 'warn' ? 'text-amber-400' :
-                line.type === 'header' ? 'text-neutral-300 font-bold tracking-wider text-[11px]' :
-                line.type === 'success' ? 'text-green-400 font-bold' :
-                line.type === 'result' ? 'text-neutral-500' :
-                line.type === 'info' ? 'text-neutral-400' :
-                'text-transparent select-none'
-              }
-            >
-              {line.text || '\u00A0'}
-            </motion.div>
-          ))}
-          {visibleLines < lines.length && isInView && (
-            <span className="inline-block w-2 h-4 bg-white/60 animate-pulse ml-0.5" />
-          )}
+
+        <div className="p-5 sm:p-8">
+          <div className="space-y-3">
+            {checks.map((check, i) => (
+              <motion.div
+                key={check.label}
+                initial={{ opacity: 0, x: -10 }}
+                animate={isInView ? { opacity: 1, x: 0 } : {}}
+                transition={{ duration: 0.3, delay: i * 0.1 }}
+                className="flex items-center gap-4 py-3 border-b border-neutral-50 last:border-b-0"
+              >
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
+                  check.status === 'pass' ? 'bg-green-50' : 'bg-amber-50'
+                }`}>
+                  {check.status === 'pass' ? (
+                    <Check className="w-4 h-4 text-green-500" />
+                  ) : (
+                    <AlertTriangle className="w-3.5 h-3.5 text-amber-500" />
+                  )}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-medium text-neutral-900">{check.label}</p>
+                  <p className="text-[11px] text-neutral-400">{check.threshold}</p>
+                </div>
+                <p className={`text-sm font-semibold flex-shrink-0 ${
+                  check.status === 'pass' ? 'text-neutral-900' : 'text-amber-600'
+                }`}>{check.value}</p>
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={isInView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 0.4, delay: 0.8 }}
+            className="mt-6 p-4 rounded-2xl bg-green-50/50 border border-green-100 text-center"
+          >
+            <p className="text-sm font-medium text-green-800">5 of 6 checks passed &middot; 1 warning &middot; 0 failures</p>
+            <p className="text-xs text-green-600 mt-1">This model meets all requirements for production deployment</p>
+          </motion.div>
         </div>
       </div>
-    </div>
-  );
-}
-
-function CodePreview() {
-  const [copied, setCopied] = useState(false);
-
-  const code = `import grysics
-
-report = grysics.verify(
-    model="model.onnx",
-    target="jetson-orin",
-    checks=["accuracy", "latency", "memory"],
-    thresholds={
-        "accuracy": 0.95,
-        "latency_ms": 50,
-        "memory_mb": 2048
-    }
-)
-
-if report.passed:
-    grysics.deploy(report)`;
-
-  return (
-    <div className="relative bg-[#0d1117] rounded-2xl border border-neutral-800 overflow-hidden shadow-lg">
-      <div className="flex items-center justify-between px-4 py-2.5 border-b border-neutral-800 bg-neutral-900/80">
-        <div className="flex items-center gap-2">
-          <div className="w-2.5 h-2.5 rounded bg-yellow-500/60" />
-          <span className="text-[11px] text-neutral-500 font-mono">verify.py</span>
-        </div>
-        <button
-          onClick={() => { setCopied(true); setTimeout(() => setCopied(false), 2000); }}
-          className="text-[11px] text-neutral-500 hover:text-neutral-300 transition-colors"
-        >
-          {copied ? 'Copied' : 'Copy'}
-        </button>
-      </div>
-      <pre className="p-5 sm:p-6 font-mono text-[12px] sm:text-[13px] leading-6 text-neutral-300 overflow-x-auto">
-        <code>{code.split('\n').map((line, i) => {
-          let highlighted = line;
-          highlighted = highlighted.replace(/(import|from|if)/g, '<kw>$1</kw>');
-          highlighted = highlighted.replace(/(".*?")/g, '<str>$1</str>');
-          highlighted = highlighted.replace(/(\d+\.?\d*)/g, '<num>$1</num>');
-          highlighted = highlighted.replace(/(grysics)/g, '<fn>$1</fn>');
-
-          return (
-            <div key={i} className="flex">
-              <span className="w-8 text-right pr-4 text-neutral-700 select-none flex-shrink-0">{i + 1}</span>
-              <span dangerouslySetInnerHTML={{
-                __html: highlighted
-                  .replace(/<kw>(.*?)<\/kw>/g, '<span class="text-purple-400">$1</span>')
-                  .replace(/<str>(.*?)<\/str>/g, '<span class="text-green-400">$1</span>')
-                  .replace(/<num>(.*?)<\/num>/g, '<span class="text-amber-400">$1</span>')
-                  .replace(/<fn>(.*?)<\/fn>/g, '<span class="text-cyan-400">$1</span>')
-              }} />
-            </div>
-          );
-        })}</code>
-      </pre>
     </div>
   );
 }
@@ -282,7 +218,7 @@ export default function HomePage() {
             transition={{ duration: 0.7, delay: 0.2 }}
             className="text-base sm:text-xl text-white/70 leading-relaxed font-light mb-10 sm:mb-12 max-w-2xl mx-auto px-2"
           >
-            Grysics automatically verifies your AI models across every target device before deployment. Stop losing users to silent model failures.
+            Grysics automatically checks that your AI works correctly on every device before you ship it. No surprises. No angry users. No 2 AM rollbacks.
           </motion.p>
 
           <motion.div
@@ -326,7 +262,7 @@ export default function HomePage() {
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} variants={fadeUp} className="sm:col-span-5 relative p-8 sm:p-10 rounded-3xl border border-white/10 bg-gradient-to-br from-red-500/10 to-transparent">
               <p className="font-serif text-6xl sm:text-8xl italic text-white/90 mb-2">73%</p>
               <p className="text-base sm:text-lg text-neutral-300 font-light leading-relaxed">
-                of AI applications experience accuracy degradation within <span className="text-white font-medium">30 days</span> of deployment.
+                of AI applications experience accuracy problems within <span className="text-white font-medium">30 days</span> of going live.
               </p>
             </motion.div>
 
@@ -334,14 +270,14 @@ export default function HomePage() {
               <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={1} variants={fadeUp} className="relative p-6 sm:p-8 rounded-3xl border border-white/10 bg-white/[0.03] flex items-center gap-6">
                 <p className="font-serif text-4xl sm:text-5xl italic text-white/80 flex-shrink-0">4.2h</p>
                 <div>
-                  <p className="text-sm sm:text-base text-neutral-300 font-light">Average time to detect a silent model failure. That&apos;s 4 hours of broken AI your users experience.</p>
+                  <p className="text-sm sm:text-base text-neutral-300 font-light">Average time to discover something is wrong. That&apos;s 4 hours of broken AI your customers experience.</p>
                 </div>
               </motion.div>
 
               <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={2} variants={fadeUp} className="relative p-6 sm:p-8 rounded-3xl border border-white/10 bg-white/[0.03] flex items-center gap-6">
                 <p className="font-serif text-4xl sm:text-5xl italic text-white/80 flex-shrink-0">R31M</p>
                 <div>
-                  <p className="text-sm sm:text-base text-neutral-300 font-light">Average annual cost of AI downtime per company. Verification costs a fraction of what failures cost you.</p>
+                  <p className="text-sm sm:text-base text-neutral-300 font-light">Average annual cost of AI downtime per company. Prevention costs a fraction of what failures cost you.</p>
                 </div>
               </motion.div>
             </div>
@@ -355,20 +291,29 @@ export default function HomePage() {
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} variants={fadeUp} className="lg:col-span-5 lg:sticky lg:top-28">
               <p className="text-xs uppercase tracking-[0.2em] text-neutral-400 font-medium mb-3">The solution</p>
               <h2 className="font-serif text-2xl sm:text-5xl tracking-tight text-neutral-900 mb-4 sm:mb-6">
-                One command.<br />Complete confidence.
+                Know your AI is ready<br />before you ship it.
               </h2>
               <p className="text-neutral-500 text-base sm:text-lg font-light leading-relaxed mb-8">
-                Grysics runs your model through real-world verification on actual target hardware. Not simulations. Not approximations. Real devices.
+                Grysics checks your AI model against real-world conditions and gives you a clear pass-or-fail report. If something would break for your users, you&apos;ll know before they do.
               </p>
-              <div className="flex flex-wrap gap-2">
-                {['PyTorch', 'TensorFlow', 'ONNX', 'TFLite', 'Jetson', 'Mobile'].map((tag) => (
-                  <span key={tag} className="px-3 py-1 rounded-full text-xs bg-neutral-100 text-neutral-500 border border-neutral-200/60">{tag}</span>
+              <div className="space-y-4">
+                {[
+                  { icon: Shield, text: "Checks accuracy, speed, and reliability automatically" },
+                  { icon: Target, text: "Tests on 50+ real devices your customers actually use" },
+                  { icon: BarChart3, text: "Clear reports anyone on the team can understand" },
+                ].map((item) => (
+                  <div key={item.text} className="flex items-start gap-3">
+                    <div className="w-8 h-8 rounded-lg bg-neutral-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <item.icon className="w-4 h-4 text-neutral-500" />
+                    </div>
+                    <span className="text-sm text-neutral-600 leading-relaxed">{item.text}</span>
+                  </div>
                 ))}
               </div>
             </motion.div>
 
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={2} variants={fadeUp} className="lg:col-span-7">
-              <TerminalDemo />
+              <VerificationFlow />
             </motion.div>
           </div>
         </div>
@@ -377,7 +322,7 @@ export default function HomePage() {
       <section className="py-16 sm:py-28 border-b border-neutral-100">
         <div className="max-w-6xl mx-auto px-5 sm:px-6">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} variants={fadeUp} className="text-center mb-12 sm:mb-20">
-            <p className="text-xs uppercase tracking-[0.2em] text-neutral-400 font-medium mb-3">Built for AI teams</p>
+            <p className="text-xs uppercase tracking-[0.2em] text-neutral-400 font-medium mb-3">Who it&apos;s for</p>
             <h2 className="font-serif text-2xl sm:text-5xl tracking-tight text-neutral-900 mb-4">
               Whether you&apos;re shipping or scaling
             </h2>
@@ -386,27 +331,27 @@ export default function HomePage() {
           <div className="space-y-0">
             {[
               {
-                title: "Launching your first AI app",
-                audience: "Startups & indie builders",
-                description: "You\u2019ve built a model that works on your machine. But will it work on every device your users have? Grysics verifies it across 50+ hardware targets before they find out it doesn\u2019t.",
+                title: "Launching your first AI product",
+                audience: "Startups & founders",
+                description: "You\u2019ve invested months building your AI. Don\u2019t let it fail on the devices your customers actually use. Grysics gives you confidence it works everywhere before you launch.",
                 align: "left" as const,
               },
               {
-                title: "Running AI in production at scale",
-                audience: "Growth & enterprise teams",
-                description: "Your models serve thousands of daily requests. One undetected accuracy drift costs you users and revenue. Grysics catches latency spikes, memory issues, and silent degradation in real-time.",
+                title: "Managing AI in production",
+                audience: "Product & project managers",
+                description: "Your team ships AI updates regularly. How do you know each release is as good as the last? Grysics automatically flags quality drops so you never ship a downgrade.",
                 align: "right" as const,
               },
               {
-                title: "Deploying to edge and IoT",
-                audience: "Edge / embedded teams",
-                description: "Jetson, mobile, IoT \u2014 every device is different. A model that runs on your A100 might crash on a Jetson Nano. Grysics tests on the actual hardware so you ship with confidence.",
+                title: "Scaling across devices and markets",
+                audience: "Growth & enterprise teams",
+                description: "Different devices, different regions, different conditions. A model that works on high-end hardware might fail on the devices most of your users actually have.",
                 align: "left" as const,
               },
               {
-                title: "Building AI-powered SaaS",
-                audience: "SaaS founders & product teams",
-                description: "Your SaaS product depends on AI quality. Grysics plugs into your CI/CD pipeline and blocks bad models from reaching production. Every deployment, automatically verified.",
+                title: "Building AI-powered products",
+                audience: "SaaS & product companies",
+                description: "Your product\u2019s reputation depends on AI quality. Grysics runs automated checks on every update and blocks anything that doesn\u2019t meet your standards from reaching customers.",
                 align: "right" as const,
               },
             ].map((item, idx) => (
@@ -435,15 +380,15 @@ export default function HomePage() {
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} variants={fadeUp} className="text-center mb-12 sm:mb-16">
             <p className="text-xs uppercase tracking-[0.2em] text-neutral-500 font-medium mb-3">Comprehensive coverage</p>
             <h2 className="font-serif text-2xl sm:text-5xl tracking-tight">
-              Every model type. Every device.
+              Works with any type of AI
             </h2>
           </motion.div>
 
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={1} variants={fadeUp} className="flex flex-wrap justify-center gap-3 sm:gap-4 mb-16">
             {[
-              "Computer Vision", "NLP & LLMs", "Image Generation", "Audio & Speech",
-              "Video Analysis", "Recommendation", "Medical AI", "Autonomous Systems",
-              "Robotics", "Time Series", "Anomaly Detection", "RAG Pipelines",
+              "Computer Vision", "Language AI & Chatbots", "Image Generation", "Voice & Audio",
+              "Video Analysis", "Recommendations", "Medical AI", "Self-driving & Drones",
+              "Robotics", "Forecasting", "Fraud Detection", "Search & Retrieval",
             ].map((tag, i) => (
               <span
                 key={tag}
@@ -463,10 +408,10 @@ export default function HomePage() {
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={2} variants={fadeUp}>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-white/5 rounded-2xl overflow-hidden">
               {[
-                { value: '50+', label: 'Hardware targets' },
-                { value: '12ms', label: 'Avg verification' },
-                { value: '99.9%', label: 'Deploy success' },
-                { value: '6', label: 'Failure categories' },
+                { value: '50+', label: 'Devices tested' },
+                { value: '< 3min', label: 'Full check' },
+                { value: '99.9%', label: 'Deployment success' },
+                { value: '6', label: 'Quality checks' },
               ].map((stat) => (
                 <div key={stat.label} className="bg-neutral-950 p-6 sm:p-8 text-center">
                   <p className="font-serif text-2xl sm:text-3xl italic text-white mb-1">{stat.value}</p>
@@ -481,23 +426,20 @@ export default function HomePage() {
       <section className="py-16 sm:py-28 border-b border-neutral-100">
         <div className="max-w-6xl mx-auto px-5 sm:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={2} variants={fadeUp} className="lg:col-span-7 order-2 lg:order-1">
-              <CodePreview />
-            </motion.div>
-
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} variants={fadeUp} className="lg:col-span-5 order-1 lg:order-2">
-              <p className="text-xs uppercase tracking-[0.2em] text-neutral-400 font-medium mb-3">Developer-first</p>
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} variants={fadeUp} className="lg:col-span-6">
+              <p className="text-xs uppercase tracking-[0.2em] text-neutral-400 font-medium mb-3">Easy integration</p>
               <h2 className="font-serif text-2xl sm:text-5xl tracking-tight text-neutral-900 mb-4 sm:mb-6">
-                Three lines.<br />Full verification.
+                Set it up once.<br />It runs automatically.
               </h2>
-              <p className="text-neutral-500 text-base sm:text-lg font-light leading-relaxed mb-6">
-                Drop Grysics into your existing workflow. Python SDK, CLI, or CI/CD &mdash; however your team ships, we fit right in.
+              <p className="text-neutral-500 text-base sm:text-lg font-light leading-relaxed mb-8">
+                Your team connects Grysics to your AI workflow. From then on, every model update is automatically checked before it goes live. No manual work needed.
               </p>
-              <div className="space-y-3 mb-8">
+              <div className="space-y-4">
                 {[
-                  "Block bad models automatically in CI/CD",
-                  "Detailed reports on exactly why a model fails",
-                  "Custom thresholds per model and device",
+                  "Works with all major AI frameworks and tools",
+                  "Connects to your existing deployment process",
+                  "Automatically blocks updates that don\u2019t pass",
+                  "Sends alerts when something needs attention",
                 ].map((item) => (
                   <div key={item} className="flex items-start gap-3">
                     <Check className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
@@ -505,94 +447,82 @@ export default function HomePage() {
                   </div>
                 ))}
               </div>
-              <div className="flex flex-wrap gap-2">
-                {['pip install grysics', 'GitHub Actions', 'Docker', 'GitLab CI'].map((item) => (
-                  <span key={item} className="px-3 py-1.5 bg-neutral-100 text-neutral-600 rounded-lg text-xs font-mono border border-neutral-200/60">
-                    {item}
-                  </span>
-                ))}
+            </motion.div>
+
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={1} variants={fadeUp} className="lg:col-span-6">
+              <div className="rounded-3xl border border-neutral-200 bg-neutral-50 p-6 sm:p-10">
+                <div className="space-y-6">
+                  {[
+                    { step: "1", title: "Connect", desc: "Link Grysics to your AI project. Takes under 5 minutes.", active: true },
+                    { step: "2", title: "Set standards", desc: "Define what \u201Cgood enough\u201D means for your product \u2014 accuracy, speed, reliability.", active: true },
+                    { step: "3", title: "Automatic checks", desc: "Every time your AI is updated, Grysics runs a full check across all target devices.", active: true },
+                    { step: "4", title: "Clear results", desc: "Get a pass/fail report. If something fails, you\u2019ll know exactly what and why.", active: false },
+                  ].map((item, i) => (
+                    <motion.div
+                      key={item.step}
+                      initial={{ opacity: 0, y: 10 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.15, duration: 0.4 }}
+                      className="flex gap-4 items-start"
+                    >
+                      <div className={`w-10 h-10 rounded-2xl flex items-center justify-center flex-shrink-0 text-sm font-bold ${
+                        item.active ? 'bg-neutral-900 text-white' : 'bg-neutral-200 text-neutral-500'
+                      }`}>
+                        {item.step}
+                      </div>
+                      <div>
+                        <p className="text-sm font-semibold text-neutral-900">{item.title}</p>
+                        <p className="text-sm text-neutral-500 font-light mt-0.5">{item.desc}</p>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
               </div>
             </motion.div>
           </div>
         </div>
       </section>
 
-      <section id="how-it-works" className="py-16 sm:py-28 border-b border-neutral-100">
+      <section id="how-it-works" className="py-16 sm:py-28 bg-neutral-50/80 border-b border-neutral-100">
         <div className="max-w-5xl mx-auto px-5 sm:px-6">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} variants={fadeUp} className="text-center mb-16 sm:mb-24">
-            <p className="text-xs uppercase tracking-[0.2em] text-neutral-400 font-medium mb-3">How it works</p>
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} variants={fadeUp} className="text-center mb-12 sm:mb-16">
+            <p className="text-xs uppercase tracking-[0.2em] text-neutral-400 font-medium mb-3">Performance</p>
             <h2 className="font-serif text-2xl sm:text-5xl tracking-tight text-neutral-900">
-              From model to production in minutes
+              Fast enough that it never slows your team down
             </h2>
           </motion.div>
 
-          <div className="relative">
-            <div className="hidden sm:block absolute left-1/2 top-0 bottom-0 w-px bg-neutral-200 -translate-x-1/2" />
-
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-10 sm:mb-16">
             {[
-              {
-                step: "01",
-                title: "Connect your model",
-                description: "Point Grysics at any AI model \u2014 PyTorch, TensorFlow, ONNX, TFLite. We auto-detect architecture, layers, and dependencies. Zero config needed.",
-                side: "left" as const,
-              },
-              {
-                step: "02",
-                title: "Verify on real hardware",
-                description: "Grysics tests accuracy, latency, memory, and edge cases across your actual target devices. Not simulations \u2014 real verification with detailed, actionable reports.",
-                side: "right" as const,
-              },
-              {
-                step: "03",
-                title: "Ship with confidence",
-                description: "Only verified models reach production. Set up continuous monitoring to catch drift, regressions, and hardware-specific failures automatically post-deploy.",
-                side: "left" as const,
-              },
-            ].map((item, idx) => (
+              { value: 10, suffix: 'x', label: 'Faster than manual testing' },
+              { value: 50, suffix: '+', label: 'Devices checked' },
+              { value: 99, suffix: '.9%', label: 'Deployment success' },
+              { value: 3, suffix: 'min', label: 'Full verification' },
+            ].map((stat, idx) => (
               <motion.div
-                key={item.step}
+                key={stat.label}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
                 custom={idx}
                 variants={fadeUp}
-                className={`relative flex flex-col sm:flex-row items-start sm:items-center gap-6 mb-16 last:mb-0 ${
-                  item.side === 'right' ? 'sm:flex-row-reverse' : ''
-                }`}
+                className="bg-white rounded-2xl p-5 sm:p-8 border border-neutral-100 text-center"
               >
-                <div className={`sm:w-1/2 ${item.side === 'right' ? 'sm:text-right sm:pl-12' : 'sm:pr-12 sm:text-right'}`}>
-                  <span className="font-serif text-5xl sm:text-7xl italic text-neutral-100 leading-none">{item.step}</span>
+                <div className="font-serif text-2xl sm:text-4xl italic text-neutral-900 mb-1 sm:mb-2">
+                  <AnimatedCounter target={stat.value} suffix={stat.suffix} />
                 </div>
-
-                <div className="hidden sm:flex absolute left-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-neutral-900 items-center justify-center z-10">
-                  <span className="text-white text-xs font-bold">{item.step}</span>
-                </div>
-
-                <div className={`sm:w-1/2 ${item.side === 'right' ? 'sm:pr-12 sm:text-left' : 'sm:pl-12'}`}>
-                  <h3 className="text-lg sm:text-xl font-semibold text-neutral-900 mb-2">{item.title}</h3>
-                  <p className="text-neutral-500 text-sm leading-relaxed font-light">{item.description}</p>
-                </div>
+                <p className="text-[10px] sm:text-xs text-neutral-400">{stat.label}</p>
               </motion.div>
             ))}
           </div>
-        </div>
-      </section>
-
-      <section id="performance" className="py-16 sm:py-28 bg-neutral-50/80 border-b border-neutral-100">
-        <div className="max-w-5xl mx-auto px-5 sm:px-6">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} variants={fadeUp} className="text-center mb-12 sm:mb-16">
-            <p className="text-xs uppercase tracking-[0.2em] text-neutral-400 font-medium mb-3">Performance</p>
-            <h2 className="font-serif text-2xl sm:text-5xl tracking-tight text-neutral-900">
-              Verification that doesn&apos;t slow you down
-            </h2>
-          </motion.div>
 
           <div className="space-y-4">
             {[
-              { label: "Verification Speed", grysics: "12ms", others: "180ms", grysicsWidth: "7%", othersWidth: "100%" },
-              { label: "Accuracy Retention", grysics: "99.2%", others: "92%", grysicsWidth: "99%", othersWidth: "92%" },
-              { label: "Memory Efficiency", grysics: "245MB", others: "512MB", grysicsWidth: "48%", othersWidth: "100%" },
-              { label: "Deployment Success", grysics: "99.9%", others: "87%", grysicsWidth: "99%", othersWidth: "87%" },
+              { label: "Checking Speed", grysics: "Under 3 min", others: "30+ min", grysicsWidth: "10%", othersWidth: "100%" },
+              { label: "Accuracy Assurance", grysics: "99.2%", others: "92%", grysicsWidth: "99%", othersWidth: "92%" },
+              { label: "Devices Covered", grysics: "50+", others: "2\u20133", grysicsWidth: "95%", othersWidth: "6%" },
+              { label: "Successful Releases", grysics: "99.9%", others: "87%", grysicsWidth: "99%", othersWidth: "87%" },
             ].map((item, idx) => (
               <motion.div
                 key={item.label}
@@ -604,10 +534,10 @@ export default function HomePage() {
                 className="bg-white rounded-xl p-5 sm:p-6 border border-neutral-100"
               >
                 <div className="flex flex-col sm:flex-row sm:items-center gap-4">
-                  <p className="text-sm font-semibold text-neutral-900 sm:w-40 flex-shrink-0">{item.label}</p>
+                  <p className="text-sm font-semibold text-neutral-900 sm:w-44 flex-shrink-0">{item.label}</p>
                   <div className="flex-1 space-y-2">
                     <div className="flex items-center gap-3">
-                      <span className="text-[10px] font-mono text-neutral-500 w-12">Grysics</span>
+                      <span className="text-[10px] font-medium text-neutral-500 w-14">Grysics</span>
                       <div className="flex-1 h-7 bg-neutral-100 rounded-md overflow-hidden">
                         <motion.div
                           className="h-full bg-neutral-900 rounded-md flex items-center justify-end pr-3"
@@ -621,7 +551,7 @@ export default function HomePage() {
                       </div>
                     </div>
                     <div className="flex items-center gap-3">
-                      <span className="text-[10px] font-mono text-neutral-400 w-12">Others</span>
+                      <span className="text-[10px] font-medium text-neutral-400 w-14">Manual</span>
                       <div className="flex-1 h-7 bg-neutral-100 rounded-md overflow-hidden">
                         <motion.div
                           className="h-full bg-neutral-300 rounded-md flex items-center justify-end pr-3"
@@ -645,23 +575,23 @@ export default function HomePage() {
       <section className="py-16 sm:py-28 border-b border-neutral-100">
         <div className="max-w-6xl mx-auto px-5 sm:px-6">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} variants={fadeUp} className="max-w-3xl mb-12 sm:mb-20">
-            <p className="text-xs uppercase tracking-[0.2em] text-neutral-400 font-medium mb-3">Protection</p>
+            <p className="text-xs uppercase tracking-[0.2em] text-neutral-400 font-medium mb-3">What we catch</p>
             <h2 className="font-serif text-2xl sm:text-5xl tracking-tight text-neutral-900 mb-4">
-              Six silent killers of AI apps
+              Six things that silently break AI products
             </h2>
             <p className="text-neutral-500 text-base sm:text-lg font-light max-w-2xl">
-              These issues don&apos;t throw errors. They silently degrade your product. Grysics catches all of them.
+              These issues don&apos;t show error messages. They quietly make your AI worse, and your users leave without telling you why.
             </p>
           </motion.div>
 
           <div className="space-y-0">
             {[
-              { num: "01", title: "Accuracy Degradation", detail: "Your model scored 98% in testing but drops to 91% on user devices. Quantization, conversion, and hardware differences silently erode accuracy.", severity: "Critical" },
-              { num: "02", title: "Latency Spikes", detail: "A 200ms delay in your AI feature means users leave. Certain operations that pass on your GPU fail real-time constraints on edge devices.", severity: "High" },
-              { num: "03", title: "Memory Overflows", detail: "Your model runs fine on your 80GB A100 but crashes on devices with 4GB RAM. Grysics verifies memory footprint on actual target hardware.", severity: "Critical" },
-              { num: "04", title: "Silent NaN Failures", detail: "Floating-point precision issues cause your model to return garbage data with no error message. Users get wrong results, you get no alert.", severity: "High" },
-              { num: "05", title: "Conversion Breakage", detail: "PyTorch to ONNX, TensorFlow to TFLite \u2014 every export can change model behavior. A test that passes in one format fails in another.", severity: "Medium" },
-              { num: "06", title: "Performance Bottlenecks", detail: "One layer consumes 80% of compute. Without profiling on real hardware, you\u2019re optimising blind.", severity: "Medium" },
+              { num: "01", title: "Accuracy drops", detail: "Your AI gets less accurate after deployment. Users get wrong answers, bad recommendations, or missed detections \u2014 and you don\u2019t know until they complain.", severity: "Critical" },
+              { num: "02", title: "Slow responses", detail: "Your AI takes too long to respond on certain devices. Users wait, get frustrated, and leave. A few hundred milliseconds can make or break the experience.", severity: "High" },
+              { num: "03", title: "Device crashes", detail: "Your AI works on powerful hardware but crashes on the phones and devices your customers actually use. Grysics tests on real devices before you ship.", severity: "Critical" },
+              { num: "04", title: "Wrong outputs", detail: "Subtle calculation errors cause your AI to return incorrect results with no error message. Everything looks fine on the surface, but the answers are wrong.", severity: "High" },
+              { num: "05", title: "Format problems", detail: "When your AI model is converted for different devices, its behaviour can change. What worked perfectly in one format might give different results in another.", severity: "Medium" },
+              { num: "06", title: "Hidden bottlenecks", detail: "Parts of your AI are much slower than others, dragging down the whole experience. Without testing on real devices, you\u2019re optimising blind.", severity: "Medium" },
             ].map((item, idx) => (
               <motion.div
                 key={item.num}
@@ -705,12 +635,12 @@ export default function HomePage() {
               <p className="text-xs uppercase tracking-widest text-red-400/80 font-medium mb-8">Without Grysics</p>
               <ul className="space-y-5">
                 {[
-                  "Model works locally, crashes on user devices",
-                  "Silent accuracy drops go unnoticed for weeks",
-                  "Manual testing on 2\u20133 devices, hoping for the best",
-                  "Users report bugs you can\u2019t reproduce",
-                  "Deployment rollbacks at 2 AM",
-                  "No confidence in model updates",
+                  "AI works in testing, fails on customer devices",
+                  "Quality drops go unnoticed for weeks",
+                  "Manual testing on a few devices, hoping for the best",
+                  "Customers report problems you can\u2019t explain",
+                  "Emergency fixes at 2 AM",
+                  "No way to know if updates make things worse",
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-3">
                     <span className="text-red-400/60 mt-0.5 text-sm flex-shrink-0">\u2717</span>
@@ -724,12 +654,12 @@ export default function HomePage() {
               <p className="text-xs uppercase tracking-widest text-green-400/80 font-medium mb-8">With Grysics</p>
               <ul className="space-y-5">
                 {[
-                  "Verified on 50+ real hardware targets before deploy",
-                  "Accuracy drift detected and alerted in real-time",
-                  "Automated verification across every target device",
-                  "Detailed failure reports with exact root cause",
-                  "Only verified models reach production",
-                  "Ship model updates with complete confidence",
+                  "Tested on 50+ real devices before every release",
+                  "Quality issues detected and flagged instantly",
+                  "Automated checks across every target device",
+                  "Clear reports showing exactly what went wrong",
+                  "Bad updates blocked before they reach customers",
+                  "Ship every update with complete confidence",
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-3">
                     <span className="text-green-400/80 mt-0.5 text-sm flex-shrink-0">\u2713</span>
@@ -746,12 +676,12 @@ export default function HomePage() {
         <div className="max-w-4xl mx-auto px-5 sm:px-6 text-center">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} variants={fadeUp}>
             <h2 className="font-serif text-2xl sm:text-5xl lg:text-6xl tracking-tight text-neutral-900 mb-4 sm:mb-6">
-              Your users deserve AI
+              Your customers deserve AI
               <br className="hidden sm:block" />
               <span className="text-neutral-400"> that actually works</span>
             </h2>
             <p className="text-neutral-500 text-sm sm:text-lg max-w-xl mx-auto mb-8 sm:mb-10 font-light leading-relaxed">
-              Join hundreds of AI teams across South Africa who refuse to ship unverified models. Get early access and start deploying with confidence.
+              Join hundreds of AI teams across South Africa who refuse to ship untested AI. Get early access and start deploying with confidence.
             </p>
             <div className="flex justify-center mb-4">
               <EarlyAccessForm variant="light" />

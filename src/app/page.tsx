@@ -214,15 +214,15 @@ function EarlyAccessForm() {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         required
-        className="flex-1 px-5 py-3.5 rounded-full text-sm focus:outline-none transition-all placeholder:text-neutral-400 border border-neutral-200 bg-white text-neutral-900 focus:ring-2 focus:ring-neutral-900/10 focus:border-neutral-400"
+        className="flex-1 px-5 py-3.5 rounded-full text-sm focus:outline-none transition-all placeholder:text-white/40 border border-white/20 bg-white/10 text-white backdrop-blur-sm focus:ring-2 focus:ring-white/20 focus:border-white/40"
       />
       <button
         type="submit"
         disabled={loading}
-        className="px-7 py-3.5 rounded-full font-medium text-sm transition-all disabled:opacity-60 flex items-center justify-center gap-2 flex-shrink-0 bg-neutral-900 text-white hover:bg-black"
+        className="px-7 py-3.5 rounded-full font-medium text-sm transition-all disabled:opacity-60 flex items-center justify-center gap-2 flex-shrink-0 bg-white text-neutral-900 hover:bg-white/90"
       >
         {loading ? (
-          <div className="w-4 h-4 border-2 rounded-full animate-spin border-white/30 border-t-white" />
+          <div className="w-4 h-4 border-2 rounded-full animate-spin border-neutral-300 border-t-neutral-900" />
         ) : (
           <>Get Early Access <ArrowRight className="w-4 h-4" /></>
         )}
@@ -237,12 +237,23 @@ export default function HomePage() {
       <div className="grain" />
       <Header />
 
-      <section className="pt-28 sm:pt-40 pb-8 sm:pb-12 px-4 sm:px-6">
-        <div className="max-w-5xl mx-auto text-center">
+      <section className="relative pt-28 sm:pt-40 pb-16 sm:pb-24 px-4 sm:px-6 overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/images/bg.png"
+            alt=""
+            fill
+            className="object-cover"
+            priority
+          />
+          <div className="absolute inset-0 bg-black/60" />
+        </div>
+
+        <div className="max-w-5xl mx-auto text-center relative z-10">
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="flex flex-col items-center gap-4 mb-6">
             <Image src="/images/grysics-logo.png" alt="Grysics" width={48} height={48} className="rounded-xl" priority />
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-neutral-100 text-neutral-500 rounded-full text-xs font-medium border border-neutral-200/60">
-              <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/10 text-white/70 rounded-full text-xs font-medium border border-white/20 backdrop-blur-sm">
+              <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
               Now in limited beta
             </span>
           </motion.div>
@@ -251,18 +262,18 @@ export default function HomePage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="font-serif text-4xl sm:text-5xl lg:text-7xl text-neutral-900 tracking-tight leading-[1.05] mb-6"
+            className="font-serif text-4xl sm:text-5xl lg:text-7xl text-white tracking-tight leading-[1.05] mb-6"
           >
             Verify your AI
             <br />
-            <span className="text-neutral-400">before it breaks</span>
+            <span className="text-white/50">before it breaks</span>
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="text-lg sm:text-xl text-neutral-500 leading-relaxed font-light mb-10 max-w-2xl mx-auto"
+            className="text-lg sm:text-xl text-white/70 leading-relaxed font-light mb-10 max-w-2xl mx-auto"
           >
             One command to test accuracy, latency, and memory across every target device. Catch failures before your users do.
           </motion.p>
@@ -274,14 +285,10 @@ export default function HomePage() {
             className="flex flex-col items-center"
           >
             <EarlyAccessForm />
-            <p className="text-xs text-neutral-400 mt-3">Free during beta · No credit card required</p>
+            <p className="text-xs text-white/40 mt-3">Free during beta · No credit card required</p>
           </motion.div>
-        </div>
-      </section>
 
-      <section className="py-8 sm:py-12">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-3">
+          <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-3 mt-12">
             {[
               "Pre-deploy verification",
               "12ms average check",
@@ -294,7 +301,7 @@ export default function HomePage() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.7 + i * 0.05 }}
-                className="text-[13px] text-neutral-400"
+                className="text-[13px] text-white/40"
               >
                 {text}
               </motion.span>

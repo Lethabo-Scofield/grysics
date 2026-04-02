@@ -254,7 +254,7 @@ export default function HomePage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="font-serif text-4xl sm:text-5xl lg:text-7xl text-white tracking-tight leading-[1.05] mb-6"
+            className="font-serif text-4xl sm:text-5xl lg:text-7xl text-white tracking-tight leading-[1.05] mb-8"
           >
             Verify your AI
             <br />
@@ -265,7 +265,7 @@ export default function HomePage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="text-lg sm:text-xl text-white/70 leading-relaxed font-light mb-10 max-w-2xl mx-auto"
+            className="text-lg sm:text-xl text-white/70 leading-relaxed font-light mb-12 max-w-2xl mx-auto"
           >
             One command to test accuracy, latency, and memory across every target device. Catch failures before your users do.
           </motion.p>
@@ -277,10 +277,10 @@ export default function HomePage() {
             className="flex flex-col items-center"
           >
             <EarlyAccessForm />
-            <p className="text-xs text-white/40 mt-3">Free during beta · No credit card required</p>
+            <p className="text-xs text-white/40 mt-4">Free during beta · No credit card required</p>
           </motion.div>
 
-          <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-3 mt-12">
+          <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-3 mt-16">
             {[
               "Pre-deploy verification",
               "12ms average check",

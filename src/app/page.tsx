@@ -250,14 +250,6 @@ export default function HomePage() {
         </div>
 
         <div className="max-w-5xl mx-auto text-center relative z-10">
-          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="flex flex-col items-center gap-4 mb-6">
-            <Image src="/images/grysics-logo.png" alt="Grysics" width={48} height={48} className="rounded-xl" priority />
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/10 text-white/70 rounded-full text-xs font-medium border border-white/20 backdrop-blur-sm">
-              <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-              Now in limited beta
-            </span>
-          </motion.div>
-
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

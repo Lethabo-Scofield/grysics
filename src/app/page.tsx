@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, MotionConfig } from 'framer-motion';
-import { ArrowDown, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Header from '@/components/header';
@@ -68,17 +68,6 @@ export default function HomePage() {
             <p className="text-xs text-white/30 mt-3 sm:mt-4">Free during beta</p>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.2, duration: 0.8 }}
-            className="mt-12 sm:mt-24"
-          >
-            <a href="#how-it-works" className="inline-flex flex-col items-center gap-2 text-white/30 hover:text-white/50 transition-colors py-3 px-4">
-              <span className="text-[11px] uppercase tracking-widest">Learn more</span>
-              <ArrowDown className="w-4 h-4 animate-bounce" />
-            </a>
-          </motion.div>
         </div>
       </section>
 

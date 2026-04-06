@@ -1,9 +1,4 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
-  "/api/demo/route": "app/api/demo/route.js",
-  "/api/waitlist/route": "app/api/waitlist/route.js",
-  "/page": "app/page.js",
-  "/robots.txt/route": "app/robots.txt/route.js",
-  "/sitemap.xml/route": "app/sitemap.xml/route.js",
-  "/demo/page": "app/demo/page.js"
+  "/page": "app/page.js"
 }

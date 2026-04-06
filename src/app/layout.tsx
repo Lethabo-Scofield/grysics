@@ -11,7 +11,10 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://grysics.com"),
-  title: "Grysics — Verify your AI before it ships",
+  title: {
+    default: "Grysics — Verify your AI before it ships",
+    template: "%s | Grysics",
+  },
   description:
     "Grysics catches failures in chatbots, agents, RAG systems, and generative AI before your users do. Automated verification for every type of AI.",
   keywords: [
@@ -25,8 +28,10 @@ export const metadata: Metadata = {
     "model validation",
     "conversational AI",
     "AI quality assurance",
+    "hallucination detection",
+    "AI benchmarking",
   ],
-  authors: [{ name: "Grysics" }],
+  authors: [{ name: "Grysics", url: "https://grysics.com" }],
   creator: "Grysics",
   publisher: "Olyxee",
   robots: {
@@ -56,7 +61,7 @@ export const metadata: Metadata = {
         url: "/images/grysics-logo.png",
         width: 512,
         height: 512,
-        alt: "Grysics",
+        alt: "Grysics — AI Verification Engine",
       },
     ],
   },
@@ -72,6 +77,37 @@ export const metadata: Metadata = {
   },
 };
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "Grysics",
+  applicationCategory: "DeveloperApplication",
+  description:
+    "AI verification engine that catches failures in chatbots, RAG systems, autonomous agents, and generative AI before deployment.",
+  url: "https://grysics.com",
+  creator: {
+    "@type": "Organization",
+    name: "Olyxee",
+    url: "https://olyxee.com",
+    email: "scofield@olyxee.com",
+  },
+  offers: {
+    "@type": "Offer",
+    price: "0",
+    priceCurrency: "USD",
+    description: "Free during beta",
+  },
+  operatingSystem: "Web",
+  featureList: [
+    "Hallucination detection",
+    "Latency profiling",
+    "Edge case testing",
+    "Regression detection",
+    "Multi-LLM support",
+    "Automated verification pipeline",
+  ],
+};
+
 export default function RootLayout({
   children,
 }: {
@@ -79,7 +115,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="overflow-x-hidden">{children}</body>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
+      <body className="overflow-x-hidden antialiased">{children}</body>
     </html>
   );
 }

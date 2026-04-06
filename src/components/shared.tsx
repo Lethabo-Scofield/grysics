@@ -113,7 +113,7 @@ export function VerificationTerminal() {
         </div>
         <span className="text-[11px] text-white/30 ml-2 font-mono">grysics verify --target production</span>
       </div>
-      <div className="p-4 sm:p-6 font-mono text-[11px] sm:text-[12px] leading-relaxed min-h-[280px] sm:min-h-[320px]" role="log" aria-label="Verification output" aria-live="polite">
+      <div className="p-3 sm:p-6 font-mono text-[10px] sm:text-[12px] leading-relaxed min-h-[240px] sm:min-h-[320px] overflow-x-auto" role="log" aria-label="Verification output" aria-live="polite">
         {lines.map((line, i) => (
           <motion.div
             key={i}
@@ -163,16 +163,16 @@ export function CoverageGraph() {
           initial={{ opacity: instant ? 1 : 0, x: instant ? 0 : -20 }}
           animate={isInView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: instant ? 0 : 0.4, delay: instant ? 0 : i * 0.08 }}
-          className="flex items-center gap-4"
+          className="flex items-center gap-2 sm:gap-4"
           role="listitem"
           aria-label={`${cat.name}: ${cat.value}% coverage${cat.priority ? ' (priority)' : ''}`}
         >
-          <span className={`text-[11px] sm:text-xs w-32 sm:w-36 text-right flex-shrink-0 ${
+          <span className={`text-[10px] sm:text-xs w-24 sm:w-36 text-right flex-shrink-0 ${
             cat.priority ? 'text-white font-medium' : 'text-white/40'
           }`}>
             {cat.name}
           </span>
-          <div className="flex-1 h-6 bg-white/5 rounded overflow-hidden relative" aria-hidden="true">
+          <div className="flex-1 h-5 sm:h-6 bg-white/5 rounded overflow-hidden relative" aria-hidden="true">
             <motion.div
               className={`h-full rounded origin-left ${cat.priority ? 'bg-primary' : 'bg-white/15'}`}
               style={{ width: `${cat.value}%` }}
@@ -352,15 +352,15 @@ export function BenchmarkChart() {
             role="listitem"
             aria-label={`${item.metric}: ${item.before}${item.unit} without Grysics, ${item.after}${item.unit} with Grysics`}
           >
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-sm text-white font-medium">{item.metric}</span>
-              <span className={`text-xs font-mono font-semibold ${improved ? 'text-green-400' : 'text-red-400'}`}>
+            <div className="flex items-center justify-between mb-1.5 sm:mb-2">
+              <span className="text-xs sm:text-sm text-white font-medium">{item.metric}</span>
+              <span className={`text-[10px] sm:text-xs font-mono font-semibold ${improved ? 'text-green-400' : 'text-red-400'}`}>
                 {delta}
               </span>
             </div>
-            <div className="space-y-1.5">
-              <div className="flex items-center gap-3">
-                <div className="flex-1 h-5 bg-white/5 rounded overflow-hidden relative">
+            <div className="space-y-1 sm:space-y-1.5">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="flex-1 h-4 sm:h-5 bg-white/5 rounded overflow-hidden relative">
                   <motion.div
                     className="h-full rounded bg-white/10 origin-left"
                     style={{ width: `${beforePct}%` }}
@@ -369,10 +369,10 @@ export function BenchmarkChart() {
                     transition={{ duration: instant ? 0 : 0.6, delay: instant ? 0 : i * 0.1 + 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
                   />
                 </div>
-                <span className="text-[11px] text-white/40 font-mono w-14 text-right">{item.before}{item.unit}</span>
+                <span className="text-[10px] sm:text-[11px] text-white/40 font-mono w-12 sm:w-14 text-right">{item.before}{item.unit}</span>
               </div>
-              <div className="flex items-center gap-3">
-                <div className="flex-1 h-5 bg-white/5 rounded overflow-hidden relative">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="flex-1 h-4 sm:h-5 bg-white/5 rounded overflow-hidden relative">
                   <motion.div
                     className={`h-full rounded origin-left ${item.lowerBetter ? 'bg-green-500' : 'bg-primary'}`}
                     style={{ width: `${afterPct}%` }}
@@ -381,7 +381,7 @@ export function BenchmarkChart() {
                     transition={{ duration: instant ? 0 : 0.8, delay: instant ? 0 : i * 0.1 + 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
                   />
                 </div>
-                <span className="text-[11px] text-primary font-mono font-semibold w-14 text-right">{item.after}{item.unit}</span>
+                <span className="text-[10px] sm:text-[11px] text-primary font-mono font-semibold w-12 sm:w-14 text-right">{item.after}{item.unit}</span>
               </div>
             </div>
           </motion.div>

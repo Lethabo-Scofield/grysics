@@ -19,11 +19,17 @@ A multi-page Next.js site for **Grysics** (by Olyxee), an AI verification engine
 ```
 src/
   app/
-    layout.tsx              - Root layout with SEO metadata
+    layout.tsx              - Root layout with SEO metadata, JSON-LD structured data, viewport config
     page.tsx                - Landing page (hero + stats + waitlist CTA)
-    how-it-works/page.tsx   - Architecture diagram, terminal, coverage graph, failure stats
-    demo/page.tsx           - Book a Demo form page
-    globals.css             - Tailwind directives, grain texture, reduced-motion, safe-area
+    how-it-works/
+      page.tsx              - Server component with per-page metadata, imports content.tsx
+      content.tsx           - Client component with all how-it-works UI
+    demo/
+      page.tsx              - Server component with per-page metadata, imports content.tsx
+      content.tsx           - Client component with demo booking UI
+    sitemap.ts              - Dynamic sitemap.xml generation (3 pages)
+    robots.ts               - Dynamic robots.txt generation
+    globals.css             - Tailwind directives, grain texture, reduced-motion, safe-area, mobile input zoom fix
     api/
       waitlist/route.ts     - POST /api/waitlist — stores waitlist signups
       demo/route.ts         - POST /api/demo — stores demo requests
@@ -65,6 +71,14 @@ tailwind.config.ts          - Tailwind config with serif font + orange primary c
 - Form: name, email, company, AI type dropdown
 - "Prefer email?" fallback to scofield@olyxee.com
 
+## SEO
+
+- **Root layout**: Title template, description, keywords, OG/Twitter cards, JSON-LD SoftwareApplication schema
+- **Per-page metadata**: Each sub-page (how-it-works, demo) exports its own Metadata with title, description, keywords, canonical URL, OG/Twitter
+- **Sitemap**: Auto-generated at `/sitemap.xml` with all 3 pages, priorities, and change frequencies
+- **Robots.txt**: Auto-generated at `/robots.txt`, allows all crawlers, disallows `/api/`
+- **Page structure**: Sub-pages use server component wrappers (page.tsx) that export metadata, importing client content components (content.tsx)
+
 ## Navigation
 
 - **Header**: Logo, "How it works" (link), "Sign in" (mailto), "Book Demo" (link to /demo)
@@ -84,7 +98,7 @@ tailwind.config.ts          - Tailwind config with serif font + orange primary c
 - **Typography**: Georgia serif for headings, system sans for body
 - **Dark sections**: `bg-neutral-950` with white text
 - **Animations**: Reduced-motion aware via `MotionConfig` + `useReducedMotion`
-- **Mobile**: Fully responsive, safe area insets, 44px+ touch targets
+- **Mobile**: Fully responsive with `100svh` hero, safe area insets, 44px+ touch targets, no zoom on input focus (16px base), overflow-x-auto on diagrams
 - **Company email**: scofield@olyxee.com
 
 ## Development

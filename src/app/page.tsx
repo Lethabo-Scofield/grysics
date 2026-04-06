@@ -1,7 +1,7 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { useState, FormEvent } from 'react';
+import { motion, useInView, useReducedMotion, MotionConfig } from 'framer-motion';
+import { useState, useRef, useEffect, FormEvent } from 'react';
 import { ArrowRight, ArrowDown, Check, Calendar } from 'lucide-react';
 import Image from 'next/image';
 import Header from '@/components/header';
@@ -15,6 +15,188 @@ const fade = {
     transition: { duration: 0.6, delay: d * 0.1, ease: [0.25, 0.46, 0.45, 0.94] },
   }),
 };
+
+function ArchitectureDiagram() {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
+  const prefersReducedMotion = useReducedMotion();
+  const [activeStep, setActiveStep] = useState(-1);
+
+  useEffect(() => {
+    if (!isInView) return;
+    if (prefersReducedMotion) { setActiveStep(4); return; }
+    let step = 0;
+    const timer = setInterval(() => {
+      setActiveStep(step);
+      step++;
+      if (step > 4) clearInterval(timer);
+    }, 600);
+    return () => clearInterval(timer);
+  }, [isInView, prefersReducedMotion]);
+
+  const nodes = [
+    { x: 60, y: 100, label: 'Your AI', sub: 'Model / App' },
+    { x: 240, y: 50, label: 'Grysics', sub: 'Verification' },
+    { x: 240, y: 150, label: 'Test Suite', sub: 'Scenarios' },
+    { x: 420, y: 100, label: 'Report', sub: 'Pass / Fail' },
+    { x: 560, y: 100, label: 'Deploy', sub: 'Production' },
+  ];
+
+  const instant = prefersReducedMotion;
+
+  return (
+    <div ref={ref} className="relative w-full max-w-2xl mx-auto">
+      <svg viewBox="0 0 620 200" className="w-full h-auto" fill="none" role="img" aria-labelledby="arch-title arch-desc">
+        <title id="arch-title">Grysics verification flow</title>
+        <desc id="arch-desc">Diagram showing the flow: Your AI connects to Grysics verification and test suite, which produces a report, leading to deployment.</desc>
+        <motion.line x1="110" y1="100" x2="200" y2="55" stroke={activeStep >= 1 ? '#F97316' : '#333'} strokeWidth="1.5" strokeDasharray={activeStep >= 1 ? "0" : "4 4"} initial={{ pathLength: instant ? 1 : 0 }} animate={isInView ? { pathLength: 1 } : {}} transition={{ duration: instant ? 0 : 0.5, delay: instant ? 0 : 0.3 }} />
+        <motion.line x1="110" y1="100" x2="200" y2="150" stroke={activeStep >= 2 ? '#F97316' : '#333'} strokeWidth="1.5" strokeDasharray={activeStep >= 2 ? "0" : "4 4"} initial={{ pathLength: instant ? 1 : 0 }} animate={isInView ? { pathLength: 1 } : {}} transition={{ duration: instant ? 0 : 0.5, delay: instant ? 0 : 0.6 }} />
+        <motion.line x1="290" y1="55" x2="380" y2="100" stroke={activeStep >= 3 ? '#F97316' : '#333'} strokeWidth="1.5" strokeDasharray={activeStep >= 3 ? "0" : "4 4"} initial={{ pathLength: instant ? 1 : 0 }} animate={isInView ? { pathLength: 1 } : {}} transition={{ duration: instant ? 0 : 0.5, delay: instant ? 0 : 0.9 }} />
+        <motion.line x1="290" y1="150" x2="380" y2="100" stroke={activeStep >= 3 ? '#F97316' : '#333'} strokeWidth="1.5" strokeDasharray={activeStep >= 3 ? "0" : "4 4"} initial={{ pathLength: instant ? 1 : 0 }} animate={isInView ? { pathLength: 1 } : {}} transition={{ duration: instant ? 0 : 0.5, delay: instant ? 0 : 1.0 }} />
+        <motion.line x1="460" y1="100" x2="520" y2="100" stroke={activeStep >= 4 ? '#22c55e' : '#333'} strokeWidth="1.5" strokeDasharray={activeStep >= 4 ? "0" : "4 4"} initial={{ pathLength: instant ? 1 : 0 }} animate={isInView ? { pathLength: 1 } : {}} transition={{ duration: instant ? 0 : 0.5, delay: instant ? 0 : 1.3 }} />
+
+        {nodes.map((node, i) => (
+          <motion.g key={node.label} initial={{ opacity: instant ? 1 : 0, scale: instant ? 1 : 0.8 }} animate={isInView ? { opacity: 1, scale: 1 } : {}} transition={{ duration: instant ? 0 : 0.4, delay: instant ? 0 : i * 0.2 }}>
+            <rect x={node.x - 45} y={node.y - 30} width="90" height="60" rx="12" fill={activeStep >= i ? (i === 4 ? '#22c55e10' : '#F9731610') : '#ffffff08'} stroke={activeStep >= i ? (i === 4 ? '#22c55e40' : '#F9731640') : '#ffffff15'} strokeWidth="1" />
+            <text x={node.x} y={node.y - 5} textAnchor="middle" fill={activeStep >= i ? '#fff' : '#888'} fontSize="12" fontWeight="500">{node.label}</text>
+            <text x={node.x} y={node.y + 12} textAnchor="middle" fill="#666" fontSize="9">{node.sub}</text>
+          </motion.g>
+        ))}
+      </svg>
+    </div>
+  );
+}
+
+function VerificationTerminal() {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
+  const prefersReducedMotion = useReducedMotion();
+  const [lines, setLines] = useState<{ text: string; status: string }[]>([]);
+
+  const allLines = [
+    { text: 'Connecting to AI endpoint...', status: 'info' },
+    { text: 'Running accuracy checks', status: 'info' },
+    { text: '  Factual accuracy          98.4%', status: 'pass' },
+    { text: '  Hallucination rate         1.2%', status: 'pass' },
+    { text: '  Context adherence         96.8%', status: 'pass' },
+    { text: 'Running latency checks', status: 'info' },
+    { text: '  P50 response time          340ms', status: 'pass' },
+    { text: '  P99 response time          1.2s', status: 'warn' },
+    { text: 'Running edge case tests', status: 'info' },
+    { text: '  Adversarial inputs        PASS', status: 'pass' },
+    { text: '  Empty context handling    PASS', status: 'pass' },
+    { text: '  Token limit behavior      PASS', status: 'pass' },
+    { text: '', status: 'info' },
+    { text: '  11/12 checks passed  \u00b7  1 warning', status: 'result' },
+    { text: '  Ready for deployment', status: 'pass' },
+  ];
+
+  useEffect(() => {
+    if (!isInView) return;
+    if (prefersReducedMotion) { setLines(allLines); return; }
+    let i = 0;
+    const timer = setInterval(() => {
+      if (i < allLines.length) {
+        setLines(prev => [...prev, allLines[i]]);
+        i++;
+      } else {
+        clearInterval(timer);
+      }
+    }, 180);
+    return () => clearInterval(timer);
+  }, [isInView, prefersReducedMotion]);
+
+  return (
+    <div ref={ref} className="rounded-2xl border border-white/10 bg-black overflow-hidden shadow-2xl shadow-black/50">
+      <div className="px-4 py-3 border-b border-white/5 flex items-center gap-2">
+        <div className="flex gap-1.5" aria-hidden="true">
+          <div className="w-2.5 h-2.5 rounded-full bg-white/10" />
+          <div className="w-2.5 h-2.5 rounded-full bg-white/10" />
+          <div className="w-2.5 h-2.5 rounded-full bg-white/10" />
+        </div>
+        <span className="text-[11px] text-white/30 ml-2 font-mono">grysics verify --target production</span>
+      </div>
+      <div className="p-4 sm:p-6 font-mono text-[11px] sm:text-[12px] leading-relaxed min-h-[280px] sm:min-h-[320px]" role="log" aria-label="Verification output" aria-live="polite">
+        {lines.map((line, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: prefersReducedMotion ? 1 : 0, x: prefersReducedMotion ? 0 : -5 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: prefersReducedMotion ? 0 : 0.15 }}
+            className={`${
+              line.status === 'pass' ? 'text-green-400' :
+              line.status === 'warn' ? 'text-amber-400' :
+              line.status === 'result' ? 'text-primary font-semibold' :
+              'text-white/50'
+            }`}
+          >
+            {line.text || '\u00A0'}
+          </motion.div>
+        ))}
+        {lines.length < allLines.length && (
+          <span className="inline-block w-2 h-4 bg-primary/80 animate-pulse" aria-hidden="true" />
+        )}
+      </div>
+    </div>
+  );
+}
+
+function CoverageGraph() {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-30px" });
+  const prefersReducedMotion = useReducedMotion();
+  const instant = prefersReducedMotion;
+
+  const categories = [
+    { name: 'Conversational AI', value: 98, priority: true },
+    { name: 'RAG Systems', value: 96, priority: true },
+    { name: 'Agents', value: 94, priority: true },
+    { name: 'Generative AI', value: 97, priority: true },
+    { name: 'Recommendations', value: 90, priority: false },
+    { name: 'Computer Vision', value: 88, priority: false },
+    { name: 'Speech & Audio', value: 85, priority: false },
+    { name: 'Predictive', value: 82, priority: false },
+  ];
+
+  return (
+    <div ref={ref} className="space-y-3" role="list" aria-label="AI category coverage">
+      {categories.map((cat, i) => (
+        <motion.div
+          key={cat.name}
+          initial={{ opacity: instant ? 1 : 0, x: instant ? 0 : -20 }}
+          animate={isInView ? { opacity: 1, x: 0 } : {}}
+          transition={{ duration: instant ? 0 : 0.4, delay: instant ? 0 : i * 0.08 }}
+          className="flex items-center gap-4"
+          role="listitem"
+          aria-label={`${cat.name}: ${cat.value}% coverage${cat.priority ? ' (priority)' : ''}`}
+        >
+          <span className={`text-[11px] sm:text-xs w-32 sm:w-36 text-right flex-shrink-0 ${
+            cat.priority ? 'text-white font-medium' : 'text-white/40'
+          }`}>
+            {cat.name}
+          </span>
+          <div className="flex-1 h-6 bg-white/5 rounded overflow-hidden relative" aria-hidden="true">
+            <motion.div
+              className={`h-full rounded origin-left ${cat.priority ? 'bg-primary' : 'bg-white/15'}`}
+              style={{ width: `${cat.value}%` }}
+              initial={{ scaleX: instant ? 1 : 0 }}
+              animate={isInView ? { scaleX: 1 } : {}}
+              transition={{ duration: instant ? 0 : 0.8, delay: instant ? 0 : i * 0.08 + 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+            />
+            <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] text-white/50 font-mono">
+              {cat.value}%
+            </span>
+          </div>
+          {cat.priority && (
+            <span className="text-[9px] uppercase tracking-wider text-primary font-semibold flex-shrink-0 hidden sm:block">
+              Priority
+            </span>
+          )}
+        </motion.div>
+      ))}
+    </div>
+  );
+}
 
 function WaitlistForm({ variant = 'dark' }: { variant?: 'dark' | 'light' }) {
   const [email, setEmail] = useState('');
@@ -119,42 +301,6 @@ function WaitlistForm({ variant = 'dark' }: { variant?: 'dark' | 'light' }) {
   );
 }
 
-function Pipeline() {
-  const steps = ['Build', 'Verify', 'Validate', 'Deploy'];
-
-  return (
-    <div className="flex flex-col sm:flex-row items-center gap-0">
-      {steps.map((step, i) => (
-        <div key={step} className="flex items-center">
-          {i > 0 && (
-            <div className="hidden sm:block w-16 lg:w-24 h-px bg-white/15 mx-2" />
-          )}
-          {i > 0 && (
-            <div className="sm:hidden h-10 w-px bg-white/15 mx-auto" />
-          )}
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            custom={i + 1}
-            variants={fade}
-            className="flex flex-col items-center gap-3"
-          >
-            <div className={`w-12 h-12 rounded-full flex items-center justify-center text-sm font-medium border ${
-              i === steps.length - 1
-                ? 'bg-primary/20 text-primary border-primary/30'
-                : 'bg-white/5 text-white/70 border-white/10'
-            }`}>
-              {i + 1}
-            </div>
-            <span className="text-sm text-white/60">{step}</span>
-          </motion.div>
-        </div>
-      ))}
-    </div>
-  );
-}
-
 function DemoForm() {
   const [formData, setFormData] = useState({ name: '', email: '', company: '', useCase: '' });
   const [submitted, setSubmitted] = useState(false);
@@ -192,47 +338,19 @@ function DemoForm() {
     <form onSubmit={handleSubmit} className="space-y-4 w-full max-w-sm mx-auto">
       <div>
         <label htmlFor="demo-name" className="block text-[12px] uppercase tracking-wider text-neutral-400 font-medium mb-1.5">Name</label>
-        <input
-          id="demo-name"
-          type="text"
-          required
-          value={formData.name}
-          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-          className="w-full px-4 py-3 text-sm text-neutral-900 bg-white border border-neutral-200 rounded-xl focus:outline-none focus:border-primary/40 focus:ring-2 focus:ring-primary/10 transition-all placeholder:text-neutral-300"
-          placeholder="Your name"
-        />
+        <input id="demo-name" type="text" required value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} className="w-full px-4 py-3 text-sm text-neutral-900 bg-white border border-neutral-200 rounded-xl focus:outline-none focus:border-primary/40 focus:ring-2 focus:ring-primary/10 transition-all placeholder:text-neutral-300" placeholder="Your name" />
       </div>
       <div>
         <label htmlFor="demo-email" className="block text-[12px] uppercase tracking-wider text-neutral-400 font-medium mb-1.5">Email</label>
-        <input
-          id="demo-email"
-          type="email"
-          required
-          value={formData.email}
-          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-          className="w-full px-4 py-3 text-sm text-neutral-900 bg-white border border-neutral-200 rounded-xl focus:outline-none focus:border-primary/40 focus:ring-2 focus:ring-primary/10 transition-all placeholder:text-neutral-300"
-          placeholder="you@company.com"
-        />
+        <input id="demo-email" type="email" required value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} className="w-full px-4 py-3 text-sm text-neutral-900 bg-white border border-neutral-200 rounded-xl focus:outline-none focus:border-primary/40 focus:ring-2 focus:ring-primary/10 transition-all placeholder:text-neutral-300" placeholder="you@company.com" />
       </div>
       <div>
         <label htmlFor="demo-company" className="block text-[12px] uppercase tracking-wider text-neutral-400 font-medium mb-1.5">Company</label>
-        <input
-          id="demo-company"
-          type="text"
-          value={formData.company}
-          onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-          className="w-full px-4 py-3 text-sm text-neutral-900 bg-white border border-neutral-200 rounded-xl focus:outline-none focus:border-primary/40 focus:ring-2 focus:ring-primary/10 transition-all placeholder:text-neutral-300"
-          placeholder="Optional"
-        />
+        <input id="demo-company" type="text" value={formData.company} onChange={(e) => setFormData({ ...formData, company: e.target.value })} className="w-full px-4 py-3 text-sm text-neutral-900 bg-white border border-neutral-200 rounded-xl focus:outline-none focus:border-primary/40 focus:ring-2 focus:ring-primary/10 transition-all placeholder:text-neutral-300" placeholder="Optional" />
       </div>
       <div>
         <label htmlFor="demo-usecase" className="block text-[12px] uppercase tracking-wider text-neutral-400 font-medium mb-1.5">What are you verifying?</label>
-        <select
-          id="demo-usecase"
-          value={formData.useCase}
-          onChange={(e) => setFormData({ ...formData, useCase: e.target.value })}
-          className="w-full px-4 py-3 text-sm text-neutral-900 bg-white border border-neutral-200 rounded-xl focus:outline-none focus:border-primary/40 focus:ring-2 focus:ring-primary/10 transition-all appearance-none"
-        >
+        <select id="demo-usecase" value={formData.useCase} onChange={(e) => setFormData({ ...formData, useCase: e.target.value })} className="w-full px-4 py-3 text-sm text-neutral-900 bg-white border border-neutral-200 rounded-xl focus:outline-none focus:border-primary/40 focus:ring-2 focus:ring-primary/10 transition-all appearance-none">
           <option value="">Select a category</option>
           <option value="chatbot">Chatbot / Conversational AI</option>
           <option value="rag">RAG System</option>
@@ -241,44 +359,20 @@ function DemoForm() {
           <option value="other">Other</option>
         </select>
       </div>
-      <button
-        type="submit"
-        disabled={loading}
-        className="w-full px-6 py-3.5 bg-primary text-white text-sm font-medium rounded-xl hover:bg-primary-dark transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
-      >
+      <button type="submit" disabled={loading} className="w-full px-6 py-3.5 bg-primary text-white text-sm font-medium rounded-xl hover:bg-primary-dark transition-colors disabled:opacity-50 flex items-center justify-center gap-2">
         {loading ? (
           <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
         ) : (
-          <>
-            <Calendar className="w-4 h-4" />
-            Request Demo
-          </>
+          <><Calendar className="w-4 h-4" />Request Demo</>
         )}
       </button>
     </form>
   );
 }
 
-const priorityCategories = [
-  { name: 'Conversational AI', examples: 'Chatbots, voice assistants, copilots' },
-  { name: 'RAG Systems', examples: 'Knowledge assistants, document QA' },
-  { name: 'Autonomous Agents', examples: 'Task agents, multi-step reasoning' },
-  { name: 'Generative AI', examples: 'Text, image, code, video generation' },
-];
-
-const moreCategories = [
-  'Recommendations',
-  'Computer Vision',
-  'Speech & Audio',
-  'Predictive Analytics',
-  'Fraud Detection',
-  'Robotics & Physical AI',
-  'Decision Support',
-  'AI Infrastructure',
-];
-
 export default function HomePage() {
   return (
+    <MotionConfig reducedMotion="user">
     <div className="min-h-screen bg-white text-neutral-900 relative">
       <div className="grain" />
       <Header />
@@ -341,15 +435,15 @@ export default function HomePage() {
             transition={{ delay: 1.2, duration: 0.8 }}
             className="mt-16 sm:mt-24"
           >
-            <a href="#what-we-cover" className="inline-flex flex-col items-center gap-2 text-white/30 hover:text-white/50 transition-colors py-3 px-4">
-              <span className="text-[11px] uppercase tracking-widest">What we cover</span>
+            <a href="#how-it-works" className="inline-flex flex-col items-center gap-2 text-white/30 hover:text-white/50 transition-colors py-3 px-4">
+              <span className="text-[11px] uppercase tracking-widest">How it works</span>
               <ArrowDown className="w-4 h-4 animate-bounce" />
             </a>
           </motion.div>
         </div>
       </section>
 
-      <section id="what-we-cover" className="py-20 sm:py-32 bg-neutral-950 text-white overflow-hidden">
+      <section id="how-it-works" className="py-20 sm:py-32 bg-neutral-950 text-white overflow-hidden">
         <div className="max-w-5xl mx-auto px-5 sm:px-6">
           <motion.div
             initial="hidden"
@@ -357,57 +451,120 @@ export default function HomePage() {
             viewport={{ once: true }}
             custom={0}
             variants={fade}
-            className="text-center mb-16 sm:mb-20"
+            className="text-center mb-12 sm:mb-16"
           >
-            <p className="text-xs uppercase tracking-[0.2em] text-neutral-500 font-medium mb-4">What we cover</p>
+            <p className="text-xs uppercase tracking-[0.2em] text-neutral-500 font-medium mb-4">How it works</p>
+            <h2 className="font-serif text-2xl sm:text-5xl tracking-tight">
+              One layer between build
+              <span className="text-white/40"> and deploy.</span>
+            </h2>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            custom={1}
+            variants={fade}
+          >
+            <ArchitectureDiagram />
+          </motion.div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-white/5 rounded-2xl overflow-hidden mt-16">
+            {[
+              { value: '< 3min', label: 'Full verification' },
+              { value: '12+', label: 'Quality checks' },
+              { value: '99.9%', label: 'Deploy success' },
+              { value: '0', label: 'Missed failures' },
+            ].map((stat, i) => (
+              <motion.div
+                key={stat.label}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                custom={i + 2}
+                variants={fade}
+                className="bg-neutral-950 p-6 sm:p-8 text-center"
+              >
+                <p className="font-serif text-xl sm:text-2xl italic text-white mb-1">{stat.value}</p>
+                <p className="text-[10px] sm:text-xs text-neutral-500">{stat.label}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20 sm:py-32 border-b border-neutral-100">
+        <div className="max-w-5xl mx-auto px-5 sm:px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              custom={0}
+              variants={fade}
+            >
+              <p className="text-xs uppercase tracking-[0.2em] text-neutral-400 font-medium mb-4">Live verification</p>
+              <h2 className="font-serif text-2xl sm:text-4xl tracking-tight text-neutral-900 mb-4">
+                See exactly what passes.
+                <span className="text-neutral-400"> And what doesn&apos;t.</span>
+              </h2>
+              <p className="text-sm sm:text-base text-neutral-500 font-light leading-relaxed mb-8">
+                Grysics runs a full suite of checks against your AI and generates a clear, actionable report. No guesswork.
+              </p>
+              <div className="space-y-3">
+                {[
+                  { label: 'Accuracy & hallucination detection', color: 'bg-green-500' },
+                  { label: 'Latency & performance profiling', color: 'bg-green-500' },
+                  { label: 'Edge case & adversarial testing', color: 'bg-green-500' },
+                  { label: 'Regression detection across updates', color: 'bg-amber-500' },
+                ].map((item) => (
+                  <div key={item.label} className="flex items-center gap-3">
+                    <div className={`w-1.5 h-1.5 rounded-full ${item.color} flex-shrink-0`} />
+                    <span className="text-sm text-neutral-600">{item.label}</span>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              custom={2}
+              variants={fade}
+            >
+              <VerificationTerminal />
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20 sm:py-32 bg-neutral-950 text-white overflow-hidden">
+        <div className="max-w-5xl mx-auto px-5 sm:px-6">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            custom={0}
+            variants={fade}
+            className="text-center mb-12 sm:mb-16"
+          >
+            <p className="text-xs uppercase tracking-[0.2em] text-neutral-500 font-medium mb-4">Coverage</p>
             <h2 className="font-serif text-2xl sm:text-5xl tracking-tight">
               Every type of AI.
               <span className="text-white/40"> One verification layer.</span>
             </h2>
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 mb-12 sm:mb-16">
-            {priorityCategories.map((cat, i) => (
-              <motion.div
-                key={cat.name}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                custom={i + 1}
-                variants={fade}
-                className="relative p-6 sm:p-8 rounded-2xl border border-primary/20 bg-primary/[0.06]"
-              >
-                <div className="flex items-start gap-4">
-                  <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
-                  <div>
-                    <h3 className="text-base sm:text-lg font-medium text-white mb-1">{cat.name}</h3>
-                    <p className="text-sm text-white/50 font-light">{cat.examples}</p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            custom={5}
+            custom={1}
             variants={fade}
-            className="flex flex-wrap justify-center gap-2 sm:gap-3"
           >
-            {moreCategories.map((cat, i) => (
-              <span
-                key={cat}
-                className={`px-4 py-2 rounded-full text-xs sm:text-sm font-medium border transition-all ${
-                  i < 4
-                    ? 'border-white/15 bg-white/[0.06] text-white/70'
-                    : 'border-white/8 bg-white/[0.02] text-white/40'
-                }`}
-              >
-                {cat}
-              </span>
-            ))}
+            <CoverageGraph />
           </motion.div>
         </div>
       </section>
@@ -422,64 +579,17 @@ export default function HomePage() {
             variants={fade}
             className="text-center mb-16 sm:mb-20"
           >
-            <p className="text-xs uppercase tracking-[0.2em] text-neutral-400 font-medium mb-4">The process</p>
+            <p className="text-xs uppercase tracking-[0.2em] text-neutral-400 font-medium mb-4">Why it matters</p>
             <h2 className="font-serif text-2xl sm:text-5xl tracking-tight text-neutral-900">
-              From build to deploy.
-            </h2>
-          </motion.div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-4 gap-8 sm:gap-6 text-center">
-            {[
-              { step: '1', title: 'Build', desc: 'Connect your AI system.' },
-              { step: '2', title: 'Verify', desc: 'Automated quality checks.' },
-              { step: '3', title: 'Validate', desc: 'Real-world scenario testing.' },
-              { step: '4', title: 'Deploy', desc: 'Ship with confidence.' },
-            ].map((item, i) => (
-              <motion.div
-                key={item.step}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                custom={i + 1}
-                variants={fade}
-                className="flex flex-col items-center"
-              >
-                <div className={`w-12 h-12 rounded-full flex items-center justify-center text-sm font-semibold mb-4 ${
-                  i === 3
-                    ? 'bg-primary/10 text-primary border border-primary/20'
-                    : 'bg-neutral-100 text-neutral-500 border border-neutral-200'
-                }`}>
-                  {item.step}
-                </div>
-                <h3 className="font-serif text-lg text-neutral-900 mb-1">{item.title}</h3>
-                <p className="text-sm text-neutral-500 font-light">{item.desc}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20 sm:py-32 bg-neutral-950 text-white overflow-hidden">
-        <div className="max-w-4xl mx-auto px-5 sm:px-6">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            custom={0}
-            variants={fade}
-            className="text-center mb-16 sm:mb-20"
-          >
-            <p className="text-xs uppercase tracking-[0.2em] text-neutral-500 font-medium mb-4">Why it matters</p>
-            <h2 className="font-serif text-2xl sm:text-5xl tracking-tight">
               Failures hide in plain sight.
             </h2>
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-12 text-center">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             {[
-              { title: 'Hallucinations', desc: 'Your chatbot gives confident wrong answers.' },
-              { title: 'Silent regressions', desc: 'Updates break things nobody notices.' },
-              { title: 'Edge case failures', desc: 'Works in tests, fails in production.' },
+              { num: '73%', title: 'Hallucinate silently', desc: 'AI gives wrong answers with full confidence. Users trust bad output.' },
+              { num: '4.2h', title: 'Before detection', desc: 'Average time to discover a regression. Hours of broken user experience.' },
+              { num: '68%', title: 'Fail on edge cases', desc: 'Models pass standard tests but break on real-world inputs.' },
             ].map((item, i) => (
               <motion.div
                 key={item.title}
@@ -488,9 +598,11 @@ export default function HomePage() {
                 viewport={{ once: true }}
                 custom={i + 1}
                 variants={fade}
+                className="p-6 sm:p-8 rounded-2xl border border-neutral-100 bg-neutral-50/50"
               >
-                <h3 className="font-serif text-lg sm:text-xl text-white mb-2">{item.title}</h3>
-                <p className="text-sm text-neutral-500 font-light">{item.desc}</p>
+                <p className="font-serif text-3xl sm:text-4xl italic text-primary mb-3">{item.num}</p>
+                <h3 className="text-base font-medium text-neutral-900 mb-2">{item.title}</h3>
+                <p className="text-sm text-neutral-500 font-light leading-relaxed">{item.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -568,5 +680,6 @@ export default function HomePage() {
 
       <Footer />
     </div>
+    </MotionConfig>
   );
 }

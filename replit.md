@@ -2,7 +2,7 @@
 
 ## Overview
 
-A single-page Next.js landing page for **Grysics** (by Olyxee), an AI verification engine. Covers all AI types with priority on Conversational AI, RAG systems, Autonomous Agents, and Generative AI. Features a full-screen hero with background image, serif typography, dark sections, orange primary accent, grain texture overlay, and a waitlist-focused CTA. Fully mobile responsive.
+A single-page Next.js landing page for **Grysics** (by Olyxee), an AI verification engine. Covers all AI types with priority on Conversational AI, RAG systems, Autonomous Agents, and Generative AI. Features a full-screen hero with background image, serif typography, dark sections, orange primary accent, grain texture overlay, custom animated diagrams, and a waitlist-focused CTA. Fully mobile responsive.
 
 ## Tech Stack
 
@@ -20,7 +20,7 @@ A single-page Next.js landing page for **Grysics** (by Olyxee), an AI verificati
 src/
   app/
     layout.tsx          - Root layout with SEO metadata
-    page.tsx            - Main landing page (all sections)
+    page.tsx            - Main landing page (all sections + diagram components)
     globals.css         - Tailwind directives, grain texture, reduced-motion, safe-area
   components/
     header.tsx          - Scroll-aware fixed header (transparent → white on scroll)
@@ -36,22 +36,29 @@ tailwind.config.ts      - Tailwind config with serif font + orange primary color
 
 ## Page Sections
 
-1. **Hero** — Full-screen bg image, "Verify your AI before it ships.", subtext about chatbots/agents/RAG/genAI, waitlist form
-2. **What we cover** — Dark bg, 4 priority categories (Conversational AI, RAG, Agents, Generative AI) highlighted with orange, plus 8 more categories as pills
-3. **Process** — White bg, 4-step flow: Build → Verify → Validate → Deploy
-4. **Why it matters** — Dark bg, 3 failure types: Hallucinations, Silent regressions, Edge case failures
-5. **Book a Demo** — White bg, two-column layout with value props + demo request form (name, email, company, AI type dropdown)
-6. **Status + Waitlist** — White bg, "In development. Early access soon." with waitlist form
-7. **Footer** — Docs, Contact, Olyxee links
+1. **Hero** — Full-screen bg image, "Verify your AI before it ships.", waitlist form
+2. **How it works** — Dark bg, animated architecture diagram (Your AI → Grysics → Test Suite → Report → Deploy) with stats grid
+3. **Live verification** — White bg, two-column: check descriptions + animated terminal showing a live verification report
+4. **Coverage** — Dark bg, animated horizontal bar chart showing coverage across 8 AI categories (4 priority highlighted)
+5. **Why it matters** — White bg, 3 stat cards with large numbers (73% hallucinate, 4.2h detection, 68% edge case failures)
+6. **Book a Demo** — White bg, two-column layout with value props + demo request form
+7. **Status + Waitlist** — White bg, "In development. Early access soon." with waitlist form
+8. **Footer** — Docs, Contact, Olyxee links
+
+## Custom Diagram Components
+
+- **ArchitectureDiagram**: SVG flow diagram with animated node connections (step-by-step reveal on scroll)
+- **VerificationTerminal**: Fake terminal that types out a live verification report line by line
+- **CoverageGraph**: Animated horizontal bar chart showing verification coverage per AI category
 
 ## Design System
 
 - **Hero**: Background image with dark overlay, white serif text, grain texture
-- **Dark sections**: `bg-neutral-950` with white text (pipeline, status)
+- **Dark sections**: `bg-neutral-950` with white text
 - **Light sections**: White background
 - **Primary color**: Orange (`#F97316`)
 - **Typography**: Georgia serif for headings, system sans for body
-- **Animations**: Subtle fade-up, respects `prefers-reduced-motion`
+- **Animations**: Subtle fade-up, animated diagrams, respects `prefers-reduced-motion`
 - **Mobile**: Fully responsive, safe area insets, 44px+ touch targets
 
 ## Development

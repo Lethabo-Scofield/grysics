@@ -11,16 +11,16 @@ export default function Footer() {
           </div>
 
           <nav aria-label="Footer navigation" className="flex flex-wrap gap-x-6 gap-y-3">
-            <a href="#features" className="text-sm text-neutral-500 hover:text-neutral-900 transition-colors">
+            <a href="#features" className="text-sm text-neutral-500 hover:text-neutral-900 transition-colors py-1">
               Features
             </a>
-            <a href="#how-it-works" className="text-sm text-neutral-500 hover:text-neutral-900 transition-colors">
+            <a href="#how-it-works" className="text-sm text-neutral-500 hover:text-neutral-900 transition-colors py-1">
               How it works
             </a>
-            <a href="#performance" className="text-sm text-neutral-500 hover:text-neutral-900 transition-colors">
+            <a href="#how-it-works" className="text-sm text-neutral-500 hover:text-neutral-900 transition-colors py-1">
               Performance
             </a>
-            <a href="#early-access" className="text-sm text-neutral-500 hover:text-neutral-900 transition-colors">
+            <a href="#early-access" className="text-sm text-neutral-500 hover:text-neutral-900 transition-colors py-1">
               Early Access
             </a>
           </nav>

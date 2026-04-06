@@ -1,0 +1,131 @@
+1. Purpose of the site
+
+Single goal:
+
+collect early users (AI engineers, teams)
+communicate what Grysics is becoming
+
+Everything should push toward joining the waitlist.
+
+2. Visual design (Orange, White, slight Pink)
+
+Base palette
+
+White → background (clean, minimal)
+Orange → primary actions (buttons, highlights)
+Pink → subtle accents (hover states, gradients, small highlights)
+
+Usage rules
+
+Orange = action (Join Waitlist, Sign In)
+Pink = secondary emphasis (links, glow, gradients)
+Avoid overusing pink; keep it minimal to maintain a technical feel
+
+Style
+
+Minimal, grid-based
+Light mode default (white-heavy)
+Soft gradients: orange → pink for modern feel
+3. Landing page structure (Waitlist-focused)
+Hero section
+Headline:
+“Verification infrastructure for physical AI systems.”
+Subtext:
+“Test and validate models before real-world deployment.”
+Input field + button:
+Email input
+Join Waitlist (orange button)
+
+Optional:
+
+“Join with GitHub” (better for dev audience)
+Visual element
+
+Simple diagram:
+
+Model → Simulation → Validation → Deployment
+
+Use thin lines, subtle orange/pink glow.
+
+Value section (short)
+
+3 concise points:
+
+Validate safety constraints
+Stress-test model behavior
+Reduce real-world failure risk
+
+Keep each to one line.
+
+Status section
+“Currently in development”
+“Early access rolling out soon”
+
+Optional:
+
+progress indicator (not exaggerated)
+Footer
+Docs (can be placeholder)
+Contact
+“Built under Olyxee”
+4. Waitlist UX (important)
+
+Best flow
+
+User enters email
+Clicks Join Waitlist
+Immediate confirmation:
+“You’re on the list”
+
+Optional:
+
+Ask for more info after signup:
+“What are you building?” (AI, robotics, etc.)
+
+Do not block signup with long forms.
+
+5. Sign-in (secondary, not primary yet)
+
+Keep minimal:
+
+GitHub
+Google
+
+Place it as:
+
+small button in top-right: “Sign in”
+
+Main focus remains waitlist.
+
+6. Tone
+Technical, not marketing-heavy
+No exaggerated claims
+Clear and direct
+
+Example:
+
+Avoid: “Revolutionizing AI safety”
+Use: “Verify models before deployment”
+7. Micro-interactions
+Button hover: orange → slight pink tint
+Input focus: soft orange outline
+Subtle glow effects (very light)
+8. What to avoid
+Complex dashboards (not needed yet)
+Too many pages
+Heavy animations
+Long explanations
+9. Final structure
+Single-page site:
+Hero (waitlist)
+Visual diagram
+Value points
+Development status
+Footer
+Key principle
+
+At this stage, Grysics should feel like:
+
+a serious technical product
+early, but intentional
+easy to access (one input → done)

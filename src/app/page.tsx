@@ -205,7 +205,7 @@ export default function HomePage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="font-serif text-3xl sm:text-5xl lg:text-7xl text-white tracking-tight leading-[1.1] mb-6 sm:mb-8"
+            className="font-serif text-[1.75rem] xs:text-3xl sm:text-5xl lg:text-7xl text-white tracking-tight leading-[1.1] mb-6 sm:mb-8"
           >
             Your AI works in the lab.
             <br />
@@ -237,7 +237,7 @@ export default function HomePage() {
             transition={{ delay: 1.2, duration: 0.8 }}
             className="mt-16 sm:mt-24"
           >
-            <a href="#problem" className="inline-flex flex-col items-center gap-2 text-white/30 hover:text-white/50 transition-colors">
+            <a href="#problem" className="inline-flex flex-col items-center gap-2 text-white/30 hover:text-white/50 transition-colors py-3 px-4">
               <span className="text-[11px] uppercase tracking-widest">See why it matters</span>
               <ArrowDown className="w-4 h-4 animate-bounce" />
             </a>
@@ -249,7 +249,7 @@ export default function HomePage() {
         <div className="max-w-6xl mx-auto px-5 sm:px-6">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} variants={fadeUp} className="max-w-3xl mb-16 sm:mb-24">
             <p className="text-xs uppercase tracking-[0.2em] text-neutral-500 font-medium mb-4">The problem</p>
-            <h2 className="font-serif text-2xl sm:text-5xl tracking-tight leading-tight mb-6">
+            <h2 className="font-serif text-xl sm:text-5xl tracking-tight leading-tight mb-6">
               AI that passes every test in your lab
               <span className="text-neutral-500"> fails silently in production.</span>
             </h2>
@@ -259,23 +259,23 @@ export default function HomePage() {
           </motion.div>
 
           <div className="grid grid-cols-1 sm:grid-cols-12 gap-6 sm:gap-8">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} variants={fadeUp} className="sm:col-span-5 relative p-8 sm:p-10 rounded-3xl border border-white/10 bg-gradient-to-br from-red-500/10 to-transparent">
-              <p className="font-serif text-6xl sm:text-8xl italic text-white/90 mb-2">73%</p>
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} variants={fadeUp} className="sm:col-span-5 relative p-6 sm:p-10 rounded-3xl border border-white/10 bg-gradient-to-br from-red-500/10 to-transparent">
+              <p className="font-serif text-5xl sm:text-8xl italic text-white/90 mb-2">73%</p>
               <p className="text-base sm:text-lg text-neutral-300 font-light leading-relaxed">
                 of AI applications experience accuracy problems within <span className="text-white font-medium">30 days</span> of going live.
               </p>
             </motion.div>
 
             <div className="sm:col-span-7 flex flex-col gap-6">
-              <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={1} variants={fadeUp} className="relative p-6 sm:p-8 rounded-3xl border border-white/10 bg-white/[0.03] flex items-center gap-6">
-                <p className="font-serif text-4xl sm:text-5xl italic text-white/80 flex-shrink-0">4.2h</p>
+              <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={1} variants={fadeUp} className="relative p-5 sm:p-8 rounded-3xl border border-white/10 bg-white/[0.03] flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6">
+                <p className="font-serif text-3xl sm:text-5xl italic text-white/80 flex-shrink-0">4.2h</p>
                 <div>
                   <p className="text-sm sm:text-base text-neutral-300 font-light">Average time to discover something is wrong. That&apos;s 4 hours of broken AI your customers experience.</p>
                 </div>
               </motion.div>
 
-              <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={2} variants={fadeUp} className="relative p-6 sm:p-8 rounded-3xl border border-white/10 bg-white/[0.03] flex items-center gap-6">
-                <p className="font-serif text-4xl sm:text-5xl italic text-white/80 flex-shrink-0">R31M</p>
+              <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={2} variants={fadeUp} className="relative p-5 sm:p-8 rounded-3xl border border-white/10 bg-white/[0.03] flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6">
+                <p className="font-serif text-3xl sm:text-5xl italic text-white/80 flex-shrink-0">R31M</p>
                 <div>
                   <p className="text-sm sm:text-base text-neutral-300 font-light">Average annual cost of AI downtime per company. Prevention costs a fraction of what failures cost you.</p>
                 </div>
@@ -384,7 +384,7 @@ export default function HomePage() {
             </h2>
           </motion.div>
 
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={1} variants={fadeUp} className="flex flex-wrap justify-center gap-3 sm:gap-4 mb-16">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={1} variants={fadeUp} className="flex flex-wrap justify-center gap-2 sm:gap-4 mb-12 sm:mb-16">
             {[
               "Computer Vision", "Language AI & Chatbots", "Image Generation", "Voice & Audio",
               "Video Analysis", "Recommendations", "Medical AI", "Self-driving & Drones",
@@ -392,7 +392,7 @@ export default function HomePage() {
             ].map((tag, i) => (
               <span
                 key={tag}
-                className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium border transition-all duration-300 ${
+                className={`px-3 sm:px-5 py-1.5 sm:py-2.5 rounded-full text-[11px] sm:text-sm font-medium border transition-all duration-300 ${
                   i < 4
                     ? 'border-white/20 bg-white/10 text-white'
                     : i < 8
@@ -484,7 +484,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="how-it-works" className="py-16 sm:py-28 bg-neutral-50/80 border-b border-neutral-100">
+      <section id="how-it-works" className="py-16 sm:py-28 bg-neutral-50/80 border-b border-neutral-100" aria-label="Performance">
         <div className="max-w-5xl mx-auto px-5 sm:px-6">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} variants={fadeUp} className="text-center mb-12 sm:mb-16">
             <p className="text-xs uppercase tracking-[0.2em] text-neutral-400 font-medium mb-3">Performance</p>
@@ -536,32 +536,30 @@ export default function HomePage() {
                 <div className="flex flex-col sm:flex-row sm:items-center gap-4">
                   <p className="text-sm font-semibold text-neutral-900 sm:w-44 flex-shrink-0">{item.label}</p>
                   <div className="flex-1 space-y-2">
-                    <div className="flex items-center gap-3">
-                      <span className="text-[10px] font-medium text-neutral-500 w-14">Grysics</span>
-                      <div className="flex-1 h-7 bg-neutral-100 rounded-md overflow-hidden">
+                    <div className="flex items-center gap-2 sm:gap-3">
+                      <span className="text-[10px] font-medium text-neutral-500 w-12 sm:w-14 flex-shrink-0">Grysics</span>
+                      <div className="flex-1 h-7 bg-neutral-100 rounded-md overflow-hidden relative">
                         <motion.div
-                          className="h-full bg-neutral-900 rounded-md flex items-center justify-end pr-3"
+                          className="h-full bg-neutral-900 rounded-md"
                           initial={{ width: 0 }}
                           whileInView={{ width: item.grysicsWidth }}
                           viewport={{ once: true }}
                           transition={{ duration: 1, delay: idx * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
-                        >
-                          <span className="text-[11px] font-bold text-white">{item.grysics}</span>
-                        </motion.div>
+                        />
+                        <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] sm:text-[11px] font-bold text-neutral-600">{item.grysics}</span>
                       </div>
                     </div>
-                    <div className="flex items-center gap-3">
-                      <span className="text-[10px] font-medium text-neutral-400 w-14">Manual</span>
-                      <div className="flex-1 h-7 bg-neutral-100 rounded-md overflow-hidden">
+                    <div className="flex items-center gap-2 sm:gap-3">
+                      <span className="text-[10px] font-medium text-neutral-400 w-12 sm:w-14 flex-shrink-0">Manual</span>
+                      <div className="flex-1 h-7 bg-neutral-100 rounded-md overflow-hidden relative">
                         <motion.div
-                          className="h-full bg-neutral-300 rounded-md flex items-center justify-end pr-3"
+                          className="h-full bg-neutral-300 rounded-md"
                           initial={{ width: 0 }}
                           whileInView={{ width: item.othersWidth }}
                           viewport={{ once: true }}
                           transition={{ duration: 1, delay: idx * 0.1 + 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
-                        >
-                          <span className="text-[11px] font-bold text-neutral-600">{item.others}</span>
-                        </motion.div>
+                        />
+                        <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] sm:text-[11px] font-bold text-neutral-600">{item.others}</span>
                       </div>
                     </div>
                   </div>
@@ -600,7 +598,7 @@ export default function HomePage() {
                 viewport={{ once: true }}
                 custom={idx}
                 variants={fadeUp}
-                className="group flex flex-col sm:flex-row sm:items-start gap-4 sm:gap-8 py-8 border-b border-neutral-100 last:border-b-0 hover:bg-neutral-50/50 transition-colors -mx-5 px-5 sm:-mx-6 sm:px-6 rounded-xl"
+                className="group flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-8 py-6 sm:py-8 border-b border-neutral-100 last:border-b-0 hover:bg-neutral-50/50 transition-colors -mx-5 px-5 sm:-mx-6 sm:px-6 rounded-xl"
               >
                 <span className="font-serif text-3xl sm:text-4xl italic text-neutral-200 group-hover:text-neutral-900 transition-colors sm:w-20 flex-shrink-0">{item.num}</span>
                 <div className="flex-1">
@@ -675,7 +673,7 @@ export default function HomePage() {
       <section id="early-access" className="py-20 sm:py-40">
         <div className="max-w-4xl mx-auto px-5 sm:px-6 text-center">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} variants={fadeUp}>
-            <h2 className="font-serif text-2xl sm:text-5xl lg:text-6xl tracking-tight text-neutral-900 mb-4 sm:mb-6">
+            <h2 className="font-serif text-xl sm:text-5xl lg:text-6xl tracking-tight text-neutral-900 mb-4 sm:mb-6">
               Your customers deserve AI
               <br className="hidden sm:block" />
               <span className="text-neutral-400"> that actually works</span>

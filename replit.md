@@ -57,7 +57,7 @@ postcss.config.js       - PostCSS config
 - **Dark sections**: `bg-neutral-950` with white text (problem stats, comparison)
 - **Light sections**: White or `bg-neutral-50/50` backgrounds
 - **EarlyAccessForm**: `variant="dark"` (hero) and `variant="light"` (bottom CTA)
-- **Mobile**: All headings start at `text-2xl`, sections use `py-16`, `px-5` padding. Grids stack on mobile.
+- **Mobile**: All headings scale from `text-xl`/`text-[1.75rem]` up through `sm:` and `lg:` breakpoints. Sections use `py-16`/`px-5` base padding. Grids stack on mobile. Stats cards use `flex-col` on mobile, `sm:flex-row` on larger screens. Performance bars use positioned labels to avoid overflow. AI type tags use compact spacing on mobile. Safe area insets supported for notched phones (`viewportFit: cover`). Hamburger menu has 44px+ touch target. Footer/nav links include vertical padding for touch accessibility.
 
 ## Development
 

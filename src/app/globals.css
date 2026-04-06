@@ -30,3 +30,18 @@ body {
     -webkit-tap-highlight-color: transparent;
   }
 }
+
+@supports (padding: env(safe-area-inset-bottom)) {
+  body {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+@media (max-width: 374px) {
+  .font-serif {
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+}

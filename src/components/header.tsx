@@ -78,7 +78,7 @@ export default function Header() {
         </div>
 
         <button
-          className={`md:hidden p-2.5 rounded-xl transition-colors duration-200 ${
+          className={`md:hidden p-3 rounded-xl transition-colors duration-200 ${
             scrolled ? 'text-neutral-600 hover:bg-neutral-100' : 'text-white hover:bg-white/10'
           }`}
           onClick={() => setMenuOpen(!menuOpen)}

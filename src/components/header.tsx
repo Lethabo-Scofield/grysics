@@ -41,7 +41,7 @@ export default function Header() {
           </span>
         </Link>
 
-        <div className="hidden md:flex items-center">
+        <div className="hidden md:flex items-center gap-2">
           <a
             href="#"
             className={`px-5 py-2.5 text-sm font-medium rounded-full transition-all duration-300 ${
@@ -51,6 +51,16 @@ export default function Header() {
             }`}
           >
             Sign in
+          </a>
+          <a
+            href="#book-demo"
+            className={`px-5 py-2.5 text-sm font-medium rounded-full transition-all duration-300 ${
+              scrolled
+                ? 'bg-primary text-white hover:bg-primary-dark'
+                : 'bg-white text-neutral-900 hover:bg-white/90'
+            }`}
+          >
+            Book Demo
           </a>
         </div>
 
@@ -81,16 +91,21 @@ export default function Header() {
             transition={{ duration: 0.2 }}
             className="md:hidden overflow-hidden bg-white/95 backdrop-blur-xl border-t border-neutral-100"
           >
-            <div className="px-5 py-5 flex flex-col gap-1">
-              <div className="pt-3 border-t border-neutral-100">
-                <a
-                  href="#"
-                  className="flex items-center justify-center px-5 py-3 text-neutral-600 text-sm font-medium rounded-xl hover:bg-neutral-50 transition-colors"
-                  onClick={() => setMenuOpen(false)}
-                >
-                  Sign in
-                </a>
-              </div>
+            <div className="px-5 py-5 flex flex-col gap-2">
+              <a
+                href="#"
+                className="flex items-center justify-center px-5 py-3 text-neutral-600 text-sm font-medium rounded-xl hover:bg-neutral-50 transition-colors"
+                onClick={() => setMenuOpen(false)}
+              >
+                Sign in
+              </a>
+              <a
+                href="#book-demo"
+                className="flex items-center justify-center px-5 py-3 bg-primary text-white text-sm font-medium rounded-xl hover:bg-primary-dark transition-colors"
+                onClick={() => setMenuOpen(false)}
+              >
+                Book Demo
+              </a>
             </div>
           </motion.div>
         )}

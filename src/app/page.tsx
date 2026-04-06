@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useState, FormEvent } from 'react';
-import { ArrowRight, ArrowDown, Check } from 'lucide-react';
+import { ArrowRight, ArrowDown, Check, Calendar } from 'lucide-react';
 import Image from 'next/image';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
@@ -152,6 +152,110 @@ function Pipeline() {
         </div>
       ))}
     </div>
+  );
+}
+
+function DemoForm() {
+  const [formData, setFormData] = useState({ name: '', email: '', company: '', useCase: '' });
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    if (!formData.name || !formData.email) return;
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      setSubmitted(true);
+    }, 800);
+  };
+
+  if (submitted) {
+    return (
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        className="flex flex-col items-center gap-4 py-8"
+      >
+        <div className="w-12 h-12 rounded-full bg-green-50 flex items-center justify-center">
+          <Check className="w-5 h-5 text-green-600" />
+        </div>
+        <div className="text-center">
+          <p className="text-lg font-medium text-neutral-900">Demo requested.</p>
+          <p className="text-sm text-neutral-500 font-light mt-1">We&apos;ll be in touch within 24 hours.</p>
+        </div>
+      </motion.div>
+    );
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-4 w-full max-w-sm mx-auto">
+      <div>
+        <label htmlFor="demo-name" className="block text-[12px] uppercase tracking-wider text-neutral-400 font-medium mb-1.5">Name</label>
+        <input
+          id="demo-name"
+          type="text"
+          required
+          value={formData.name}
+          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+          className="w-full px-4 py-3 text-sm text-neutral-900 bg-white border border-neutral-200 rounded-xl focus:outline-none focus:border-primary/40 focus:ring-2 focus:ring-primary/10 transition-all placeholder:text-neutral-300"
+          placeholder="Your name"
+        />
+      </div>
+      <div>
+        <label htmlFor="demo-email" className="block text-[12px] uppercase tracking-wider text-neutral-400 font-medium mb-1.5">Email</label>
+        <input
+          id="demo-email"
+          type="email"
+          required
+          value={formData.email}
+          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+          className="w-full px-4 py-3 text-sm text-neutral-900 bg-white border border-neutral-200 rounded-xl focus:outline-none focus:border-primary/40 focus:ring-2 focus:ring-primary/10 transition-all placeholder:text-neutral-300"
+          placeholder="you@company.com"
+        />
+      </div>
+      <div>
+        <label htmlFor="demo-company" className="block text-[12px] uppercase tracking-wider text-neutral-400 font-medium mb-1.5">Company</label>
+        <input
+          id="demo-company"
+          type="text"
+          value={formData.company}
+          onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+          className="w-full px-4 py-3 text-sm text-neutral-900 bg-white border border-neutral-200 rounded-xl focus:outline-none focus:border-primary/40 focus:ring-2 focus:ring-primary/10 transition-all placeholder:text-neutral-300"
+          placeholder="Optional"
+        />
+      </div>
+      <div>
+        <label htmlFor="demo-usecase" className="block text-[12px] uppercase tracking-wider text-neutral-400 font-medium mb-1.5">What are you verifying?</label>
+        <select
+          id="demo-usecase"
+          value={formData.useCase}
+          onChange={(e) => setFormData({ ...formData, useCase: e.target.value })}
+          className="w-full px-4 py-3 text-sm text-neutral-900 bg-white border border-neutral-200 rounded-xl focus:outline-none focus:border-primary/40 focus:ring-2 focus:ring-primary/10 transition-all appearance-none"
+        >
+          <option value="">Select a category</option>
+          <option value="chatbot">Chatbot / Conversational AI</option>
+          <option value="rag">RAG System</option>
+          <option value="agent">Autonomous Agent</option>
+          <option value="generative">Generative AI</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <button
+        type="submit"
+        disabled={loading}
+        className="w-full px-6 py-3.5 bg-primary text-white text-sm font-medium rounded-xl hover:bg-primary-dark transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+      >
+        {loading ? (
+          <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+        ) : (
+          <>
+            <Calendar className="w-4 h-4" />
+            Request Demo
+          </>
+        )}
+      </button>
+    </form>
   );
 }
 
@@ -393,7 +497,54 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-20 sm:py-32 border-b border-neutral-100">
+      <section id="book-demo" className="py-20 sm:py-32 border-b border-neutral-100">
+        <div className="max-w-4xl mx-auto px-5 sm:px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              custom={0}
+              variants={fade}
+            >
+              <p className="text-xs uppercase tracking-[0.2em] text-neutral-400 font-medium mb-4">Book a demo</p>
+              <h2 className="font-serif text-2xl sm:text-4xl tracking-tight text-neutral-900 mb-4">
+                See Grysics in action.
+              </h2>
+              <p className="text-sm sm:text-base text-neutral-500 font-light leading-relaxed mb-8">
+                Get a walkthrough of how Grysics catches failures in your AI before they reach users.
+              </p>
+              <div className="space-y-4">
+                {[
+                  'Live verification of your AI type',
+                  'See real failure detection in action',
+                  'Custom setup for your workflow',
+                ].map((item) => (
+                  <div key={item} className="flex items-center gap-3">
+                    <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <Check className="w-3 h-3 text-primary" />
+                    </div>
+                    <span className="text-sm text-neutral-600">{item}</span>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              custom={1}
+              variants={fade}
+              className="bg-neutral-50 rounded-2xl p-6 sm:p-8 border border-neutral-100"
+            >
+              <DemoForm />
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20 sm:py-32">
         <div className="max-w-4xl mx-auto px-5 sm:px-6 text-center">
           <motion.div
             initial="hidden"
@@ -407,27 +558,8 @@ export default function HomePage() {
               <span className="text-xs uppercase tracking-[0.2em] text-neutral-400 font-medium">Status</span>
             </div>
             <h2 className="font-serif text-2xl sm:text-4xl tracking-tight text-neutral-900 mb-3">In development</h2>
-            <p className="text-sm text-neutral-500 font-light">Early access soon.</p>
-          </motion.div>
-        </div>
-      </section>
-
-      <section className="py-20 sm:py-32">
-        <div className="max-w-4xl mx-auto px-5 sm:px-6 text-center">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            custom={0}
-            variants={fade}
-          >
-            <h2 className="font-serif text-2xl sm:text-5xl tracking-tight text-neutral-900 mb-4 sm:mb-6">
-              Be the first to verify.
-            </h2>
-            <p className="text-neutral-500 text-sm sm:text-base max-w-md mx-auto mb-8 sm:mb-10 font-light">
-              Join the waitlist for early access.
-            </p>
-            <div className="flex justify-center mb-4">
+            <p className="text-sm text-neutral-500 font-light mb-8">Early access soon.</p>
+            <div className="flex justify-center">
               <WaitlistForm variant="light" />
             </div>
           </motion.div>

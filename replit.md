@@ -40,8 +40,8 @@ tailwind.config.ts      - Tailwind config with serif font + orange primary color
 2. **What we cover** — Dark bg, 4 priority categories (Conversational AI, RAG, Agents, Generative AI) highlighted with orange, plus 8 more categories as pills
 3. **Process** — White bg, 4-step flow: Build → Verify → Validate → Deploy
 4. **Why it matters** — Dark bg, 3 failure types: Hallucinations, Silent regressions, Edge case failures
-5. **Status** — White bg, "In development. Early access soon." with orange pulse
-6. **CTA** — White bg, "Be the first to verify." with waitlist form (light variant)
+5. **Book a Demo** — White bg, two-column layout with value props + demo request form (name, email, company, AI type dropdown)
+6. **Status + Waitlist** — White bg, "In development. Early access soon." with waitlist form
 7. **Footer** — Docs, Contact, Olyxee links
 
 ## Design System

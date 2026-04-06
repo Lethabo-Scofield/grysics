@@ -2,7 +2,7 @@
 
 ## Overview
 
-A single-page Next.js landing page for **Grysics** (by Olyxee), an AI verification engine for physical AI. Features a full-screen hero with background image, serif typography, dark sections, orange primary accent, grain texture overlay, and a waitlist-focused CTA. Fully mobile responsive.
+A single-page Next.js landing page for **Grysics** (by Olyxee), an AI verification engine. Covers all AI types with priority on Conversational AI, RAG systems, Autonomous Agents, and Generative AI. Features a full-screen hero with background image, serif typography, dark sections, orange primary accent, grain texture overlay, and a waitlist-focused CTA. Fully mobile responsive.
 
 ## Tech Stack
 
@@ -36,12 +36,13 @@ tailwind.config.ts      - Tailwind config with serif font + orange primary color
 
 ## Page Sections
 
-1. **Hero** — Full-screen bg image, serif heading "Verify physical AI before deployment.", subtext, email waitlist form, "Sign in" link
-2. **Pipeline** — Dark bg, 4-step visual: Model → Simulation → Validation → Deployment
-3. **Value** — White bg, 3 short points: Catch failures early, Test under constraints, Reduce real-world risk
-4. **Status** — Dark bg, "In development. Early access soon." with orange pulse
-5. **CTA** — White bg, "Be the first to verify." with waitlist form (light variant)
-6. **Footer** — Docs, Contact, Olyxee links
+1. **Hero** — Full-screen bg image, "Verify your AI before it ships.", subtext about chatbots/agents/RAG/genAI, waitlist form
+2. **What we cover** — Dark bg, 4 priority categories (Conversational AI, RAG, Agents, Generative AI) highlighted with orange, plus 8 more categories as pills
+3. **Process** — White bg, 4-step flow: Build → Verify → Validate → Deploy
+4. **Why it matters** — Dark bg, 3 failure types: Hallucinations, Silent regressions, Edge case failures
+5. **Status** — White bg, "In development. Early access soon." with orange pulse
+6. **CTA** — White bg, "Be the first to verify." with waitlist form (light variant)
+7. **Footer** — Docs, Contact, Olyxee links
 
 ## Design System
 

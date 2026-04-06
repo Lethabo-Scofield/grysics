@@ -11,18 +11,20 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://grysics.com"),
-  title: "Grysics — Verify physical AI before deployment",
+  title: "Grysics — Verify your AI before it ships",
   description:
-    "Grysics verifies physical AI models through simulation and validation before deployment. Catch failures early, test under constraints, reduce real-world risk.",
+    "Grysics catches failures in chatbots, agents, RAG systems, and generative AI before your users do. Automated verification for every type of AI.",
   keywords: [
     "AI verification",
-    "physical AI",
-    "simulation",
-    "validation",
-    "model testing",
+    "chatbot testing",
+    "RAG verification",
+    "AI agents",
+    "generative AI testing",
+    "LLM testing",
     "AI deployment",
-    "robotics testing",
-    "edge AI",
+    "model validation",
+    "conversational AI",
+    "AI quality assurance",
   ],
   authors: [{ name: "Grysics" }],
   creator: "Grysics",
@@ -46,9 +48,9 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     siteName: "Grysics",
-    title: "Grysics — Verify physical AI before deployment",
+    title: "Grysics — Verify your AI before it ships",
     description:
-      "Simulation. Validation. Confidence. Verify your AI before it reaches hardware.",
+      "Catch failures in chatbots, agents, RAG systems, and generative AI before your users do.",
     images: [
       {
         url: "/images/grysics-logo.png",
@@ -60,9 +62,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary",
-    title: "Grysics — Verify physical AI before deployment",
+    title: "Grysics — Verify your AI before it ships",
     description:
-      "Simulation. Validation. Confidence.",
+      "Catch failures in chatbots, agents, RAG systems, and generative AI before your users do.",
     images: ["/images/grysics-logo.png"],
   },
   alternates: {

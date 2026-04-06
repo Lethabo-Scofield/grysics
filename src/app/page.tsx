@@ -120,7 +120,7 @@ function WaitlistForm({ variant = 'dark' }: { variant?: 'dark' | 'light' }) {
 }
 
 function Pipeline() {
-  const steps = ['Model', 'Simulation', 'Validation', 'Deployment'];
+  const steps = ['Build', 'Verify', 'Validate', 'Deploy'];
 
   return (
     <div className="flex flex-col sm:flex-row items-center gap-0">
@@ -155,6 +155,24 @@ function Pipeline() {
   );
 }
 
+const priorityCategories = [
+  { name: 'Conversational AI', examples: 'Chatbots, voice assistants, copilots' },
+  { name: 'RAG Systems', examples: 'Knowledge assistants, document QA' },
+  { name: 'Autonomous Agents', examples: 'Task agents, multi-step reasoning' },
+  { name: 'Generative AI', examples: 'Text, image, code, video generation' },
+];
+
+const moreCategories = [
+  'Recommendations',
+  'Computer Vision',
+  'Speech & Audio',
+  'Predictive Analytics',
+  'Fraud Detection',
+  'Robotics & Physical AI',
+  'Decision Support',
+  'AI Infrastructure',
+];
+
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-white text-neutral-900 relative">
@@ -185,9 +203,9 @@ export default function HomePage() {
             variants={fade}
             className="font-serif text-[1.75rem] sm:text-5xl lg:text-7xl text-white tracking-tight leading-[1.1] mb-6 sm:mb-8"
           >
-            Verify physical AI
+            Verify your AI
             <br />
-            <span className="text-white/50">before deployment.</span>
+            <span className="text-white/50">before it ships.</span>
           </motion.h1>
 
           <motion.p
@@ -195,9 +213,11 @@ export default function HomePage() {
             animate="visible"
             custom={2}
             variants={fade}
-            className="text-base sm:text-xl text-white/60 font-light mb-10 sm:mb-12 max-w-lg mx-auto tracking-wide"
+            className="text-base sm:text-xl text-white/60 font-light mb-10 sm:mb-12 max-w-xl mx-auto"
           >
-            Simulation. Validation. Confidence.
+            Catch failures in chatbots, agents, RAG systems,
+            <br className="hidden sm:block" />
+            and generative AI before your users do.
           </motion.p>
 
           <motion.div
@@ -217,16 +237,16 @@ export default function HomePage() {
             transition={{ delay: 1.2, duration: 0.8 }}
             className="mt-16 sm:mt-24"
           >
-            <a href="#concept" className="inline-flex flex-col items-center gap-2 text-white/30 hover:text-white/50 transition-colors py-3 px-4">
-              <span className="text-[11px] uppercase tracking-widest">How it works</span>
+            <a href="#what-we-cover" className="inline-flex flex-col items-center gap-2 text-white/30 hover:text-white/50 transition-colors py-3 px-4">
+              <span className="text-[11px] uppercase tracking-widest">What we cover</span>
               <ArrowDown className="w-4 h-4 animate-bounce" />
             </a>
           </motion.div>
         </div>
       </section>
 
-      <section id="concept" className="py-20 sm:py-32 bg-neutral-950 text-white overflow-hidden">
-        <div className="max-w-4xl mx-auto px-5 sm:px-6">
+      <section id="what-we-cover" className="py-20 sm:py-32 bg-neutral-950 text-white overflow-hidden">
+        <div className="max-w-5xl mx-auto px-5 sm:px-6">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -235,15 +255,56 @@ export default function HomePage() {
             variants={fade}
             className="text-center mb-16 sm:mb-20"
           >
-            <p className="text-xs uppercase tracking-[0.2em] text-neutral-500 font-medium mb-4">The process</p>
+            <p className="text-xs uppercase tracking-[0.2em] text-neutral-500 font-medium mb-4">What we cover</p>
             <h2 className="font-serif text-2xl sm:text-5xl tracking-tight">
-              From model to deployment.
+              Every type of AI.
+              <span className="text-white/40"> One verification layer.</span>
             </h2>
           </motion.div>
 
-          <div className="flex justify-center">
-            <Pipeline />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 mb-12 sm:mb-16">
+            {priorityCategories.map((cat, i) => (
+              <motion.div
+                key={cat.name}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                custom={i + 1}
+                variants={fade}
+                className="relative p-6 sm:p-8 rounded-2xl border border-primary/20 bg-primary/[0.06]"
+              >
+                <div className="flex items-start gap-4">
+                  <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
+                  <div>
+                    <h3 className="text-base sm:text-lg font-medium text-white mb-1">{cat.name}</h3>
+                    <p className="text-sm text-white/50 font-light">{cat.examples}</p>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
           </div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            custom={5}
+            variants={fade}
+            className="flex flex-wrap justify-center gap-2 sm:gap-3"
+          >
+            {moreCategories.map((cat, i) => (
+              <span
+                key={cat}
+                className={`px-4 py-2 rounded-full text-xs sm:text-sm font-medium border transition-all ${
+                  i < 4
+                    ? 'border-white/15 bg-white/[0.06] text-white/70'
+                    : 'border-white/8 bg-white/[0.02] text-white/40'
+                }`}
+              >
+                {cat}
+              </span>
+            ))}
+          </motion.div>
         </div>
       </section>
 
@@ -257,17 +318,64 @@ export default function HomePage() {
             variants={fade}
             className="text-center mb-16 sm:mb-20"
           >
-            <p className="text-xs uppercase tracking-[0.2em] text-neutral-400 font-medium mb-4">Why it matters</p>
+            <p className="text-xs uppercase tracking-[0.2em] text-neutral-400 font-medium mb-4">The process</p>
             <h2 className="font-serif text-2xl sm:text-5xl tracking-tight text-neutral-900">
-              Ship with confidence.
+              From build to deploy.
             </h2>
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-12">
+          <div className="grid grid-cols-1 sm:grid-cols-4 gap-8 sm:gap-6 text-center">
             {[
-              { title: 'Catch failures early', desc: 'Before they reach hardware.' },
-              { title: 'Test under constraints', desc: 'Real physics. Real limits.' },
-              { title: 'Reduce real-world risk', desc: 'Deploy without doubt.' },
+              { step: '1', title: 'Build', desc: 'Connect your AI system.' },
+              { step: '2', title: 'Verify', desc: 'Automated quality checks.' },
+              { step: '3', title: 'Validate', desc: 'Real-world scenario testing.' },
+              { step: '4', title: 'Deploy', desc: 'Ship with confidence.' },
+            ].map((item, i) => (
+              <motion.div
+                key={item.step}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                custom={i + 1}
+                variants={fade}
+                className="flex flex-col items-center"
+              >
+                <div className={`w-12 h-12 rounded-full flex items-center justify-center text-sm font-semibold mb-4 ${
+                  i === 3
+                    ? 'bg-primary/10 text-primary border border-primary/20'
+                    : 'bg-neutral-100 text-neutral-500 border border-neutral-200'
+                }`}>
+                  {item.step}
+                </div>
+                <h3 className="font-serif text-lg text-neutral-900 mb-1">{item.title}</h3>
+                <p className="text-sm text-neutral-500 font-light">{item.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20 sm:py-32 bg-neutral-950 text-white overflow-hidden">
+        <div className="max-w-4xl mx-auto px-5 sm:px-6">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            custom={0}
+            variants={fade}
+            className="text-center mb-16 sm:mb-20"
+          >
+            <p className="text-xs uppercase tracking-[0.2em] text-neutral-500 font-medium mb-4">Why it matters</p>
+            <h2 className="font-serif text-2xl sm:text-5xl tracking-tight">
+              Failures hide in plain sight.
+            </h2>
+          </motion.div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-12 text-center">
+            {[
+              { title: 'Hallucinations', desc: 'Your chatbot gives confident wrong answers.' },
+              { title: 'Silent regressions', desc: 'Updates break things nobody notices.' },
+              { title: 'Edge case failures', desc: 'Works in tests, fails in production.' },
             ].map((item, i) => (
               <motion.div
                 key={item.title}
@@ -276,9 +384,8 @@ export default function HomePage() {
                 viewport={{ once: true }}
                 custom={i + 1}
                 variants={fade}
-                className="text-center"
               >
-                <h3 className="font-serif text-lg sm:text-xl text-neutral-900 mb-2">{item.title}</h3>
+                <h3 className="font-serif text-lg sm:text-xl text-white mb-2">{item.title}</h3>
                 <p className="text-sm text-neutral-500 font-light">{item.desc}</p>
               </motion.div>
             ))}
@@ -286,7 +393,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-20 sm:py-32 bg-neutral-950 text-white">
+      <section className="py-20 sm:py-32 border-b border-neutral-100">
         <div className="max-w-4xl mx-auto px-5 sm:px-6 text-center">
           <motion.div
             initial="hidden"
@@ -297,9 +404,9 @@ export default function HomePage() {
           >
             <div className="inline-flex items-center gap-2 mb-6">
               <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-              <span className="text-xs uppercase tracking-[0.2em] text-neutral-500 font-medium">Status</span>
+              <span className="text-xs uppercase tracking-[0.2em] text-neutral-400 font-medium">Status</span>
             </div>
-            <h2 className="font-serif text-2xl sm:text-4xl tracking-tight mb-3">In development</h2>
+            <h2 className="font-serif text-2xl sm:text-4xl tracking-tight text-neutral-900 mb-3">In development</h2>
             <p className="text-sm text-neutral-500 font-light">Early access soon.</p>
           </motion.div>
         </div>

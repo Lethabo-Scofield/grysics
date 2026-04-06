@@ -126,7 +126,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-16 sm:py-32 border-b border-neutral-100">
+      <section id="ecosystem" className="py-16 sm:py-32 border-b border-neutral-100">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
           <motion.div
             initial="hidden"
@@ -151,7 +151,7 @@ export default function HomePage() {
             viewport={{ once: true }}
             custom={1}
             variants={fade}
-            className="bg-neutral-950 rounded-xl sm:rounded-2xl p-4 sm:p-10 border border-neutral-200/10 overflow-x-auto"
+            className="bg-neutral-900 rounded-xl sm:rounded-2xl p-4 sm:p-10 border border-neutral-700/30 overflow-x-auto"
           >
             <LLMNetworkDiagram />
           </motion.div>

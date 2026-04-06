@@ -206,20 +206,11 @@ const LLM_MODELS = [
   { id: 'falcon', label: 'Falcon', logo: '/images/logos/falcon.png', cat: 'e' },
 ];
 
-function LLMLogoNode({ logo, label, cat }: {
-  logo: string; label: string; cat: string;
-}) {
-  const ringCls = cat === 'f' ? 'ring-blue-500/30' : cat === 'o' ? 'ring-emerald-500/30' : 'ring-violet-500/30';
-  const textCls = cat === 'f' ? 'text-blue-300/70' : cat === 'o' ? 'text-emerald-300/70' : 'text-violet-300/70';
-  return (
-    <div className="flex flex-col items-center gap-1.5">
-      <div className={`w-11 h-11 sm:w-14 sm:h-14 rounded-full bg-white/[0.06] ring-1 ${ringCls} flex items-center justify-center`}>
-        <img src={logo} alt={label} className="w-6 h-6 sm:w-8 sm:h-8 object-contain" loading="lazy" />
-      </div>
-      <span className={`text-[9px] sm:text-[11px] font-medium whitespace-nowrap ${textCls}`}>{label}</span>
-    </div>
-  );
-}
+const CAT_COLORS: Record<string, { ring: string; fill: string; line: string }> = {
+  f: { ring: '#3b82f6', fill: '#93c5fdb3', line: '#3b82f680' },
+  o: { ring: '#22c55e', fill: '#86efacb3', line: '#22c55e80' },
+  e: { ring: '#a855f7', fill: '#c4b5fdb3', line: '#a855f780' },
+};
 
 export function LLMNetworkDiagram() {
   const ref = useRef<HTMLDivElement>(null);
@@ -227,43 +218,84 @@ export function LLMNetworkDiagram() {
   const prefersReducedMotion = useReducedMotion();
   const instant = prefersReducedMotion;
 
-  const topRow = LLM_MODELS.slice(0, 4);
-  const bottomRow = LLM_MODELS.slice(4);
+  const CX = 300;
+  const CY = 200;
+  const W = 600;
+  const H = 400;
+
+  const nodePositions = [
+    { ...LLM_MODELS[0], x: 75, y: 55 },
+    { ...LLM_MODELS[1], x: 225, y: 35 },
+    { ...LLM_MODELS[2], x: 375, y: 35 },
+    { ...LLM_MODELS[3], x: 525, y: 55 },
+    { ...LLM_MODELS[4], x: 75, y: 345 },
+    { ...LLM_MODELS[5], x: 225, y: 365 },
+    { ...LLM_MODELS[6], x: 375, y: 365 },
+    { ...LLM_MODELS[7], x: 525, y: 345 },
+  ];
 
   return (
     <motion.div
       ref={ref}
-      className="w-full max-w-xl mx-auto py-4 sm:py-8"
+      className="w-full max-w-2xl mx-auto py-4 sm:py-8"
       role="img"
-      aria-label="Network diagram showing LLMs that Grysics verifies"
+      aria-label="Network diagram showing LLMs connected to Grysics verification engine"
       initial={{ opacity: instant ? 1 : 0 }}
       animate={isInView ? { opacity: 1 } : {}}
       transition={{ duration: instant ? 0 : 0.6 }}
     >
-      <div className="flex justify-center gap-6 sm:gap-10">
-        {topRow.map((m) => (
-          <LLMLogoNode key={m.id} logo={m.logo} label={m.label} cat={m.cat} />
+      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto" aria-hidden="true">
+        <defs>
+          <radialGradient id="grysics-glow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#F97316" stopOpacity="0.15" />
+            <stop offset="100%" stopColor="#F97316" stopOpacity="0" />
+          </radialGradient>
+          {nodePositions.map((node) => {
+            const col = CAT_COLORS[node.cat];
+            return (
+              <linearGradient key={`grad-${node.id}`} id={`line-${node.id}`} x1={node.x} y1={node.y} x2={CX} y2={CY} gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stopColor={col.line} />
+                <stop offset="100%" stopColor="#F9731680" />
+              </linearGradient>
+            );
+          })}
+        </defs>
+
+        {nodePositions.map((node, i) => (
+          <motion.line
+            key={`line-${node.id}`}
+            x1={node.x}
+            y1={node.y}
+            x2={CX}
+            y2={CY}
+            stroke={`url(#line-${node.id})`}
+            strokeWidth="1.5"
+            strokeDasharray="4 4"
+            initial={{ pathLength: instant ? 1 : 0, opacity: instant ? 1 : 0 }}
+            animate={isInView ? { pathLength: 1, opacity: 1 } : {}}
+            transition={{ duration: instant ? 0 : 0.8, delay: instant ? 0 : 0.2 + i * 0.1 }}
+          />
         ))}
-      </div>
 
-      <div className="flex flex-col items-center my-6 sm:my-8">
-        <div className="relative">
-          <div className="absolute -inset-3 rounded-full border border-dashed border-primary/15" />
-          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-primary/10 border-2 border-primary flex items-center justify-center">
-            <img src="/images/grysics-logo.png" alt="Grysics" className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg" />
-          </div>
-        </div>
-        <span className="text-primary text-xs sm:text-sm font-bold mt-2">Grysics</span>
-        <span className="text-white/30 text-[9px] sm:text-[10px] mt-0.5">Verification Engine</span>
-      </div>
+        <circle cx={CX} cy={CY} r="60" fill="url(#grysics-glow)" />
+        <circle cx={CX} cy={CY} r="36" fill="#F97316" fillOpacity="0.08" stroke="#F97316" strokeWidth="2" />
+        <image href="/images/grysics-logo.png" x={CX - 18} y={CY - 18} width="36" height="36" />
+        <text x={CX} y={CY + 52} textAnchor="middle" fill="#F97316" fontSize="12" fontWeight="700">Grysics</text>
+        <text x={CX} y={CY + 65} textAnchor="middle" fill="rgba(255,255,255,0.3)" fontSize="9">Verification Engine</text>
 
-      <div className="flex justify-center gap-6 sm:gap-10">
-        {bottomRow.map((m) => (
-          <LLMLogoNode key={m.id} logo={m.logo} label={m.label} cat={m.cat} />
-        ))}
-      </div>
+        {nodePositions.map((node) => {
+          const col = CAT_COLORS[node.cat];
+          return (
+            <g key={node.id}>
+              <circle cx={node.x} cy={node.y} r="24" fill="rgba(255,255,255,0.04)" stroke={col.ring} strokeWidth="1" />
+              <image href={node.logo} x={node.x - 14} y={node.y - 14} width="28" height="28" />
+              <text x={node.x} y={node.y + 36} textAnchor="middle" fontSize="10" fontWeight="500" fill={col.fill}>{node.label}</text>
+            </g>
+          );
+        })}
+      </svg>
 
-      <div className="flex flex-wrap justify-center gap-x-5 sm:gap-x-6 gap-y-2 mt-6 sm:mt-8">
+      <div className="flex flex-wrap justify-center gap-x-5 sm:gap-x-6 gap-y-2 mt-4 sm:mt-6">
         {[
           { label: 'Frontier Models', color: '#3b82f6' },
           { label: 'Open Source', color: '#22c55e' },

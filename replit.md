@@ -30,7 +30,7 @@ src/
   components/
     header.tsx              - Scroll-aware header, page-aware (transparent on dark pages, solid on light)
     footer.tsx              - Footer with nav links and company email
-    shared.tsx              - Shared components: fade, diagrams, forms (WaitlistForm, DemoForm, etc.)
+    shared.tsx              - Shared components: fade, ArchitectureDiagram, VerificationTerminal, CoverageGraph, LLMNetworkDiagram, BenchmarkChart, WaitlistForm, DemoForm
 public/
   images/
     grysics-logo.png        - Product logo
@@ -53,8 +53,10 @@ tailwind.config.ts          - Tailwind config with serif font + orange primary c
 ### `/how-it-works` — How It Works
 - Architecture diagram (animated SVG flow)
 - Stats grid
+- LLM Network diagram (9 LLMs connected to Grysics: GPT-4o, Claude 3.5, Gemini Pro, Llama 3, Mistral, Phi-3, Cohere, PaLM 2, Falcon — color-coded by frontier/open/enterprise)
 - Live verification terminal (animated typing)
 - Coverage graph (animated bar chart, 8 AI categories)
+- Benchmarking chart (before/after comparison: hallucination rate, accuracy, edge cases, regression catch, response time, deploy confidence)
 - Why it matters (3 stat cards)
 - Waitlist CTA + Book Demo link
 

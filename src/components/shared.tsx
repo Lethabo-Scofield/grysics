@@ -195,6 +195,202 @@ export function CoverageGraph() {
   );
 }
 
+const LLM_NODES = [
+  { id: 'gpt4', label: 'GPT-4o', x: 50, y: 50, category: 'frontier' },
+  { id: 'claude', label: 'Claude 3.5', x: 82, y: 25, category: 'frontier' },
+  { id: 'gemini', label: 'Gemini Pro', x: 50, y: 15, category: 'frontier' },
+  { id: 'llama', label: 'Llama 3', x: 18, y: 28, category: 'open' },
+  { id: 'mistral', label: 'Mistral', x: 15, y: 60, category: 'open' },
+  { id: 'phi', label: 'Phi-3', x: 30, y: 80, category: 'open' },
+  { id: 'cohere', label: 'Cohere', x: 75, y: 75, category: 'enterprise' },
+  { id: 'palm', label: 'PaLM 2', x: 85, y: 50, category: 'enterprise' },
+  { id: 'falcon', label: 'Falcon', x: 22, y: 48, category: 'open' },
+  { id: 'grysics', label: 'Grysics', x: 50, y: 48, category: 'core' },
+];
+
+const LLM_CONNECTIONS: [string, string][] = [
+  ['grysics', 'gpt4'], ['grysics', 'claude'], ['grysics', 'gemini'],
+  ['grysics', 'llama'], ['grysics', 'mistral'], ['grysics', 'phi'],
+  ['grysics', 'cohere'], ['grysics', 'palm'], ['grysics', 'falcon'],
+];
+
+export function LLMNetworkDiagram() {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
+  const prefersReducedMotion = useReducedMotion();
+  const instant = prefersReducedMotion;
+
+  const categoryColors: Record<string, { bg: string; border: string; text: string; dot: string }> = {
+    core: { bg: '#F9731620', border: '#F97316', text: '#F97316', dot: '#F97316' },
+    frontier: { bg: '#3b82f610', border: '#3b82f640', text: '#93c5fd', dot: '#3b82f6' },
+    open: { bg: '#22c55e10', border: '#22c55e40', text: '#86efac', dot: '#22c55e' },
+    enterprise: { bg: '#a855f710', border: '#a855f740', text: '#d8b4fe', dot: '#a855f7' },
+  };
+
+  return (
+    <div ref={ref} className="relative w-full max-w-3xl mx-auto">
+      <svg viewBox="0 0 600 300" className="w-full h-auto" fill="none" role="img" aria-labelledby="llm-net-title llm-net-desc">
+        <title id="llm-net-title">LLM Network</title>
+        <desc id="llm-net-desc">Network diagram showing LLMs that Grysics can verify: GPT-4o, Claude 3.5, Gemini Pro, Llama 3, Mistral, Phi-3, Cohere, PaLM 2, and Falcon, all connected to a central Grysics node.</desc>
+
+        {LLM_CONNECTIONS.map(([from, to], i) => {
+          const fromNode = LLM_NODES.find(n => n.id === from)!;
+          const toNode = LLM_NODES.find(n => n.id === to)!;
+          const x1 = fromNode.x * 6;
+          const y1 = fromNode.y * 3;
+          const x2 = toNode.x * 6;
+          const y2 = toNode.y * 3;
+          return (
+            <motion.line
+              key={`${from}-${to}`}
+              x1={x1} y1={y1} x2={x2} y2={y2}
+              stroke="#F9731625"
+              strokeWidth="1"
+              strokeDasharray="4 4"
+              initial={{ pathLength: instant ? 1 : 0, opacity: instant ? 1 : 0 }}
+              animate={isInView ? { pathLength: 1, opacity: 1 } : {}}
+              transition={{ duration: instant ? 0 : 0.6, delay: instant ? 0 : 0.3 + i * 0.08 }}
+            />
+          );
+        })}
+
+        {LLM_NODES.map((node, i) => {
+          const colors = categoryColors[node.category];
+          const cx = node.x * 6;
+          const cy = node.y * 3;
+          const isCore = node.category === 'core';
+          const r = isCore ? 36 : 28;
+          return (
+            <motion.g
+              key={node.id}
+              initial={{ opacity: instant ? 1 : 0, scale: instant ? 1 : 0.5 }}
+              animate={isInView ? { opacity: 1, scale: 1 } : {}}
+              transition={{ duration: instant ? 0 : 0.5, delay: instant ? 0 : (isCore ? 0 : 0.15 + i * 0.07) }}
+              style={{ transformOrigin: `${cx}px ${cy}px` }}
+            >
+              {isCore && (
+                <motion.circle
+                  cx={cx} cy={cy} r={r + 8}
+                  fill="none" stroke="#F9731620" strokeWidth="1"
+                  strokeDasharray="3 3"
+                  initial={{ scale: instant ? 1 : 0.8, opacity: instant ? 0.5 : 0 }}
+                  animate={isInView ? (instant ? { scale: 1, opacity: 0.5 } : { scale: [1, 1.15, 1], opacity: [0.3, 0.6, 0.3] }) : {}}
+                  transition={instant ? { duration: 0 } : { duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                  style={{ transformOrigin: `${cx}px ${cy}px` }}
+                />
+              )}
+              <circle cx={cx} cy={cy} r={r} fill={colors.bg} stroke={colors.border} strokeWidth={isCore ? 2 : 1} />
+              <text x={cx} y={cy + (isCore ? 1 : 1)} textAnchor="middle" fill={colors.text} fontSize={isCore ? 13 : 10} fontWeight={isCore ? 700 : 500} dominantBaseline="middle">
+                {node.label}
+              </text>
+            </motion.g>
+          );
+        })}
+      </svg>
+
+      <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 mt-6">
+        {[
+          { label: 'Frontier Models', color: '#3b82f6' },
+          { label: 'Open Source', color: '#22c55e' },
+          { label: 'Enterprise', color: '#a855f7' },
+          { label: 'Grysics', color: '#F97316' },
+        ].map((item) => (
+          <div key={item.label} className="flex items-center gap-2">
+            <div className="w-2 h-2 rounded-full" style={{ backgroundColor: item.color }} />
+            <span className="text-[11px] text-white/40">{item.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+const BENCHMARK_DATA = [
+  { metric: 'Hallucination Rate', before: 14.2, after: 1.8, unit: '%', lowerBetter: true },
+  { metric: 'Accuracy Score', before: 78, after: 96, unit: '%', lowerBetter: false },
+  { metric: 'Edge Case Pass', before: 42, after: 94, unit: '%', lowerBetter: false },
+  { metric: 'Regression Catch', before: 23, after: 98, unit: '%', lowerBetter: false },
+  { metric: 'Avg Response Time', before: 2.4, after: 0.8, unit: 's', lowerBetter: true },
+  { metric: 'Deploy Confidence', before: 61, after: 99.2, unit: '%', lowerBetter: false },
+];
+
+export function BenchmarkChart() {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-30px" });
+  const prefersReducedMotion = useReducedMotion();
+  const instant = prefersReducedMotion;
+
+  return (
+    <div ref={ref} className="space-y-5" role="list" aria-label="Benchmarking results before and after Grysics">
+      <div className="flex items-center gap-6 mb-6">
+        <div className="flex items-center gap-2">
+          <div className="w-3 h-3 rounded-sm bg-white/10 border border-white/20" />
+          <span className="text-[11px] text-white/40">Without Grysics</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-3 h-3 rounded-sm bg-primary" />
+          <span className="text-[11px] text-white/40">With Grysics</span>
+        </div>
+      </div>
+
+      {BENCHMARK_DATA.map((item, i) => {
+        const maxVal = item.unit === 's' ? 3 : 100;
+        const beforePct = (item.before / maxVal) * 100;
+        const afterPct = (item.after / maxVal) * 100;
+        const improved = item.lowerBetter ? item.before > item.after : item.after > item.before;
+        const delta = item.lowerBetter
+          ? `-${Math.round(((item.before - item.after) / item.before) * 100)}%`
+          : `+${Math.round(((item.after - item.before) / item.before) * 100)}%`;
+
+        return (
+          <motion.div
+            key={item.metric}
+            initial={{ opacity: instant ? 1 : 0, y: instant ? 0 : 15 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: instant ? 0 : 0.4, delay: instant ? 0 : i * 0.1 }}
+            className="group"
+            role="listitem"
+            aria-label={`${item.metric}: ${item.before}${item.unit} without Grysics, ${item.after}${item.unit} with Grysics`}
+          >
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-sm text-white font-medium">{item.metric}</span>
+              <span className={`text-xs font-mono font-semibold ${improved ? 'text-green-400' : 'text-red-400'}`}>
+                {delta}
+              </span>
+            </div>
+            <div className="space-y-1.5">
+              <div className="flex items-center gap-3">
+                <div className="flex-1 h-5 bg-white/5 rounded overflow-hidden relative">
+                  <motion.div
+                    className="h-full rounded bg-white/10 origin-left"
+                    style={{ width: `${beforePct}%` }}
+                    initial={{ scaleX: instant ? 1 : 0 }}
+                    animate={isInView ? { scaleX: 1 } : {}}
+                    transition={{ duration: instant ? 0 : 0.6, delay: instant ? 0 : i * 0.1 + 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+                  />
+                </div>
+                <span className="text-[11px] text-white/40 font-mono w-14 text-right">{item.before}{item.unit}</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="flex-1 h-5 bg-white/5 rounded overflow-hidden relative">
+                  <motion.div
+                    className={`h-full rounded origin-left ${item.lowerBetter ? 'bg-green-500' : 'bg-primary'}`}
+                    style={{ width: `${afterPct}%` }}
+                    initial={{ scaleX: instant ? 1 : 0 }}
+                    animate={isInView ? { scaleX: 1 } : {}}
+                    transition={{ duration: instant ? 0 : 0.8, delay: instant ? 0 : i * 0.1 + 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+                  />
+                </div>
+                <span className="text-[11px] text-primary font-mono font-semibold w-14 text-right">{item.after}{item.unit}</span>
+              </div>
+            </div>
+          </motion.div>
+        );
+      })}
+    </div>
+  );
+}
+
 export function WaitlistForm({ variant = 'dark' }: { variant?: 'dark' | 'light' }) {
   const [email, setEmail] = useState('');
   const [building, setBuilding] = useState('');

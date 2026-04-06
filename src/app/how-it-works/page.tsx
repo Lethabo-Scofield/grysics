@@ -5,7 +5,7 @@ import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
-import { fade, ArchitectureDiagram, VerificationTerminal, CoverageGraph, WaitlistForm } from '@/components/shared';
+import { fade, ArchitectureDiagram, VerificationTerminal, CoverageGraph, LLMNetworkDiagram, BenchmarkChart, WaitlistForm } from '@/components/shared';
 
 export default function HowItWorksPage() {
   return (
@@ -64,6 +64,38 @@ export default function HowItWorksPage() {
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="py-20 sm:py-32 border-b border-neutral-100">
+        <div className="max-w-5xl mx-auto px-5 sm:px-6">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            custom={0}
+            variants={fade}
+            className="text-center mb-12 sm:mb-16"
+          >
+            <p className="text-xs uppercase tracking-[0.2em] text-neutral-400 font-medium mb-4">Ecosystem</p>
+            <h2 className="font-serif text-2xl sm:text-5xl tracking-tight text-neutral-900 mb-4">
+              Works with every LLM.
+            </h2>
+            <p className="text-sm sm:text-base text-neutral-500 font-light max-w-lg mx-auto">
+              Grysics verifies outputs from frontier models, open-source LLMs, and enterprise AI — all through a single integration.
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            custom={1}
+            variants={fade}
+            className="bg-neutral-950 rounded-2xl p-6 sm:p-10 border border-neutral-200/10"
+          >
+            <LLMNetworkDiagram />
+          </motion.div>
         </div>
       </section>
 
@@ -139,6 +171,52 @@ export default function HowItWorksPage() {
           >
             <CoverageGraph />
           </motion.div>
+        </div>
+      </section>
+
+      <section className="py-20 sm:py-32 border-b border-neutral-100">
+        <div className="max-w-5xl mx-auto px-5 sm:px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              custom={0}
+              variants={fade}
+            >
+              <p className="text-xs uppercase tracking-[0.2em] text-neutral-400 font-medium mb-4">Benchmarks</p>
+              <h2 className="font-serif text-2xl sm:text-4xl tracking-tight text-neutral-900 mb-4">
+                Measurable improvement.
+                <span className="text-neutral-400"> Every metric.</span>
+              </h2>
+              <p className="text-sm sm:text-base text-neutral-500 font-light leading-relaxed mb-8">
+                Side-by-side comparison of AI deployments with and without Grysics verification. These benchmarks are based on aggregated data across chatbot, RAG, and agent workloads.
+              </p>
+              <div className="space-y-4">
+                {[
+                  { value: '87%', label: 'reduction in hallucination rate' },
+                  { value: '2.3x', label: 'faster failure detection' },
+                  { value: '124%', label: 'improvement in edge case handling' },
+                ].map((item) => (
+                  <div key={item.label} className="flex items-baseline gap-3">
+                    <span className="font-serif text-xl italic text-primary font-semibold">{item.value}</span>
+                    <span className="text-sm text-neutral-500">{item.label}</span>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              custom={2}
+              variants={fade}
+              className="bg-neutral-950 rounded-2xl p-6 sm:p-8 border border-neutral-200/10"
+            >
+              <BenchmarkChart />
+            </motion.div>
+          </div>
         </div>
       </section>
 

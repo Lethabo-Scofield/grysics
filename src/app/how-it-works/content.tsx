@@ -83,7 +83,7 @@ export default function HowItWorksContent() {
               Works with every LLM.
             </h2>
             <p className="text-sm sm:text-base text-neutral-500 font-light max-w-lg mx-auto">
-              Grysics verifies outputs from frontier models, open-source LLMs, and enterprise AI — all through a single integration.
+              Grysics verifies outputs from frontier models, open-source LLMs, and enterprise AI, all through a single integration.
             </p>
           </motion.div>
 

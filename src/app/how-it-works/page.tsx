@@ -17,14 +17,14 @@ export const metadata: Metadata = {
     'model validation pipeline',
   ],
   openGraph: {
-    title: 'How It Works — Grysics AI Verification Engine',
+    title: 'How It Works - Grysics AI Verification Engine',
     description: 'One verification layer between build and deploy. See how Grysics catches AI failures before your users do.',
     url: '/how-it-works',
     type: 'website',
   },
   twitter: {
     card: 'summary',
-    title: 'How It Works — Grysics AI Verification Engine',
+    title: 'How It Works - Grysics AI Verification Engine',
     description: 'One verification layer between build and deploy. See how Grysics catches AI failures before your users do.',
   },
   alternates: {

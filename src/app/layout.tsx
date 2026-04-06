@@ -12,7 +12,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL("https://grysics.com"),
   title: {
-    default: "Grysics — Verify your AI before it ships",
+    default: "Grysics - Verify your AI before it ships",
     template: "%s | Grysics",
   },
   description:
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     siteName: "Grysics",
-    title: "Grysics — Verify your AI before it ships",
+    title: "Grysics - Verify your AI before it ships",
     description:
       "Catch failures in chatbots, agents, RAG systems, and generative AI before your users do.",
     images: [
@@ -61,13 +61,13 @@ export const metadata: Metadata = {
         url: "/images/grysics-logo.png",
         width: 512,
         height: 512,
-        alt: "Grysics — AI Verification Engine",
+        alt: "Grysics - AI Verification Engine",
       },
     ],
   },
   twitter: {
     card: "summary",
-    title: "Grysics — Verify your AI before it ships",
+    title: "Grysics - Verify your AI before it ships",
     description:
       "Catch failures in chatbots, agents, RAG systems, and generative AI before your users do.",
     images: ["/images/grysics-logo.png"],

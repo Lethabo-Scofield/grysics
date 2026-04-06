@@ -98,7 +98,7 @@ export default function HomePage() {
               <span className="text-white/40"> for every AI.</span>
             </h2>
             <p className="text-sm sm:text-base text-neutral-400 font-light max-w-lg mx-auto">
-              Grysics checks your AI for hallucinations, regressions, edge case failures, and latency issues — automatically, before deployment.
+              Grysics checks your AI for hallucinations, regressions, edge case failures, and latency issues, automatically, before deployment.
             </p>
           </motion.div>
 

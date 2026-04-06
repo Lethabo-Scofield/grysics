@@ -14,14 +14,14 @@ export const metadata: Metadata = {
     'AI deployment verification',
   ],
   openGraph: {
-    title: 'Book a Demo — Grysics AI Verification',
+    title: 'Book a Demo - Grysics AI Verification',
     description: 'See Grysics in action. Get a walkthrough of how we catch failures in your AI before they reach users.',
     url: '/demo',
     type: 'website',
   },
   twitter: {
     card: 'summary',
-    title: 'Book a Demo — Grysics AI Verification',
+    title: 'Book a Demo - Grysics AI Verification',
     description: 'See Grysics in action. Get a walkthrough of how we catch failures in your AI before they reach users.',
   },
   alternates: {

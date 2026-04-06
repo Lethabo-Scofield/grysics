@@ -2,7 +2,7 @@
 
 ## Overview
 
-A multi-page Next.js site for **Grysics** (by Olyxee), an AI verification engine. The landing page is streamlined to essentials (hero + stats + waitlist). Detailed content lives on dedicated pages: `/how-it-works` and `/demo`.
+A single-page Next.js landing site for **Grysics** (by Olyxee), an AI verification engine. All content lives on the landing page (`/`), with a separate demo booking page (`/demo`).
 
 ## Tech Stack
 
@@ -20,27 +20,25 @@ A multi-page Next.js site for **Grysics** (by Olyxee), an AI verification engine
 src/
   app/
     layout.tsx              - Root layout with SEO metadata, JSON-LD structured data, viewport config
-    page.tsx                - Landing page (hero + stats + waitlist CTA)
-    how-it-works/
-      page.tsx              - Server component with per-page metadata, imports content.tsx
-      content.tsx           - Client component with all how-it-works UI
+    page.tsx                - Landing page (hero + how it works + LLM ecosystem + verification + coverage + benchmarks + why it matters + waitlist CTA)
     demo/
       page.tsx              - Server component with per-page metadata, imports content.tsx
       content.tsx           - Client component with demo booking UI
-    sitemap.ts              - Dynamic sitemap.xml generation (3 pages)
+    sitemap.ts              - Dynamic sitemap.xml generation (2 pages)
     robots.ts               - Dynamic robots.txt generation
     globals.css             - Tailwind directives, grain texture, reduced-motion, safe-area, mobile input zoom fix
     api/
       waitlist/route.ts     - POST /api/waitlist — stores waitlist signups
       demo/route.ts         - POST /api/demo — stores demo requests
   components/
-    header.tsx              - Scroll-aware header, page-aware (transparent on dark pages, solid on light)
+    header.tsx              - Scroll-aware header (transparent on home hero, solid when scrolled/other pages)
     footer.tsx              - Footer with nav links and company email
     shared.tsx              - Shared components: fade, ArchitectureDiagram, VerificationTerminal, CoverageGraph, LLMNetworkDiagram, BenchmarkChart, WaitlistForm, DemoForm
 public/
   images/
     grysics-logo.png        - Product logo
     bg.png                  - Hero background image
+    logos/                  - LLM brand logos (openai.png, anthropic.png, google.svg, meta.svg, mistral.png, microsoft.png, cohere.png, falcon.png)
   favicon.png               - Favicon
 data/                       - Form submissions (gitignored)
 next.config.js              - Next.js config (standalone output, unoptimized images)
@@ -51,20 +49,13 @@ tailwind.config.ts          - Tailwind config with serif font + orange primary c
 
 ### `/` — Landing Page
 - Hero with background image, headline, waitlist form
-- Stats overview (< 3min, 12+ checks, 99.9% success, 0 missed)
-- "See how it works" link to /how-it-works
-- Status + second waitlist CTA
-- "Book a Demo" link to /demo
-
-### `/how-it-works` — How It Works
-- Architecture diagram (animated SVG flow)
-- Stats grid
-- LLM Network diagram (8 LLMs in two rows around Grysics: GPT-4o, Claude 3.5, Gemini, Llama 3 / Mistral, Phi-3, Cohere, Falcon — color-coded by frontier/open/enterprise, flexbox layout with real brand logos)
-- Live verification terminal (animated typing)
-- Coverage graph (animated bar chart, 8 AI categories)
-- Benchmarking chart (before/after comparison: hallucination rate, accuracy, edge cases, regression catch, response time, deploy confidence)
-- Why it matters (3 stat cards)
-- Waitlist CTA + Book Demo link
+- How it works: architecture diagram + stats grid
+- LLM Ecosystem: 8 LLM logos (GPT-4o, Claude 3.5, Gemini, Llama 3, Mistral, Phi-3, Cohere, Falcon) in flexbox layout around Grysics center
+- Live verification: terminal animation + check list
+- Coverage: animated bar chart (8 AI categories)
+- Benchmarks: before/after comparison chart
+- Why it matters: 3 stat cards
+- CTA: waitlist form + Book a Demo link
 
 ### `/demo` — Book a Demo
 - Two-column layout: value props + demo form
@@ -74,16 +65,15 @@ tailwind.config.ts          - Tailwind config with serif font + orange primary c
 ## SEO
 
 - **Root layout**: Title template, description, keywords, OG/Twitter cards, JSON-LD SoftwareApplication schema
-- **Per-page metadata**: Each sub-page (how-it-works, demo) exports its own Metadata with title, description, keywords, canonical URL, OG/Twitter
-- **Sitemap**: Auto-generated at `/sitemap.xml` with all 3 pages, priorities, and change frequencies
+- **Per-page metadata**: Demo page exports its own Metadata with title, description, keywords, canonical URL, OG/Twitter
+- **Sitemap**: Auto-generated at `/sitemap.xml` with 2 pages
 - **Robots.txt**: Auto-generated at `/robots.txt`, allows all crawlers, disallows `/api/`
-- **Page structure**: Sub-pages use server component wrappers (page.tsx) that export metadata, importing client content components (content.tsx)
 
 ## Navigation
 
-- **Header**: Logo, "How it works" (link), "Sign in" (mailto), "Book Demo" (link to /demo)
-- **Footer**: How it works, Book a Demo, Contact (mailto), Olyxee (external)
-- Header adapts: transparent on dark-hero pages (/, /how-it-works), solid white on light pages (/demo)
+- **Header**: Logo, "Sign in" (mailto), "Book Demo" (link to /demo)
+- **Footer**: Book a Demo, Contact (mailto), Olyxee (external)
+- Header adapts: transparent on home hero, solid white when scrolled or on other pages
 
 ## Functional Buttons & Forms
 

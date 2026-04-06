@@ -11,8 +11,7 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const isHome = pathname === '/';
-  const isHowItWorks = pathname === '/how-it-works';
-  const hasDarkHero = isHome || isHowItWorks;
+  const hasDarkHero = isHome;
   const showSolid = !hasDarkHero || scrolled;
 
   useEffect(() => {
@@ -48,16 +47,6 @@ export default function Header() {
         </Link>
 
         <nav className="hidden md:flex items-center gap-1">
-          <Link
-            href="/how-it-works"
-            className={`px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 ${
-              showSolid
-                ? 'text-neutral-500 hover:text-neutral-900 hover:bg-neutral-50'
-                : 'text-white/60 hover:text-white hover:bg-white/10'
-            }`}
-          >
-            How it works
-          </Link>
           <a
             href="mailto:scofield@olyxee.com?subject=Grysics%20Sign%20In%20Request"
             className={`px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 ${
@@ -108,13 +97,6 @@ export default function Header() {
             className="md:hidden overflow-hidden bg-white/95 backdrop-blur-xl border-t border-neutral-100"
           >
             <div className="px-5 py-5 flex flex-col gap-2">
-              <Link
-                href="/how-it-works"
-                className="flex items-center justify-center px-5 py-3 text-neutral-600 text-sm font-medium rounded-xl hover:bg-neutral-50 transition-colors"
-                onClick={() => setMenuOpen(false)}
-              >
-                How it works
-              </Link>
               <a
                 href="mailto:scofield@olyxee.com?subject=Grysics%20Sign%20In%20Request"
                 className="flex items-center justify-center px-5 py-3 text-neutral-600 text-sm font-medium rounded-xl hover:bg-neutral-50 transition-colors"

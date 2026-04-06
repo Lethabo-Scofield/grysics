@@ -2,7 +2,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 const footerLinks = [
-  { label: 'How it works', href: '/how-it-works' },
   { label: 'Book a Demo', href: '/demo' },
   { label: 'Contact', href: 'mailto:scofield@olyxee.com?subject=Grysics%20Inquiry', external: true },
   { label: 'Olyxee', href: 'https://olyxee.com', external: true },

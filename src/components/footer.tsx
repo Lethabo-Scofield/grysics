@@ -1,5 +1,11 @@
 import Image from 'next/image';
 
+const footerLinks = [
+  { label: 'Docs', href: '#how-it-works' },
+  { label: 'Contact', href: 'mailto:scofield@olyxee.com?subject=Grysics%20Inquiry' },
+  { label: 'Olyxee', href: 'https://olyxee.com', external: true },
+];
+
 export default function Footer() {
   return (
     <footer className="border-t border-neutral-100 py-10 sm:py-12 px-5 sm:px-6">
@@ -11,22 +17,26 @@ export default function Footer() {
           </div>
 
           <nav aria-label="Footer navigation" className="flex flex-wrap gap-x-6 gap-y-3">
-            {["Docs", "Contact", "Olyxee"].map((label) => (
+            {footerLinks.map((link) => (
               <a
-                key={label}
-                href="#"
+                key={link.label}
+                href={link.href}
+                {...(link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                 className="text-sm text-neutral-500 hover:text-neutral-900 transition-colors py-1"
               >
-                {label}
+                {link.label}
               </a>
             ))}
           </nav>
         </div>
 
-        <div className="mt-8 pt-6 border-t border-neutral-100">
+        <div className="mt-8 pt-6 border-t border-neutral-100 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
           <p className="text-xs text-neutral-400">
-            &copy; {new Date().getFullYear()} Grysics. All rights reserved.
+            &copy; {new Date().getFullYear()} Grysics by Olyxee. All rights reserved.
           </p>
+          <a href="mailto:scofield@olyxee.com" className="text-xs text-neutral-400 hover:text-neutral-600 transition-colors">
+            scofield@olyxee.com
+          </a>
         </div>
       </div>
     </footer>

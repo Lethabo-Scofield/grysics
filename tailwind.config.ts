@@ -9,7 +9,24 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        serif: ["Georgia", "Cambria", "Times New Roman", "Times", "serif"],
+        sans: [
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "Segoe UI",
+          "Roboto",
+          "Helvetica Neue",
+          "Arial",
+          "sans-serif",
+        ],
+      },
+      colors: {
+        primary: {
+          DEFAULT: "#F97316",
+          light: "#FB923C",
+          dark: "#EA580C",
+          50: "#FFF7ED",
+          100: "#FFEDD5",
+        },
       },
     },
   },

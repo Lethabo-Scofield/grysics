@@ -1,36 +1,22 @@
-import Image from 'next/image';
-
 export default function Footer() {
   return (
-    <footer className="border-t border-neutral-100 py-10 sm:py-12 px-4 sm:px-6">
-      <div className="max-w-5xl mx-auto">
-        <div className="flex flex-col gap-8 sm:flex-row sm:justify-between sm:items-center">
-          <div className="flex items-center gap-2.5">
-            <Image src="/images/grysics-logo.png" alt="Grysics" width={24} height={24} className="rounded-md" style={{ width: 24, height: 24 }} />
-            <p className="font-serif text-lg text-neutral-900">Grysics</p>
-          </div>
+    <footer className="py-16 px-6">
+      <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+        <span className="text-[13px] text-neutral-300">
+          &copy; {new Date().getFullYear()} Grysics
+        </span>
 
-          <nav aria-label="Footer navigation" className="flex flex-wrap gap-x-6 gap-y-3">
-            <a href="#features" className="text-sm text-neutral-500 hover:text-neutral-900 transition-colors py-1">
-              Features
+        <nav className="flex items-center gap-8">
+          {["Docs", "Contact", "Olyxee"].map((label) => (
+            <a
+              key={label}
+              href="#"
+              className="text-[13px] text-neutral-400 hover:text-neutral-900 transition-colors duration-200"
+            >
+              {label}
             </a>
-            <a href="#how-it-works" className="text-sm text-neutral-500 hover:text-neutral-900 transition-colors py-1">
-              How it works
-            </a>
-            <a href="#how-it-works" className="text-sm text-neutral-500 hover:text-neutral-900 transition-colors py-1">
-              Performance
-            </a>
-            <a href="#early-access" className="text-sm text-neutral-500 hover:text-neutral-900 transition-colors py-1">
-              Early Access
-            </a>
-          </nav>
-        </div>
-
-        <div className="mt-8 pt-6 border-t border-neutral-100">
-          <p className="text-xs text-neutral-400">
-            &copy; {new Date().getFullYear()} Grysics. All rights reserved.
-          </p>
-        </div>
+          ))}
+        </nav>
       </div>
     </footer>
   );

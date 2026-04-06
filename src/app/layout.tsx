@@ -115,13 +115,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <head>
+      <body className="overflow-x-hidden antialiased">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-      </head>
-      <body className="overflow-x-hidden antialiased">{children}</body>
+        {children}
+      </body>
     </html>
   );
 }

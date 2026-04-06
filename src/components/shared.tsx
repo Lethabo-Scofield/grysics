@@ -195,24 +195,31 @@ export function CoverageGraph() {
   );
 }
 
-const LLM_NODES = [
-  { id: 'gpt4', label: 'GPT-4o', x: 50, y: 50, category: 'frontier' },
-  { id: 'claude', label: 'Claude 3.5', x: 82, y: 25, category: 'frontier' },
-  { id: 'gemini', label: 'Gemini Pro', x: 50, y: 15, category: 'frontier' },
-  { id: 'llama', label: 'Llama 3', x: 18, y: 28, category: 'open' },
-  { id: 'mistral', label: 'Mistral', x: 15, y: 60, category: 'open' },
-  { id: 'phi', label: 'Phi-3', x: 30, y: 80, category: 'open' },
-  { id: 'cohere', label: 'Cohere', x: 75, y: 75, category: 'enterprise' },
-  { id: 'palm', label: 'PaLM 2', x: 85, y: 50, category: 'enterprise' },
-  { id: 'falcon', label: 'Falcon', x: 22, y: 48, category: 'open' },
-  { id: 'grysics', label: 'Grysics', x: 50, y: 48, category: 'core' },
+const LLM_MODELS = [
+  { id: 'gpt4', label: 'GPT-4o', logo: '/images/logos/openai.png', cat: 'f' },
+  { id: 'claude', label: 'Claude 3.5', logo: '/images/logos/anthropic.png', cat: 'f' },
+  { id: 'gemini', label: 'Gemini', logo: '/images/logos/google.svg', cat: 'f' },
+  { id: 'llama', label: 'Llama 3', logo: '/images/logos/meta.svg', cat: 'o' },
+  { id: 'mistral', label: 'Mistral', logo: '/images/logos/mistral.png', cat: 'o' },
+  { id: 'phi', label: 'Phi-3', logo: '/images/logos/microsoft.png', cat: 'o' },
+  { id: 'cohere', label: 'Cohere', logo: '/images/logos/cohere.png', cat: 'e' },
+  { id: 'falcon', label: 'Falcon', logo: '/images/logos/falcon.png', cat: 'e' },
 ];
 
-const LLM_CONNECTIONS: [string, string][] = [
-  ['grysics', 'gpt4'], ['grysics', 'claude'], ['grysics', 'gemini'],
-  ['grysics', 'llama'], ['grysics', 'mistral'], ['grysics', 'phi'],
-  ['grysics', 'cohere'], ['grysics', 'palm'], ['grysics', 'falcon'],
-];
+function LLMLogoNode({ logo, label, cat }: {
+  logo: string; label: string; cat: string;
+}) {
+  const ringCls = cat === 'f' ? 'ring-blue-500/30' : cat === 'o' ? 'ring-emerald-500/30' : 'ring-violet-500/30';
+  const textCls = cat === 'f' ? 'text-blue-300/70' : cat === 'o' ? 'text-emerald-300/70' : 'text-violet-300/70';
+  return (
+    <div className="flex flex-col items-center gap-1.5">
+      <div className={`w-11 h-11 sm:w-14 sm:h-14 rounded-full bg-white/[0.06] ring-1 ${ringCls} flex items-center justify-center`}>
+        <img src={logo} alt={label} className="w-6 h-6 sm:w-8 sm:h-8 object-contain" loading="lazy" />
+      </div>
+      <span className={`text-[9px] sm:text-[11px] font-medium whitespace-nowrap ${textCls}`}>{label}</span>
+    </div>
+  );
+}
 
 export function LLMNetworkDiagram() {
   const ref = useRef<HTMLDivElement>(null);
@@ -220,75 +227,43 @@ export function LLMNetworkDiagram() {
   const prefersReducedMotion = useReducedMotion();
   const instant = prefersReducedMotion;
 
-  const categoryColors: Record<string, { bg: string; border: string; text: string; dot: string }> = {
-    core: { bg: '#F9731620', border: '#F97316', text: '#F97316', dot: '#F97316' },
-    frontier: { bg: '#3b82f610', border: '#3b82f640', text: '#93c5fd', dot: '#3b82f6' },
-    open: { bg: '#22c55e10', border: '#22c55e40', text: '#86efac', dot: '#22c55e' },
-    enterprise: { bg: '#a855f710', border: '#a855f740', text: '#d8b4fe', dot: '#a855f7' },
-  };
+  const topRow = LLM_MODELS.slice(0, 4);
+  const bottomRow = LLM_MODELS.slice(4);
 
   return (
-    <div ref={ref} className="relative w-full max-w-3xl mx-auto">
-      <svg viewBox="0 0 600 300" className="w-full h-auto" fill="none" role="img" aria-labelledby="llm-net-title llm-net-desc">
-        <title id="llm-net-title">LLM Network</title>
-        <desc id="llm-net-desc">Network diagram showing LLMs that Grysics can verify: GPT-4o, Claude 3.5, Gemini Pro, Llama 3, Mistral, Phi-3, Cohere, PaLM 2, and Falcon, all connected to a central Grysics node.</desc>
+    <motion.div
+      ref={ref}
+      className="w-full max-w-xl mx-auto py-4 sm:py-8"
+      role="img"
+      aria-label="Network diagram showing LLMs that Grysics verifies"
+      initial={{ opacity: instant ? 1 : 0 }}
+      animate={isInView ? { opacity: 1 } : {}}
+      transition={{ duration: instant ? 0 : 0.6 }}
+    >
+      <div className="flex justify-center gap-6 sm:gap-10">
+        {topRow.map((m) => (
+          <LLMLogoNode key={m.id} logo={m.logo} label={m.label} cat={m.cat} />
+        ))}
+      </div>
 
-        {LLM_CONNECTIONS.map(([from, to], i) => {
-          const fromNode = LLM_NODES.find(n => n.id === from)!;
-          const toNode = LLM_NODES.find(n => n.id === to)!;
-          const x1 = fromNode.x * 6;
-          const y1 = fromNode.y * 3;
-          const x2 = toNode.x * 6;
-          const y2 = toNode.y * 3;
-          return (
-            <motion.line
-              key={`${from}-${to}`}
-              x1={x1} y1={y1} x2={x2} y2={y2}
-              stroke="#F9731625"
-              strokeWidth="1"
-              strokeDasharray="4 4"
-              initial={{ pathLength: instant ? 1 : 0, opacity: instant ? 1 : 0 }}
-              animate={isInView ? { pathLength: 1, opacity: 1 } : {}}
-              transition={{ duration: instant ? 0 : 0.6, delay: instant ? 0 : 0.3 + i * 0.08 }}
-            />
-          );
-        })}
+      <div className="flex flex-col items-center my-6 sm:my-8">
+        <div className="relative">
+          <div className="absolute -inset-3 rounded-full border border-dashed border-primary/15" />
+          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-primary/10 border-2 border-primary flex items-center justify-center">
+            <img src="/images/grysics-logo.png" alt="Grysics" className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg" />
+          </div>
+        </div>
+        <span className="text-primary text-xs sm:text-sm font-bold mt-2">Grysics</span>
+        <span className="text-white/30 text-[9px] sm:text-[10px] mt-0.5">Verification Engine</span>
+      </div>
 
-        {LLM_NODES.map((node, i) => {
-          const colors = categoryColors[node.category];
-          const cx = node.x * 6;
-          const cy = node.y * 3;
-          const isCore = node.category === 'core';
-          const r = isCore ? 36 : 28;
-          return (
-            <motion.g
-              key={node.id}
-              initial={{ opacity: instant ? 1 : 0, scale: instant ? 1 : 0.5 }}
-              animate={isInView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ duration: instant ? 0 : 0.5, delay: instant ? 0 : (isCore ? 0 : 0.15 + i * 0.07) }}
-              style={{ transformOrigin: `${cx}px ${cy}px` }}
-            >
-              {isCore && (
-                <motion.circle
-                  cx={cx} cy={cy} r={r + 8}
-                  fill="none" stroke="#F9731620" strokeWidth="1"
-                  strokeDasharray="3 3"
-                  initial={{ scale: instant ? 1 : 0.8, opacity: instant ? 0.5 : 0 }}
-                  animate={isInView ? (instant ? { scale: 1, opacity: 0.5 } : { scale: [1, 1.15, 1], opacity: [0.3, 0.6, 0.3] }) : {}}
-                  transition={instant ? { duration: 0 } : { duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                  style={{ transformOrigin: `${cx}px ${cy}px` }}
-                />
-              )}
-              <circle cx={cx} cy={cy} r={r} fill={colors.bg} stroke={colors.border} strokeWidth={isCore ? 2 : 1} />
-              <text x={cx} y={cy + (isCore ? 1 : 1)} textAnchor="middle" fill={colors.text} fontSize={isCore ? 13 : 10} fontWeight={isCore ? 700 : 500} dominantBaseline="middle">
-                {node.label}
-              </text>
-            </motion.g>
-          );
-        })}
-      </svg>
+      <div className="flex justify-center gap-6 sm:gap-10">
+        {bottomRow.map((m) => (
+          <LLMLogoNode key={m.id} logo={m.logo} label={m.label} cat={m.cat} />
+        ))}
+      </div>
 
-      <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 mt-6">
+      <div className="flex flex-wrap justify-center gap-x-5 sm:gap-x-6 gap-y-2 mt-6 sm:mt-8">
         {[
           { label: 'Frontier Models', color: '#3b82f6' },
           { label: 'Open Source', color: '#22c55e' },
@@ -297,11 +272,11 @@ export function LLMNetworkDiagram() {
         ].map((item) => (
           <div key={item.label} className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full" style={{ backgroundColor: item.color }} />
-            <span className="text-[11px] text-white/40">{item.label}</span>
+            <span className="text-[10px] sm:text-[11px] text-white/40">{item.label}</span>
           </div>
         ))}
       </div>
-    </div>
+    </motion.div>
   );
 }
 

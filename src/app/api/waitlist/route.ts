@@ -39,8 +39,12 @@ export async function POST(request: NextRequest) {
     await ensureDataDir();
     const entries = await readEntries();
 
-    const duplicate = entries.some((e: unknown) => (e as { email: string }).email === email);
-    if (duplicate) {
+    const existingIndex = entries.findIndex((e: unknown) => (e as { email: string }).email === email);
+    if (existingIndex !== -1) {
+      if (building) {
+        (entries[existingIndex] as Record<string, unknown>).building = building;
+        await fs.writeFile(DATA_FILE, JSON.stringify(entries, null, 2));
+      }
       return NextResponse.json({ success: true, message: 'Already on the list' });
     }
 

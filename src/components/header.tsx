@@ -3,11 +3,17 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+  const isHome = pathname === '/';
+  const isHowItWorks = pathname === '/how-it-works';
+  const hasDarkHero = isHome || isHowItWorks;
+  const showSolid = !hasDarkHero || scrolled;
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -19,7 +25,7 @@ export default function Header() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
+        showSolid
           ? 'bg-white/90 backdrop-blur-xl border-b border-neutral-200/60 shadow-sm'
           : 'bg-transparent border-b border-transparent'
       }`}
@@ -35,38 +41,48 @@ export default function Header() {
             style={{ width: 32, height: 32 }}
           />
           <span className={`font-serif text-xl tracking-tight transition-colors duration-300 ${
-            scrolled ? 'text-neutral-900' : 'text-white'
+            showSolid ? 'text-neutral-900' : 'text-white'
           }`}>
             Grysics
           </span>
         </Link>
 
-        <div className="hidden md:flex items-center gap-2">
+        <nav className="hidden md:flex items-center gap-1">
+          <Link
+            href="/how-it-works"
+            className={`px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 ${
+              showSolid
+                ? 'text-neutral-500 hover:text-neutral-900 hover:bg-neutral-50'
+                : 'text-white/60 hover:text-white hover:bg-white/10'
+            }`}
+          >
+            How it works
+          </Link>
           <a
             href="mailto:scofield@olyxee.com?subject=Grysics%20Sign%20In%20Request"
-            className={`px-5 py-2.5 text-sm font-medium rounded-full transition-all duration-300 ${
-              scrolled
-                ? 'text-neutral-500 hover:text-neutral-900'
-                : 'text-white/70 hover:text-white'
+            className={`px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 ${
+              showSolid
+                ? 'text-neutral-500 hover:text-neutral-900 hover:bg-neutral-50'
+                : 'text-white/60 hover:text-white hover:bg-white/10'
             }`}
           >
             Sign in
           </a>
-          <a
-            href="#book-demo"
-            className={`px-5 py-2.5 text-sm font-medium rounded-full transition-all duration-300 ${
-              scrolled
+          <Link
+            href="/demo"
+            className={`ml-1 px-5 py-2.5 text-sm font-medium rounded-full transition-all duration-300 ${
+              showSolid
                 ? 'bg-primary text-white hover:bg-primary-dark'
                 : 'bg-white text-neutral-900 hover:bg-white/90'
             }`}
           >
             Book Demo
-          </a>
-        </div>
+          </Link>
+        </nav>
 
         <button
           className={`md:hidden p-3 rounded-xl transition-colors duration-200 ${
-            scrolled ? 'text-neutral-600 hover:bg-neutral-100' : 'text-white hover:bg-white/10'
+            showSolid ? 'text-neutral-600 hover:bg-neutral-100' : 'text-white hover:bg-white/10'
           }`}
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
@@ -92,6 +108,13 @@ export default function Header() {
             className="md:hidden overflow-hidden bg-white/95 backdrop-blur-xl border-t border-neutral-100"
           >
             <div className="px-5 py-5 flex flex-col gap-2">
+              <Link
+                href="/how-it-works"
+                className="flex items-center justify-center px-5 py-3 text-neutral-600 text-sm font-medium rounded-xl hover:bg-neutral-50 transition-colors"
+                onClick={() => setMenuOpen(false)}
+              >
+                How it works
+              </Link>
               <a
                 href="mailto:scofield@olyxee.com?subject=Grysics%20Sign%20In%20Request"
                 className="flex items-center justify-center px-5 py-3 text-neutral-600 text-sm font-medium rounded-xl hover:bg-neutral-50 transition-colors"
@@ -99,13 +122,13 @@ export default function Header() {
               >
                 Sign in
               </a>
-              <a
-                href="#book-demo"
+              <Link
+                href="/demo"
                 className="flex items-center justify-center px-5 py-3 bg-primary text-white text-sm font-medium rounded-xl hover:bg-primary-dark transition-colors"
                 onClick={() => setMenuOpen(false)}
               >
                 Book Demo
-              </a>
+              </Link>
             </div>
           </motion.div>
         )}

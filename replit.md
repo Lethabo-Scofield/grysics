@@ -2,7 +2,7 @@
 
 ## Overview
 
-A single-page Next.js landing page for **Grysics** (by Olyxee), an AI verification engine. Covers all AI types with priority on Conversational AI, RAG systems, Autonomous Agents, and Generative AI. Features a full-screen hero with background image, serif typography, dark sections, orange primary accent, grain texture overlay, custom animated diagrams, functional forms, and a waitlist-focused CTA. Fully mobile responsive.
+A multi-page Next.js site for **Grysics** (by Olyxee), an AI verification engine. The landing page is streamlined to essentials (hero + stats + waitlist). Detailed content lives on dedicated pages: `/how-it-works` and `/demo`.
 
 ## Tech Stack
 
@@ -19,60 +19,69 @@ A single-page Next.js landing page for **Grysics** (by Olyxee), an AI verificati
 ```
 src/
   app/
-    layout.tsx          - Root layout with SEO metadata
-    page.tsx            - Main landing page (all sections + diagram components)
-    globals.css         - Tailwind directives, grain texture, reduced-motion, safe-area
+    layout.tsx              - Root layout with SEO metadata
+    page.tsx                - Landing page (hero + stats + waitlist CTA)
+    how-it-works/page.tsx   - Architecture diagram, terminal, coverage graph, failure stats
+    demo/page.tsx           - Book a Demo form page
+    globals.css             - Tailwind directives, grain texture, reduced-motion, safe-area
     api/
-      waitlist/route.ts - POST /api/waitlist — stores waitlist signups to data/waitlist.json
-      demo/route.ts     - POST /api/demo — stores demo requests to data/demo-requests.json
+      waitlist/route.ts     - POST /api/waitlist — stores waitlist signups
+      demo/route.ts         - POST /api/demo — stores demo requests
   components/
-    header.tsx          - Scroll-aware fixed header (transparent → white on scroll)
-    footer.tsx          - Footer with logo, nav links, and company email
+    header.tsx              - Scroll-aware header, page-aware (transparent on dark pages, solid on light)
+    footer.tsx              - Footer with nav links and company email
+    shared.tsx              - Shared components: fade, diagrams, forms (WaitlistForm, DemoForm, etc.)
 public/
   images/
-    grysics-logo.png    - Product logo
-    bg.png              - Hero background image
-  favicon.png           - Favicon
-data/                   - Form submissions (gitignored)
-  waitlist.json         - Waitlist email entries
-  demo-requests.json    - Demo booking requests
-next.config.js          - Next.js config (standalone output, unoptimized images)
-tailwind.config.ts      - Tailwind config with serif font + orange primary color
+    grysics-logo.png        - Product logo
+    bg.png                  - Hero background image
+  favicon.png               - Favicon
+data/                       - Form submissions (gitignored)
+next.config.js              - Next.js config (standalone output, unoptimized images)
+tailwind.config.ts          - Tailwind config with serif font + orange primary color
 ```
+
+## Pages
+
+### `/` — Landing Page
+- Hero with background image, headline, waitlist form
+- Stats overview (< 3min, 12+ checks, 99.9% success, 0 missed)
+- "See how it works" link to /how-it-works
+- Status + second waitlist CTA
+- "Book a Demo" link to /demo
+
+### `/how-it-works` — How It Works
+- Architecture diagram (animated SVG flow)
+- Stats grid
+- Live verification terminal (animated typing)
+- Coverage graph (animated bar chart, 8 AI categories)
+- Why it matters (3 stat cards)
+- Waitlist CTA + Book Demo link
+
+### `/demo` — Book a Demo
+- Two-column layout: value props + demo form
+- Form: name, email, company, AI type dropdown
+- "Prefer email?" fallback to scofield@olyxee.com
+
+## Navigation
+
+- **Header**: Logo, "How it works" (link), "Sign in" (mailto), "Book Demo" (link to /demo)
+- **Footer**: How it works, Book a Demo, Contact (mailto), Olyxee (external)
+- Header adapts: transparent on dark-hero pages (/, /how-it-works), solid white on light pages (/demo)
 
 ## Functional Buttons & Forms
 
-- **Join (Waitlist)**: POSTs email to `/api/waitlist`, stores in `data/waitlist.json`, shows success + optional "What are you building?" follow-up
-- **Book Demo**: Header button scrolls to #book-demo section. Form POSTs name/email/company/useCase to `/api/demo`, stores in `data/demo-requests.json`
-- **Sign in**: Opens mailto to scofield@olyxee.com (no auth system yet)
-- **Footer Contact**: Links to scofield@olyxee.com
-- **Footer Olyxee**: Links to https://olyxee.com (external)
-
-## Page Sections
-
-1. **Hero** — Full-screen bg image, "Verify your AI before it ships.", waitlist form
-2. **How it works** — Dark bg, animated architecture diagram with stats grid
-3. **Live verification** — White bg, two-column: check descriptions + animated terminal
-4. **Coverage** — Dark bg, animated horizontal bar chart showing 8 AI categories
-5. **Why it matters** — White bg, 3 stat cards with large numbers
-6. **Book a Demo** — White bg, two-column layout with value props + demo request form
-7. **Status + Waitlist** — White bg, "In development. Early access soon." with waitlist form
-8. **Footer** — Docs, Contact (mailto), Olyxee (external), company email
-
-## Custom Diagram Components
-
-- **ArchitectureDiagram**: SVG flow diagram with animated node connections
-- **VerificationTerminal**: Fake terminal that types out a live verification report
-- **CoverageGraph**: Animated horizontal bar chart showing verification coverage
+- **Join (Waitlist)**: POSTs to `/api/waitlist`, stores in `data/waitlist.json`
+- **Request Demo**: POSTs to `/api/demo`, stores in `data/demo-requests.json`
+- **Sign in**: Opens mailto to scofield@olyxee.com
+- **Contact**: mailto to scofield@olyxee.com
 
 ## Design System
 
-- **Hero**: Background image with dark overlay, white serif text, grain texture
-- **Dark sections**: `bg-neutral-950` with white text
-- **Light sections**: White background
 - **Primary color**: Orange (`#F97316`)
 - **Typography**: Georgia serif for headings, system sans for body
-- **Animations**: Subtle fade-up, animated diagrams, respects `prefers-reduced-motion`
+- **Dark sections**: `bg-neutral-950` with white text
+- **Animations**: Reduced-motion aware via `MotionConfig` + `useReducedMotion`
 - **Mobile**: Fully responsive, safe area insets, 44px+ touch targets
 - **Company email**: scofield@olyxee.com
 

@@ -5,7 +5,10 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
-  themeColor: "#ffffff",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0f" },
+  ],
   viewportFit: "cover",
 };
 
@@ -16,7 +19,7 @@ export const metadata: Metadata = {
     template: "%s | Grysics",
   },
   description:
-    "Grysics turns business goals into completed real-world operations. AI that executes across multiple tools and data sources — not a chatbot, not a workflow builder.",
+    "Grysics turns business goals into completed real-world operations. AI that executes across multiple tools and data sources.",
   keywords: [
     "AI execution",
     "business automation",
@@ -64,47 +67,63 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "Grysics - AI Execution System",
     description:
       "AI that turns business goals into completed operations across multiple tools and data sources.",
     images: ["/images/grysics-logo.png"],
+    creator: "@olyxee",
   },
   alternates: {
     canonical: "https://grysics.com",
   },
+  category: "technology",
 };
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  name: "Grysics",
-  applicationCategory: "BusinessApplication",
-  description:
-    "AI execution system that turns business goals into completed real-world operations across multiple tools and data sources.",
-  url: "https://grysics.com",
-  creator: {
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "Grysics",
+    applicationCategory: "BusinessApplication",
+    description:
+      "AI execution system that turns business goals into completed real-world operations across multiple tools and data sources.",
+    url: "https://grysics.com",
+    creator: {
+      "@type": "Organization",
+      name: "Olyxee",
+      url: "https://olyxee.com",
+      email: "scofield@olyxee.com",
+    },
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+      description: "Early access waitlist",
+    },
+    operatingSystem: "Web",
+    featureList: [
+      "Goal-driven execution",
+      "Financial reconciliation",
+      "Sales lead processing",
+      "Enterprise reporting",
+      "Cross-system operations",
+      "Automated error handling",
+    ],
+  },
+  {
+    "@context": "https://schema.org",
     "@type": "Organization",
     name: "Olyxee",
     url: "https://olyxee.com",
     email: "scofield@olyxee.com",
+    brand: {
+      "@type": "Brand",
+      name: "Grysics",
+      url: "https://grysics.com",
+    },
   },
-  offers: {
-    "@type": "Offer",
-    price: "0",
-    priceCurrency: "USD",
-    description: "Early access waitlist",
-  },
-  operatingSystem: "Web",
-  featureList: [
-    "Goal-driven execution",
-    "Financial reconciliation",
-    "Sales lead processing",
-    "Enterprise reporting",
-    "Cross-system operations",
-    "Automated error handling",
-  ],
-};
+];
 
 export default function RootLayout({
   children,

@@ -3,7 +3,7 @@ import DemoContent from './content';
 
 export const metadata: Metadata = {
   title: 'Book a Demo',
-  description: 'Request a personalized demo of Grysics. See how AI execution completes real business operations — financial reconciliation, lead processing, and enterprise reporting.',
+  description: 'Request a personalized demo of Grysics. See how AI execution completes real business operations like financial reconciliation, lead processing, and enterprise reporting.',
   keywords: [
     'AI execution demo',
     'Grysics demo',

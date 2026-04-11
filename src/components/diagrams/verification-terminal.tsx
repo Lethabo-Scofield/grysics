@@ -47,14 +47,14 @@ export default function VerificationTerminal() {
   const visibleLines = TERMINAL_LINES.slice(0, visibleCount);
 
   return (
-    <div ref={ref} className="rounded-2xl border border-white/10 bg-black overflow-hidden shadow-2xl shadow-black/50">
+    <div ref={ref} className="rounded-2xl border border-white/10 bg-black overflow-hidden shadow-2xl shadow-black/50 min-w-0">
       <div className="px-4 py-3 border-b border-white/5 flex items-center gap-2">
         <div className="flex gap-1.5" aria-hidden="true">
           <div className="w-2.5 h-2.5 rounded-full bg-white/10" />
           <div className="w-2.5 h-2.5 rounded-full bg-white/10" />
           <div className="w-2.5 h-2.5 rounded-full bg-white/10" />
         </div>
-        <span className="text-[11px] text-white/30 ml-2 font-mono">grysics execute --goal reconcile-q1</span>
+        <span className="text-[11px] text-white/30 ml-2 font-mono truncate">grysics execute --goal reconcile-q1</span>
       </div>
       <div className="p-3 sm:p-6 font-mono text-[10px] sm:text-[12px] leading-relaxed min-h-[240px] sm:min-h-[320px] overflow-x-auto" role="log" aria-label="Execution output" aria-live="polite">
         {visibleLines.map((line, i) => (

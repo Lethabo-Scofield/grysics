@@ -46,7 +46,7 @@ export default function Header() {
           </span>
         </Link>
 
-        <nav className="hidden md:flex items-center gap-1">
+        <nav className="hidden md:flex items-center gap-1" aria-label="Main navigation">
           <Link
             href="/demo"
             className={`ml-1 px-5 py-2.5 text-sm font-medium rounded-full transition-all duration-300 ${

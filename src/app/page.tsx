@@ -118,7 +118,7 @@ export default function HomePage() {
           >
             Grysics is an AI execution system. Describe a business task,
             <br className="hidden sm:block" />
-            and it handles the rest — across your tools and data.
+            and it handles the rest, across your tools and data.
           </motion.p>
 
           <motion.div
@@ -203,7 +203,7 @@ export default function HomePage() {
                 <span className="text-neutral-400"> Step by step.</span>
               </h2>
               <p className="text-sm sm:text-base text-neutral-500 font-light leading-relaxed mb-6 sm:mb-8">
-                Every execution is transparent. You see each step as it happens — what data is being pulled, what&apos;s being processed, and what the final output looks like.
+                Every execution is transparent. You see each step as it happens: what data is being pulled, what&apos;s being processed, and what the final output looks like.
               </p>
               <div className="space-y-3">
                 {[

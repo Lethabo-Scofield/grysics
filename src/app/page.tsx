@@ -90,16 +90,6 @@ export default function HomePage() {
         </div>
 
         <div className="max-w-4xl mx-auto text-center relative z-10 w-full">
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full border border-white/15 bg-white/5 backdrop-blur-sm mb-6 sm:mb-8"
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-            <span className="text-[11px] sm:text-xs text-white/60 font-medium">Now accepting early access</span>
-          </motion.div>
-
           <motion.h1
             initial="hidden"
             animate="visible"

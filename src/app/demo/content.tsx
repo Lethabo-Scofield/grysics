@@ -26,16 +26,16 @@ export default function DemoContent() {
             >
               <p className="text-xs uppercase tracking-[0.2em] text-neutral-400 font-medium mb-3 sm:mb-4">Book a demo</p>
               <h1 className="font-serif text-2xl sm:text-5xl tracking-tight text-neutral-900 mb-3 sm:mb-4">
-                See Grysics in action.
+                See Grysics execute.
               </h1>
               <p className="text-sm sm:text-base text-neutral-500 font-light leading-relaxed mb-6 sm:mb-8">
-                Get a walkthrough of how Grysics catches failures in your AI before they reach users.
+                Watch AI complete real business operations end-to-end. From goal to finished output, in minutes.
               </p>
               <div className="space-y-3 sm:space-y-4">
                 {[
-                  'Live verification of your AI type',
-                  'See real failure detection in action',
-                  'Custom setup for your workflow',
+                  'Live execution of a real business workflow',
+                  'See multi-step operations across systems',
+                  'Custom setup for your business goals',
                   'Q&A with our engineering team',
                 ].map((item) => (
                   <div key={item} className="flex items-center gap-3">

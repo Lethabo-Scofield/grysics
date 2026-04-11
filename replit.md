@@ -1,8 +1,8 @@
-# Grysics — Verify Physical AI Before Deployment
+# Grysics — AI Execution System
 
 ## Overview
 
-A single-page Next.js landing site for **Grysics** (by Olyxee), an AI verification engine. All content lives on the landing page (`/`), with a separate demo booking page (`/demo`).
+A single-page Next.js landing site for **Grysics** (by Olyxee), an AI execution system that turns business goals into completed real-world operations. The system is coming soon — this landing page introduces the product and collects early access signups. Separate demo booking page at `/demo`.
 
 ## Tech Stack
 
@@ -20,7 +20,7 @@ A single-page Next.js landing site for **Grysics** (by Olyxee), an AI verificati
 src/
   app/
     layout.tsx              - Root layout with SEO metadata, JSON-LD structured data, viewport config
-    page.tsx                - Landing page (hero + how it works + LLM ecosystem + verification + coverage + benchmarks + why it matters + waitlist CTA)
+    page.tsx                - Landing page (hero + how it works + execution demo + launch workflows + why grysics + waitlist CTA)
     demo/
       page.tsx              - Server component with per-page metadata, imports content.tsx
       content.tsx           - Client component with demo booking UI
@@ -36,44 +36,33 @@ src/
     header.tsx              - Scroll-aware header (transparent on home hero, solid when scrolled/other pages)
     footer.tsx              - Footer with nav links and company email
     shared.tsx              - DemoForm component (used on demo page)
+    hero-background.tsx     - Hero background with sunset image + dark overlays + animated glow elements
     diagrams/
-      architecture-diagram.tsx  - Animated SVG verification flow diagram
-      verification-terminal.tsx - Animated terminal output showing verification checks
-      coverage-graph.tsx        - Animated bar chart of AI category coverage
-      llm-network-diagram.tsx   - Network diagram showing LLMs connected to Grysics
-      benchmark-chart.tsx       - Before/after comparison benchmark chart
+      execution-demo.tsx    - Interactive tabbed demo showing 3 simulated workflow executions (reconciliation, lead processing, reporting)
 public/
   images/
     grysics-logo.png        - Product logo
-    bg.png                  - Hero background image
-    logos/                  - LLM brand logos (openai.png, anthropic.png, google.svg, meta.svg, mistral.png, microsoft.png, cohere.png, falcon.png)
+    bg.png                  - Hero background image (sunset)
+    logos/                  - LLM brand logos (legacy, may be removed)
   favicon.png               - Favicon
 data/                       - Form submissions (gitignored)
 next.config.js              - Next.js config (standalone output, unoptimized images)
 tailwind.config.ts          - Tailwind config with serif font + orange primary color
 ```
 
-## Performance Architecture
-
-Heavy animated diagram components are split into separate files under `src/components/diagrams/` and loaded with `next/dynamic` (SSR disabled) for proper code-splitting. This prevents the initial page bundle from including all diagram code at once, significantly improving scroll performance and reducing time to interactive.
-
-The grain overlay uses CSS `contain: strict` to isolate its rendering from the main page content.
-
 ## Pages
 
 ### `/` — Landing Page
-- Hero with background image, headline, waitlist form
-- How it works: architecture diagram + stats grid
-- LLM Ecosystem: 8 LLM logos (GPT-4o, Claude 3.5, Gemini, Llama 3, Mistral, Phi-3, Cohere, Falcon) in flexbox layout around Grysics center
-- Live verification: terminal animation + check list
-- Coverage: animated bar chart (8 AI categories)
-- Benchmarks: before/after comparison chart
-- Why it matters: 3 stat cards
+- Hero with sunset background image, "Coming soon" badge, headline ("AI that executes real business tasks"), waitlist form
+- How it works: 4-step process (goal → planning → execution → output) + stats grid
+- Execution demo: interactive tabbed component showing simulated workflow execution for 3 workflows
+- Launch workflows: 3 cards (Financial Reconciliation, Sales Lead Processing, Enterprise Reporting)
+- Why Grysics: 6 feature cards (goal-driven, cross-system, error handling, speed, structured outputs, transparency)
 - CTA: waitlist form + Book a Demo link
 
 ### `/demo` — Book a Demo
 - Two-column layout: value props + demo form
-- Form: name, email, company, AI type dropdown
+- Form: name, email, company, operations type dropdown
 - "Prefer email?" fallback to scofield@olyxee.com
 
 ## SEO
@@ -85,7 +74,7 @@ The grain overlay uses CSS `contain: strict` to isolate its rendering from the m
 
 ## Navigation
 
-- **Header**: Logo, "Sign in" (mailto), "Book Demo" (link to /demo)
+- **Header**: Logo, "Book Demo" (link to /demo)
 - **Footer**: Book a Demo, Contact (mailto), Olyxee (external)
 - Header adapts: transparent on home hero, solid white when scrolled or on other pages
 
@@ -93,7 +82,6 @@ The grain overlay uses CSS `contain: strict` to isolate its rendering from the m
 
 - **Join (Waitlist)**: POSTs to `/api/waitlist`, stores in `data/waitlist.json`
 - **Request Demo**: POSTs to `/api/demo`, stores in `data/demo-requests.json`
-- **Sign in**: Opens mailto to scofield@olyxee.com
 - **Contact**: mailto to scofield@olyxee.com
 
 ## Design System
@@ -102,7 +90,7 @@ The grain overlay uses CSS `contain: strict` to isolate its rendering from the m
 - **Typography**: Georgia serif for headings, system sans for body
 - **Dark sections**: `bg-neutral-950` with white text
 - **Animations**: Reduced-motion aware via `MotionConfig` + `useReducedMotion`
-- **Mobile**: Fully responsive with `100svh` hero, safe area insets, 44px+ touch targets, no zoom on input focus (16px base), overflow-x-auto on diagrams
+- **Mobile**: Fully responsive with `100svh` hero, safe area insets, 44px+ touch targets, no zoom on input focus (16px base)
 - **Company email**: scofield@olyxee.com
 
 ## Development

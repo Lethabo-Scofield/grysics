@@ -47,16 +47,6 @@ export default function Header() {
         </Link>
 
         <nav className="hidden md:flex items-center gap-1">
-          <a
-            href="mailto:scofield@olyxee.com?subject=Grysics%20Sign%20In%20Request"
-            className={`px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 ${
-              showSolid
-                ? 'text-neutral-500 hover:text-neutral-900 hover:bg-neutral-50'
-                : 'text-white/60 hover:text-white hover:bg-white/10'
-            }`}
-          >
-            Sign in
-          </a>
           <Link
             href="/demo"
             className={`ml-1 px-5 py-2.5 text-sm font-medium rounded-full transition-all duration-300 ${
@@ -97,13 +87,6 @@ export default function Header() {
             className="md:hidden overflow-hidden bg-white/95 backdrop-blur-xl border-t border-neutral-100"
           >
             <div className="px-5 py-5 flex flex-col gap-2">
-              <a
-                href="mailto:scofield@olyxee.com?subject=Grysics%20Sign%20In%20Request"
-                className="flex items-center justify-center px-5 py-3 text-neutral-600 text-sm font-medium rounded-xl hover:bg-neutral-50 transition-colors"
-                onClick={() => setMenuOpen(false)}
-              >
-                Sign in
-              </a>
               <Link
                 href="/demo"
                 className="flex items-center justify-center px-5 py-3 bg-primary text-white text-sm font-medium rounded-xl hover:bg-primary-dark transition-colors"

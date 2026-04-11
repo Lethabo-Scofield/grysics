@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, useInView, useReducedMotion } from 'framer-motion';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 
 const TERMINAL_LINES = [
   { text: 'Connecting to AI endpoint...', status: 'info' },
@@ -25,22 +25,27 @@ export default function VerificationTerminal() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-20px" });
   const prefersReducedMotion = useReducedMotion();
-  const [lines, setLines] = useState<{ text: string; status: string }[]>([]);
+  const [visibleCount, setVisibleCount] = useState(0);
 
   useEffect(() => {
     if (!isInView) return;
-    if (prefersReducedMotion) { setLines([...TERMINAL_LINES]); return; }
-    let i = 0;
+    if (prefersReducedMotion) {
+      setVisibleCount(TERMINAL_LINES.length);
+      return;
+    }
     const timer = setInterval(() => {
-      if (i < TERMINAL_LINES.length) {
-        setLines(prev => [...prev, TERMINAL_LINES[i]]);
-        i++;
-      } else {
-        clearInterval(timer);
-      }
+      setVisibleCount(prev => {
+        if (prev >= TERMINAL_LINES.length) {
+          clearInterval(timer);
+          return prev;
+        }
+        return prev + 1;
+      });
     }, 180);
     return () => clearInterval(timer);
   }, [isInView, prefersReducedMotion]);
+
+  const visibleLines = TERMINAL_LINES.slice(0, visibleCount);
 
   return (
     <div ref={ref} className="rounded-2xl border border-white/10 bg-black overflow-hidden shadow-2xl shadow-black/50">
@@ -53,7 +58,7 @@ export default function VerificationTerminal() {
         <span className="text-[11px] text-white/30 ml-2 font-mono">grysics verify --target production</span>
       </div>
       <div className="p-3 sm:p-6 font-mono text-[10px] sm:text-[12px] leading-relaxed min-h-[240px] sm:min-h-[320px] overflow-x-auto" role="log" aria-label="Verification output" aria-live="polite">
-        {lines.map((line, i) => (
+        {visibleLines.map((line, i) => (
           <motion.div
             key={i}
             initial={{ opacity: prefersReducedMotion ? 1 : 0, x: prefersReducedMotion ? 0 : -5 }}
@@ -69,7 +74,7 @@ export default function VerificationTerminal() {
             {line.text || '\u00A0'}
           </motion.div>
         ))}
-        {lines.length < TERMINAL_LINES.length && (
+        {visibleCount < TERMINAL_LINES.length && (
           <span className="inline-block w-2 h-4 bg-primary/80 animate-pulse" aria-hidden="true" />
         )}
       </div>

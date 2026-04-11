@@ -31,12 +31,17 @@ export default function HeroBackground() {
   return (
     <div className="absolute inset-0 z-0 overflow-hidden bg-[#0a0a0f]">
       <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: `url('/images/bg.png')`,
+        }}
+      />
+      <div
         className="absolute inset-0"
         style={{
           backgroundImage: `
-            radial-gradient(ellipse 80% 60% at 50% 40%, rgba(249,115,22,0.08) 0%, transparent 60%),
-            radial-gradient(ellipse 60% 50% at 20% 60%, rgba(59,130,246,0.06) 0%, transparent 50%),
-            radial-gradient(ellipse 60% 50% at 80% 30%, rgba(139,92,246,0.05) 0%, transparent 50%)
+            radial-gradient(ellipse 80% 60% at 50% 40%, rgba(10,10,15,0.55) 0%, transparent 60%),
+            radial-gradient(ellipse 100% 100% at 50% 50%, rgba(10,10,15,0.45) 0%, rgba(10,10,15,0.7) 100%)
           `,
         }}
       />

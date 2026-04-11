@@ -4,7 +4,8 @@ import { motion, MotionConfig } from 'framer-motion';
 import { Check } from 'lucide-react';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
-import { fade, DemoForm } from '@/components/shared';
+import { fade } from '@/components/fade';
+import { DemoForm } from '@/components/shared';
 
 export default function DemoContent() {
   return (

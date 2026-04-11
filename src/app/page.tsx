@@ -1,12 +1,79 @@
 'use client';
 
+import { memo } from 'react';
+import dynamic from 'next/dynamic';
 import { motion, MotionConfig } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
-import { fade, ArchitectureDiagram, VerificationTerminal, CoverageGraph, LLMNetworkDiagram, BenchmarkChart, WaitlistForm } from '@/components/shared';
+import { fade } from '@/components/fade';
+import { WaitlistForm } from '@/components/waitlist-form';
+
+const ArchitectureDiagram = dynamic(() => import('@/components/diagrams/architecture-diagram'), { ssr: false, loading: () => <DiagramFallback /> });
+const VerificationTerminal = dynamic(() => import('@/components/diagrams/verification-terminal'), { ssr: false, loading: () => <DiagramFallback /> });
+const CoverageGraph = dynamic(() => import('@/components/diagrams/coverage-graph'), { ssr: false, loading: () => <DiagramFallback /> });
+const LLMNetworkDiagram = dynamic(() => import('@/components/diagrams/llm-network-diagram'), { ssr: false, loading: () => <DiagramFallback /> });
+const BenchmarkChart = dynamic(() => import('@/components/diagrams/benchmark-chart'), { ssr: false, loading: () => <DiagramFallback /> });
+
+function DiagramFallback() {
+  return <div className="w-full h-48 animate-pulse bg-white/5 rounded-xl" />;
+}
+
+const StatsGrid = memo(function StatsGrid() {
+  const stats = [
+    { value: '< 3min', label: 'Full verification' },
+    { value: '12+', label: 'Quality checks' },
+    { value: '99.9%', label: 'Deploy success' },
+    { value: '0', label: 'Missed failures' },
+  ];
+  return (
+    <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-white/5 rounded-xl sm:rounded-2xl overflow-hidden mt-10 sm:mt-16">
+      {stats.map((stat, i) => (
+        <motion.div
+          key={stat.label}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-20px" }}
+          custom={i}
+          variants={fade}
+          className="bg-neutral-950 p-4 sm:p-8 text-center"
+        >
+          <p className="font-serif text-lg sm:text-2xl italic text-white mb-1">{stat.value}</p>
+          <p className="text-[9px] sm:text-xs text-neutral-500">{stat.label}</p>
+        </motion.div>
+      ))}
+    </div>
+  );
+});
+
+const FailureCards = memo(function FailureCards() {
+  const items = [
+    { num: '73%', title: 'Hallucinate silently', desc: 'AI gives wrong answers with full confidence. Users trust bad output.' },
+    { num: '4.2h', title: 'Before detection', desc: 'Average time to discover a regression. Hours of broken user experience.' },
+    { num: '68%', title: 'Fail on edge cases', desc: 'Models pass standard tests but break on real-world inputs.' },
+  ];
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
+      {items.map((item, i) => (
+        <motion.div
+          key={item.title}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-20px" }}
+          custom={i}
+          variants={fade}
+          className="p-5 sm:p-8 rounded-xl sm:rounded-2xl border border-neutral-100 bg-neutral-50/50"
+        >
+          <p className="font-serif text-2xl sm:text-4xl italic text-primary mb-2 sm:mb-3">{item.num}</p>
+          <h3 className="text-sm sm:text-base font-medium text-neutral-900 mb-1.5 sm:mb-2">{item.title}</h3>
+          <p className="text-xs sm:text-sm text-neutral-500 font-light leading-relaxed">{item.desc}</p>
+        </motion.div>
+      ))}
+    </div>
+  );
+});
 
 export default function HomePage() {
   return (
@@ -67,7 +134,6 @@ export default function HomePage() {
             <WaitlistForm />
             <p className="text-xs text-white/30 mt-3 sm:mt-4">Free during beta</p>
           </motion.div>
-
         </div>
       </section>
 
@@ -76,7 +142,7 @@ export default function HomePage() {
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-20px" }}
             custom={0}
             variants={fade}
             className="text-center mb-10 sm:mb-16"
@@ -91,38 +157,11 @@ export default function HomePage() {
             </p>
           </motion.div>
 
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            custom={2}
-            variants={fade}
-            className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0"
-          >
+          <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
             <ArchitectureDiagram />
-          </motion.div>
-
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-white/5 rounded-xl sm:rounded-2xl overflow-hidden mt-10 sm:mt-16">
-            {[
-              { value: '< 3min', label: 'Full verification' },
-              { value: '12+', label: 'Quality checks' },
-              { value: '99.9%', label: 'Deploy success' },
-              { value: '0', label: 'Missed failures' },
-            ].map((stat, i) => (
-              <motion.div
-                key={stat.label}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                custom={i + 3}
-                variants={fade}
-                className="bg-neutral-950 p-4 sm:p-8 text-center"
-              >
-                <p className="font-serif text-lg sm:text-2xl italic text-white mb-1">{stat.value}</p>
-                <p className="text-[9px] sm:text-xs text-neutral-500">{stat.label}</p>
-              </motion.div>
-            ))}
           </div>
+
+          <StatsGrid />
         </div>
       </section>
 
@@ -131,7 +170,7 @@ export default function HomePage() {
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-20px" }}
             custom={0}
             variants={fade}
             className="text-center mb-10 sm:mb-16"
@@ -145,16 +184,9 @@ export default function HomePage() {
             </p>
           </motion.div>
 
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            custom={1}
-            variants={fade}
-            className="bg-neutral-900 rounded-xl sm:rounded-2xl p-4 sm:p-10 border border-neutral-700/30 overflow-x-auto"
-          >
+          <div className="bg-neutral-900 rounded-xl sm:rounded-2xl p-4 sm:p-10 border border-neutral-700/30 overflow-x-auto">
             <LLMNetworkDiagram />
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -164,7 +196,7 @@ export default function HomePage() {
             <motion.div
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "-20px" }}
               custom={0}
               variants={fade}
             >
@@ -191,15 +223,7 @@ export default function HomePage() {
               </div>
             </motion.div>
 
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              custom={2}
-              variants={fade}
-            >
-              <VerificationTerminal />
-            </motion.div>
+            <VerificationTerminal />
           </div>
         </div>
       </section>
@@ -209,7 +233,7 @@ export default function HomePage() {
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-20px" }}
             custom={0}
             variants={fade}
             className="text-center mb-10 sm:mb-16"
@@ -221,15 +245,7 @@ export default function HomePage() {
             </h2>
           </motion.div>
 
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            custom={1}
-            variants={fade}
-          >
-            <CoverageGraph />
-          </motion.div>
+          <CoverageGraph />
         </div>
       </section>
 
@@ -239,7 +255,7 @@ export default function HomePage() {
             <motion.div
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "-20px" }}
               custom={0}
               variants={fade}
             >
@@ -265,16 +281,9 @@ export default function HomePage() {
               </div>
             </motion.div>
 
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              custom={2}
-              variants={fade}
-              className="bg-neutral-950 rounded-xl sm:rounded-2xl p-4 sm:p-8 border border-neutral-200/10"
-            >
+            <div className="bg-neutral-950 rounded-xl sm:rounded-2xl p-4 sm:p-8 border border-neutral-200/10">
               <BenchmarkChart />
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
@@ -284,7 +293,7 @@ export default function HomePage() {
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-20px" }}
             custom={0}
             variants={fade}
             className="text-center mb-12 sm:mb-20"
@@ -295,27 +304,7 @@ export default function HomePage() {
             </h2>
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
-            {[
-              { num: '73%', title: 'Hallucinate silently', desc: 'AI gives wrong answers with full confidence. Users trust bad output.' },
-              { num: '4.2h', title: 'Before detection', desc: 'Average time to discover a regression. Hours of broken user experience.' },
-              { num: '68%', title: 'Fail on edge cases', desc: 'Models pass standard tests but break on real-world inputs.' },
-            ].map((item, i) => (
-              <motion.div
-                key={item.title}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                custom={i + 1}
-                variants={fade}
-                className="p-5 sm:p-8 rounded-xl sm:rounded-2xl border border-neutral-100 bg-neutral-50/50"
-              >
-                <p className="font-serif text-2xl sm:text-4xl italic text-primary mb-2 sm:mb-3">{item.num}</p>
-                <h3 className="text-sm sm:text-base font-medium text-neutral-900 mb-1.5 sm:mb-2">{item.title}</h3>
-                <p className="text-xs sm:text-sm text-neutral-500 font-light leading-relaxed">{item.desc}</p>
-              </motion.div>
-            ))}
-          </div>
+          <FailureCards />
         </div>
       </section>
 
@@ -324,7 +313,7 @@ export default function HomePage() {
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-20px" }}
             custom={0}
             variants={fade}
           >

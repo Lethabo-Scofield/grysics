@@ -31,9 +31,17 @@ src/
       waitlist/route.ts     - POST /api/waitlist — stores waitlist signups
       demo/route.ts         - POST /api/demo — stores demo requests
   components/
+    fade.ts                 - Shared fade animation variant
+    waitlist-form.tsx       - WaitlistForm component (used on landing page hero + CTA)
     header.tsx              - Scroll-aware header (transparent on home hero, solid when scrolled/other pages)
     footer.tsx              - Footer with nav links and company email
-    shared.tsx              - Shared components: fade, ArchitectureDiagram, VerificationTerminal, CoverageGraph, LLMNetworkDiagram, BenchmarkChart, WaitlistForm, DemoForm
+    shared.tsx              - DemoForm component (used on demo page)
+    diagrams/
+      architecture-diagram.tsx  - Animated SVG verification flow diagram
+      verification-terminal.tsx - Animated terminal output showing verification checks
+      coverage-graph.tsx        - Animated bar chart of AI category coverage
+      llm-network-diagram.tsx   - Network diagram showing LLMs connected to Grysics
+      benchmark-chart.tsx       - Before/after comparison benchmark chart
 public/
   images/
     grysics-logo.png        - Product logo
@@ -44,6 +52,12 @@ data/                       - Form submissions (gitignored)
 next.config.js              - Next.js config (standalone output, unoptimized images)
 tailwind.config.ts          - Tailwind config with serif font + orange primary color
 ```
+
+## Performance Architecture
+
+Heavy animated diagram components are split into separate files under `src/components/diagrams/` and loaded with `next/dynamic` (SSR disabled) for proper code-splitting. This prevents the initial page bundle from including all diagram code at once, significantly improving scroll performance and reducing time to interactive.
+
+The grain overlay uses CSS `contain: strict` to isolate its rendering from the main page content.
 
 ## Pages
 

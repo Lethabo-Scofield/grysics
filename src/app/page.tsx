@@ -4,12 +4,12 @@ import { memo } from 'react';
 import dynamic from 'next/dynamic';
 import { motion, MotionConfig } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
-import Image from 'next/image';
 import Link from 'next/link';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
 import { fade } from '@/components/fade';
 import { WaitlistForm } from '@/components/waitlist-form';
+import HeroBackground from '@/components/hero-background';
 
 const ArchitectureDiagram = dynamic(() => import('@/components/diagrams/architecture-diagram'), { ssr: false, loading: () => <DiagramFallback /> });
 const VerificationTerminal = dynamic(() => import('@/components/diagrams/verification-terminal'), { ssr: false, loading: () => <DiagramFallback /> });
@@ -84,22 +84,29 @@ export default function HomePage() {
 
       <main>
       <section className="relative min-h-[100svh] flex items-center justify-center px-4 sm:px-6 overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <Image src="/images/bg.png" alt="" fill className="object-cover" priority />
-          <div className="absolute inset-0 bg-black/60" />
-        </div>
+        <HeroBackground />
 
         <div className="max-w-4xl mx-auto text-center relative z-10 w-full">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/[0.03] backdrop-blur-sm mb-8 sm:mb-10"
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+            <span className="text-[11px] sm:text-xs text-white/50 font-mono tracking-wide">All systems verified</span>
+          </motion.div>
+
           <motion.h1
             initial="hidden"
             animate="visible"
             custom={1}
             variants={fade}
-            className="font-serif text-[1.65rem] leading-[1.15] sm:text-5xl lg:text-7xl text-white tracking-tight sm:leading-[1.1] mb-5 sm:mb-8"
+            className="font-serif text-[2rem] leading-[1.1] sm:text-6xl lg:text-[5.5rem] text-white tracking-tight sm:leading-[1.05] mb-6 sm:mb-8"
           >
             Verify your AI
             <br />
-            <span className="text-white/50">before it ships.</span>
+            <span className="bg-gradient-to-r from-primary via-amber-400 to-primary bg-clip-text text-transparent">before it ships.</span>
           </motion.h1>
 
           <motion.p
@@ -107,7 +114,7 @@ export default function HomePage() {
             animate="visible"
             custom={2}
             variants={fade}
-            className="text-[15px] leading-relaxed sm:text-xl text-white/60 font-light mb-8 sm:mb-12 max-w-xl mx-auto px-2"
+            className="text-[15px] leading-relaxed sm:text-lg text-white/40 font-light mb-10 sm:mb-14 max-w-lg mx-auto px-2"
           >
             Catch failures in chatbots, agents, RAG systems,
             <br className="hidden sm:block" />
@@ -122,7 +129,7 @@ export default function HomePage() {
             className="flex flex-col items-center px-2 sm:px-0"
           >
             <WaitlistForm />
-            <p className="text-xs text-white/30 mt-3 sm:mt-4">Free during beta</p>
+            <p className="text-[11px] text-white/20 mt-4 font-mono tracking-wide">Free during beta</p>
           </motion.div>
         </div>
       </section>

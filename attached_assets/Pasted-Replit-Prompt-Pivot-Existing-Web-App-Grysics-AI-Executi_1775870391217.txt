@@ -1,0 +1,132 @@
+Replit Prompt: Pivot Existing Web App → Grysics AI Execution System
+
+You are working on an existing web application. Your task is to pivot the product into Grysics, an AI workflow execution system, while preserving the existing UI style, design system, and visual identity.
+
+1. Core Product Change
+
+The product is no longer a generic web app or workflow tool.
+
+It is now:
+
+Grysics – an AI execution system that turns business goals into completed real-world operations across multiple tools and data sources.
+
+2. Key Functional Shift
+BEFORE
+Manual workflows / basic automation / generic app logic
+AFTER
+Users input a goal (not a workflow)
+System:
+Interprets goal
+Breaks it into steps
+Executes across systems (simulated or real APIs)
+Handles errors / missing data
+Produces a final completed outcome
+3. Required New Core Feature
+“Goal Execution Interface”
+
+Replace or extend existing main input with:
+
+A single input field:
+
+“Describe your business goal”
+
+Examples:
+
+Reconcile Q1 transactions
+Process and qualify sales leads
+Generate weekly revenue report
+4. New System Behavior (Simulation is fine for MVP)
+
+When a goal is submitted:
+
+Step 1: Planning Phase
+
+Show:
+
+“Analyzing goal…”
+“Breaking into execution steps…”
+Step 2: Execution Phase
+
+Show live-like updates:
+
+fetching data
+processing records
+calling tools (simulate APIs if needed)
+resolving inconsistencies
+Step 3: Completion Phase
+
+Show:
+
+final output summary
+structured result (table/report style)
+success metrics (time saved, tasks completed)
+5. Demo Focus Workflows (hardcode or simulate if needed)
+
+Prioritize these 3 workflows:
+
+Financial reconciliation
+Sales lead processing
+Enterprise reporting
+6. UI/UX Requirements
+
+IMPORTANT:
+
+Keep existing UI design system, colors, spacing, and styling
+Do NOT redesign visually
+Only extend functionality
+
+Add:
+
+execution status panel (live updates)
+step-by-step progress view
+output result dashboard
+
+Make it feel:
+
+real-time
+intelligent
+“system is working” style (not static UI)
+7. Data Handling (MVP Approach)
+
+If backend integrations are missing:
+
+simulate API responses
+use mock datasets for:
+transactions
+leads
+reports
+
+But structure code so real APIs can be plugged in later.
+
+8. Core Product Identity
+
+Rename system internally and in UI to:
+
+Grysics – AI Execution System
+
+Remove any old naming or references to generic workflow builder concepts.
+
+9. Key Principle
+
+Do NOT build:
+
+a workflow editor
+a drag-and-drop automation tool
+a chatbot interface
+
+Instead build:
+
+a goal-to-execution system that completes real business tasks step-by-step
+
+10. Success Criteria
+
+The demo should clearly show:
+
+user enters goal
+system plans execution
+system performs multi-step operations
+system produces completed output
+
+It must feel like:
+
+“AI is doing real work, not suggesting ideas”

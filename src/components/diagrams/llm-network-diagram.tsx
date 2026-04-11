@@ -4,14 +4,14 @@ import { motion, useInView, useReducedMotion } from 'framer-motion';
 import { useRef } from 'react';
 
 const LLM_MODELS = [
-  { id: 'gpt4', label: 'GPT-4o', logo: '/images/logos/openai.png', cat: 'f' },
-  { id: 'claude', label: 'Claude 3.5', logo: '/images/logos/anthropic.png', cat: 'f' },
-  { id: 'gemini', label: 'Gemini', logo: '/images/logos/google.svg', cat: 'f' },
-  { id: 'llama', label: 'Llama 3', logo: '/images/logos/meta.svg', cat: 'o' },
-  { id: 'mistral', label: 'Mistral', logo: '/images/logos/mistral.png', cat: 'o' },
-  { id: 'phi', label: 'Phi-3', logo: '/images/logos/microsoft.png', cat: 'o' },
+  { id: 'openai', label: 'OpenAI', logo: '/images/logos/openai.png', cat: 'f' },
+  { id: 'anthropic', label: 'Anthropic', logo: '/images/logos/anthropic.png', cat: 'f' },
+  { id: 'google', label: 'Google', logo: '/images/logos/google.svg', cat: 'f' },
+  { id: 'meta', label: 'Meta', logo: '/images/logos/meta.svg', cat: 'o' },
+  { id: 'mistral', label: 'Mistral AI', logo: '/images/logos/mistral.png', cat: 'o' },
+  { id: 'microsoft', label: 'Microsoft', logo: '/images/logos/microsoft.png', cat: 'o' },
   { id: 'cohere', label: 'Cohere', logo: '/images/logos/cohere.png', cat: 'e' },
-  { id: 'falcon', label: 'Falcon', logo: '/images/logos/falcon.png', cat: 'e' },
+  { id: 'falcon', label: 'TII', logo: '/images/logos/falcon.png', cat: 'e' },
 ];
 
 const CAT_COLORS: Record<string, { ring: string; fill: string; line: string }> = {

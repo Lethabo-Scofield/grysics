@@ -52,24 +52,23 @@ const UseCaseCards = memo(function UseCaseCards() {
           viewport={{ once: true, margin: "-20px" }}
           custom={i}
           variants={fade}
-          className="rounded-xl sm:rounded-2xl border border-neutral-100 bg-neutral-50/50 overflow-hidden"
+          className="relative rounded-xl sm:rounded-2xl overflow-hidden min-h-[280px] sm:min-h-[320px] group"
         >
-          <div className="relative w-full h-36 sm:h-44 overflow-hidden bg-neutral-100">
-            <Image
-              src={uc.image}
-              alt={uc.title}
-              fill
-              className="object-cover"
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-            />
-          </div>
-          <div className="p-5 sm:p-6">
-            <h3 className="text-sm sm:text-base font-medium text-neutral-900 mb-2 sm:mb-3">{uc.title}</h3>
+          <Image
+            src={uc.image}
+            alt={uc.title}
+            fill
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10" />
+          <div className="absolute inset-0 flex flex-col justify-end p-5 sm:p-6">
+            <h3 className="text-base sm:text-lg font-medium text-white mb-2 sm:mb-3">{uc.title}</h3>
             <ul className="space-y-1.5">
               {uc.items.map((item) => (
                 <li key={item} className="flex items-start gap-2">
-                  <div className="w-1 h-1 rounded-full bg-primary/40 mt-1.5 flex-shrink-0" />
-                  <span className="text-xs sm:text-sm text-neutral-500 font-light leading-relaxed">{item}</span>
+                  <div className="w-1 h-1 rounded-full bg-primary mt-1.5 flex-shrink-0" />
+                  <span className="text-xs sm:text-sm text-white/70 font-light leading-relaxed">{item}</span>
                 </li>
               ))}
             </ul>

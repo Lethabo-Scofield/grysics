@@ -9,15 +9,15 @@ const footerLinks = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-neutral-100 py-10 sm:py-12 px-5 sm:px-6">
-      <div className="max-w-5xl mx-auto">
+    <footer className="border-t border-neutral-100 py-10 sm:py-12 px-5 sm:px-8">
+      <div className="max-w-6xl mx-auto">
         <div className="flex flex-col gap-8 sm:flex-row sm:justify-between sm:items-center">
           <Link href="/" className="flex items-center gap-2.5">
-            <Image src="/images/grysics-logo.png" alt="Grysics" width={24} height={24} className="rounded-md" style={{ width: 24, height: 24 }} />
-            <p className="font-serif text-lg text-neutral-900">Grysics</p>
+            <Image src="/images/grysics-logo.png" alt="Grysics" width={22} height={22} className="rounded-md" style={{ width: 22, height: 22 }} />
+            <p className="font-serif text-base text-neutral-900">Grysics</p>
           </Link>
 
-          <nav aria-label="Footer navigation" className="flex flex-wrap gap-x-6 gap-y-3">
+          <nav aria-label="Footer navigation" className="flex flex-wrap gap-x-8 gap-y-3">
             {footerLinks.map((link) =>
               link.external ? (
                 <a
@@ -25,7 +25,7 @@ export default function Footer() {
                   href={link.href}
                   target={link.href.startsWith('http') ? '_blank' : undefined}
                   rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                  className="text-sm text-neutral-500 hover:text-neutral-900 transition-colors py-1"
+                  className="text-sm text-neutral-400 hover:text-neutral-700 transition-colors"
                 >
                   {link.label}
                 </a>
@@ -33,7 +33,7 @@ export default function Footer() {
                 <Link
                   key={link.label}
                   href={link.href}
-                  className="text-sm text-neutral-500 hover:text-neutral-900 transition-colors py-1"
+                  className="text-sm text-neutral-400 hover:text-neutral-700 transition-colors"
                 >
                   {link.label}
                 </Link>
@@ -42,7 +42,7 @@ export default function Footer() {
           </nav>
         </div>
 
-        <div className="mt-8 pt-6 border-t border-neutral-100 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+        <div className="mt-8 pt-6 border-t border-neutral-100 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
           <p className="text-xs text-neutral-400">
             &copy; {new Date().getFullYear()} Grysics by Olyxee. All rights reserved.
           </p>

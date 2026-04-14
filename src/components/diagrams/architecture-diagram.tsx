@@ -83,7 +83,7 @@ export default function ArchitectureDiagram() {
                 <div className={`w-1 h-1 rounded-full mt-1.5 flex-shrink-0 transition-colors duration-500 ${
                   activeStep >= i ? 'bg-primary/60' : 'bg-white/15'
                 }`} />
-                <span className="text-[11px] sm:text-xs text-white/40 leading-relaxed">{ex}</span>
+                <span className="text-xs text-white/50 leading-relaxed">{ex}</span>
               </li>
             ))}
           </ul>

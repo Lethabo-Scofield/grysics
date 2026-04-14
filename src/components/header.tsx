@@ -25,21 +25,21 @@ export default function Header() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         showSolid
-          ? 'bg-white/90 backdrop-blur-xl border-b border-neutral-200/60 shadow-sm'
+          ? 'bg-white/90 backdrop-blur-xl border-b border-neutral-100 shadow-[0_1px_3px_rgba(0,0,0,0.04)]'
           : 'bg-transparent border-b border-transparent'
       }`}
     >
-      <div className="max-w-6xl mx-auto px-5 sm:px-8 h-[72px] flex items-center justify-between">
+      <div className="max-w-6xl mx-auto px-5 sm:px-8 h-16 sm:h-[72px] flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2.5 group">
           <Image
             src="/images/grysics-logo.png"
             alt="Grysics"
-            width={32}
-            height={32}
+            width={28}
+            height={28}
             className="rounded-lg transition-transform duration-200 group-hover:scale-105"
-            style={{ width: 32, height: 32 }}
+            style={{ width: 28, height: 28 }}
           />
-          <span className={`font-serif text-xl tracking-tight transition-colors duration-300 ${
+          <span className={`font-serif text-lg tracking-tight transition-colors duration-300 ${
             showSolid ? 'text-neutral-900' : 'text-white'
           }`}>
             Grysics
@@ -49,9 +49,9 @@ export default function Header() {
         <nav className="hidden md:flex items-center gap-1" aria-label="Main navigation">
           <Link
             href="/demo"
-            className={`ml-1 px-5 py-2.5 text-sm font-medium rounded-full transition-all duration-300 ${
+            className={`px-5 py-2 text-sm font-medium rounded-full transition-all duration-200 ${
               showSolid
-                ? 'bg-primary text-white hover:bg-primary-dark'
+                ? 'bg-neutral-900 text-white hover:bg-neutral-800'
                 : 'bg-white text-neutral-900 hover:bg-white/90'
             }`}
           >
@@ -60,14 +60,14 @@ export default function Header() {
         </nav>
 
         <button
-          className={`md:hidden p-3 rounded-xl transition-colors duration-200 ${
+          className={`md:hidden p-2.5 rounded-xl transition-colors duration-200 ${
             showSolid ? 'text-neutral-600 hover:bg-neutral-100' : 'text-white hover:bg-white/10'
           }`}
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
           aria-expanded={menuOpen}
         >
-          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+          <svg width="20" height="20" viewBox="0 0 22 22" fill="none">
             {menuOpen ? (
               <path d="M5 5l12 12M17 5L5 17" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
             ) : (
@@ -86,10 +86,10 @@ export default function Header() {
             transition={{ duration: 0.2 }}
             className="md:hidden overflow-hidden bg-white/95 backdrop-blur-xl border-t border-neutral-100"
           >
-            <div className="px-5 py-5 flex flex-col gap-2">
+            <div className="px-5 py-4 flex flex-col gap-2">
               <Link
                 href="/demo"
-                className="flex items-center justify-center px-5 py-3 bg-primary text-white text-sm font-medium rounded-xl hover:bg-primary-dark transition-colors"
+                className="flex items-center justify-center px-5 py-3 bg-neutral-900 text-white text-sm font-medium rounded-xl hover:bg-neutral-800 transition-colors"
                 onClick={() => setMenuOpen(false)}
               >
                 Request Demo

@@ -38,7 +38,7 @@ const UseCaseCards = memo(function UseCaseCards() {
     },
   ];
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
       {cases.map((uc, i) => (
         <motion.div
           key={uc.title}
@@ -47,15 +47,17 @@ const UseCaseCards = memo(function UseCaseCards() {
           viewport={{ once: true, margin: "-20px" }}
           custom={i}
           variants={fade}
-          className="p-5 sm:p-8 rounded-xl sm:rounded-2xl border border-neutral-100 bg-neutral-50/50"
+          className="group p-6 sm:p-7 rounded-2xl bg-white border border-neutral-200/60 shadow-[0_1px_3px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.06)] hover:border-primary/20 transition-all duration-300"
         >
-          <p className="font-serif text-2xl sm:text-3xl italic text-primary mb-2 sm:mb-3">{String(i + 1).padStart(2, '0')}</p>
-          <h3 className="text-sm sm:text-base font-medium text-neutral-900 mb-2 sm:mb-3">{uc.title}</h3>
-          <ul className="space-y-1.5">
+          <div className="w-10 h-10 rounded-xl bg-primary/[0.08] flex items-center justify-center mb-5 group-hover:bg-primary/[0.12] transition-colors">
+            <span className="font-serif text-lg text-primary font-medium">{String(i + 1).padStart(2, '0')}</span>
+          </div>
+          <h3 className="text-base font-semibold text-neutral-900 mb-3">{uc.title}</h3>
+          <ul className="space-y-2">
             {uc.items.map((item) => (
-              <li key={item} className="flex items-start gap-2">
-                <div className="w-1 h-1 rounded-full bg-primary/40 mt-1.5 flex-shrink-0" />
-                <span className="text-xs sm:text-sm text-neutral-500 font-light leading-relaxed">{item}</span>
+              <li key={item} className="flex items-start gap-2.5">
+                <div className="w-1 h-1 rounded-full bg-primary/50 mt-2 flex-shrink-0" />
+                <span className="text-sm text-neutral-500 leading-relaxed">{item}</span>
               </li>
             ))}
           </ul>
@@ -70,11 +72,12 @@ const BenefitsList = memo(function BenefitsList() {
     'No manual workflows',
     'Works with your existing systems',
     'Reduces operational workload',
-    'Delivers consistent, accurate outputs',
+    'Consistent, accurate outputs',
     'Full audit trail for every action',
+    'Enterprise-ready from day one',
   ];
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
       {benefits.map((b, i) => (
         <motion.div
           key={b}
@@ -83,12 +86,12 @@ const BenefitsList = memo(function BenefitsList() {
           viewport={{ once: true, margin: "-20px" }}
           custom={i}
           variants={fade}
-          className="flex items-center gap-3 p-4 sm:p-5 rounded-xl border border-neutral-100 bg-white"
+          className="flex items-center gap-3 py-3 px-4"
         >
-          <div className="w-6 h-6 rounded-full bg-green-50 flex items-center justify-center flex-shrink-0">
-            <Check className="w-3.5 h-3.5 text-green-600" />
+          <div className="w-5 h-5 rounded-full bg-green-500/10 flex items-center justify-center flex-shrink-0">
+            <Check className="w-3 h-3 text-green-600" />
           </div>
-          <span className="text-sm text-neutral-700 font-medium">{b}</span>
+          <span className="text-sm text-neutral-600">{b}</span>
         </motion.div>
       ))}
     </div>
@@ -103,7 +106,7 @@ export default function HomePage() {
       <Header />
 
       <main>
-      <section className="relative min-h-[100svh] flex items-center justify-center px-4 sm:px-6 overflow-hidden">
+      <section className="relative min-h-[100svh] flex items-center justify-center px-5 sm:px-8 overflow-hidden">
         <HeroBackground />
 
         <div className="max-w-4xl mx-auto text-center relative z-10 w-full">
@@ -134,7 +137,7 @@ export default function HomePage() {
             animate="visible"
             custom={2}
             variants={fade}
-            className="text-[15px] leading-relaxed sm:text-lg text-white/40 font-light mb-10 sm:mb-14 max-w-xl mx-auto px-2"
+            className="text-[15px] leading-relaxed sm:text-lg text-white/60 font-light mb-10 sm:mb-14 max-w-md mx-auto"
           >
             Describe what needs to be done. Grysics handles the rest.
           </motion.p>
@@ -144,17 +147,17 @@ export default function HomePage() {
             animate="visible"
             custom={3}
             variants={fade}
-            className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 px-2 sm:px-0"
+            className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4"
           >
             <Link
               href="/demo"
-              className="inline-flex items-center gap-2 px-8 py-3.5 bg-primary text-white text-sm font-medium rounded-full hover:bg-primary-dark transition-colors"
+              className="inline-flex items-center gap-2 px-8 py-3.5 bg-primary text-white text-sm font-medium rounded-full hover:bg-primary-dark transition-all duration-200 shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30"
             >
               Request Demo <ArrowRight className="w-4 h-4" />
             </Link>
             <a
               href="#how-it-works"
-              className="inline-flex items-center gap-2 px-8 py-3.5 border border-white/20 text-white/70 text-sm font-medium rounded-full hover:bg-white/5 transition-colors backdrop-blur-sm"
+              className="inline-flex items-center gap-2 px-8 py-3.5 border border-white/15 text-white/60 text-sm font-medium rounded-full hover:bg-white/5 hover:text-white/80 transition-all duration-200"
             >
               See How It Works
             </a>
@@ -162,22 +165,22 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="how-it-works" className="pt-16 sm:pt-32 pb-16 sm:pb-32 bg-neutral-950 text-white overflow-hidden">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+      <section id="how-it-works" className="py-20 sm:py-32 bg-neutral-950 text-white">
+        <div className="max-w-6xl mx-auto px-5 sm:px-8">
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-20px" }}
             custom={0}
             variants={fade}
-            className="text-center mb-10 sm:mb-16"
+            className="text-center mb-12 sm:mb-16"
           >
-            <p className="text-xs uppercase tracking-[0.2em] text-neutral-500 font-medium mb-3 sm:mb-4">How it works</p>
-            <h2 className="font-serif text-2xl sm:text-5xl lg:text-6xl tracking-tight mb-3 sm:mb-4">
+            <p className="text-[11px] uppercase tracking-[0.25em] text-neutral-500 font-medium mb-4">How it works</p>
+            <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl tracking-tight mb-3">
               Goal in.
-              <span className="text-white/40"> Task done.</span>
+              <span className="text-white/30"> Task done.</span>
             </h2>
-            <p className="text-sm sm:text-base text-neutral-400 font-light max-w-lg mx-auto">
+            <p className="text-sm text-neutral-500 max-w-sm mx-auto">
               You set the goal. Grysics delivers the result.
             </p>
           </motion.div>
@@ -186,29 +189,29 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-16 sm:py-32 border-b border-neutral-100 overflow-hidden">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-0 items-center">
-            <div className="lg:pr-12">
+      <section className="py-20 sm:py-32 overflow-hidden">
+        <div className="max-w-6xl mx-auto px-5 sm:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-0 items-center">
+            <div className="lg:pr-16">
               <motion.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, margin: "-20px" }}
                 custom={0}
                 variants={fade}
-                className="mb-6 sm:mb-8"
+                className="mb-8"
               >
-                <p className="text-xs uppercase tracking-[0.2em] text-neutral-400 font-medium mb-3 sm:mb-4">The problem</p>
-                <h2 className="font-serif text-2xl sm:text-5xl tracking-tight text-neutral-900 mb-4 sm:mb-6">
+                <p className="text-[11px] uppercase tracking-[0.25em] text-neutral-400 font-medium mb-4">The problem</p>
+                <h2 className="font-serif text-3xl sm:text-5xl tracking-tight text-neutral-900 mb-5">
                   Business operations are still
-                  <span className="text-neutral-400"> manual and fragmented</span>
+                  <span className="text-neutral-300"> manual and fragmented</span>
                 </h2>
-                <p className="text-sm sm:text-base text-neutral-500 font-light leading-relaxed">
+                <p className="text-base text-neutral-500 font-light">
                   Multiple systems. Manual steps. Hours wasted on tasks that should be automatic.
                 </p>
               </motion.div>
 
-              <div className="space-y-3 mb-6">
+              <div className="space-y-2.5 mb-6">
                 {[
                   'Collecting data across systems',
                   'Cleaning and reconciling records',
@@ -222,7 +225,7 @@ export default function HomePage() {
                     viewport={{ once: true, margin: "-20px" }}
                     custom={i + 1}
                     variants={fade}
-                    className="flex items-center gap-3 p-4 rounded-xl border border-neutral-100 bg-neutral-50/50"
+                    className="flex items-center gap-3 py-3 px-4 rounded-xl bg-red-50/50 border border-red-100/60"
                   >
                     <div className="w-1.5 h-1.5 rounded-full bg-red-400 flex-shrink-0" />
                     <span className="text-sm text-neutral-600">{item}</span>
@@ -236,7 +239,7 @@ export default function HomePage() {
                 viewport={{ once: true, margin: "-20px" }}
                 custom={5}
                 variants={fade}
-                className="text-sm text-neutral-400 font-light"
+                className="text-sm text-neutral-400 font-light italic"
               >
                 It adds up. Every single day.
               </motion.p>
@@ -248,14 +251,14 @@ export default function HomePage() {
               viewport={{ once: true, margin: "-20px" }}
               custom={2}
               variants={fade}
-              className="relative lg:-mr-6 xl:-mr-16"
+              className="relative lg:-mr-8 xl:-mr-20"
             >
               <Image
                 src="/images/business-docs.png"
                 alt="Manual business document processing"
                 width={800}
                 height={533}
-                className="w-full h-auto rounded-xl sm:rounded-2xl lg:rounded-r-none"
+                className="w-full h-auto rounded-2xl lg:rounded-r-none shadow-2xl shadow-neutral-200/50"
                 sizes="(max-width: 1024px) 100vw, 50vw"
               />
             </motion.div>
@@ -263,25 +266,27 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-16 sm:py-32 bg-neutral-950 text-white">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+      <div className="section-divider" />
+
+      <section className="py-20 sm:py-32 bg-neutral-950 text-white">
+        <div className="max-w-6xl mx-auto px-5 sm:px-8">
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-20px" }}
             custom={0}
             variants={fade}
-            className="text-center mb-10 sm:mb-14"
+            className="text-center mb-12 sm:mb-16"
           >
-            <p className="text-xs uppercase tracking-[0.2em] text-neutral-500 font-medium mb-3 sm:mb-4">The solution</p>
-            <h2 className="font-serif text-2xl sm:text-5xl lg:text-6xl tracking-tight mb-4 sm:mb-6">
+            <p className="text-[11px] uppercase tracking-[0.25em] text-neutral-500 font-medium mb-4">The solution</p>
+            <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl tracking-tight mb-4">
               Grysics executes business
               <br className="hidden sm:block" />
-              <span className="text-white/40"> operations for you</span>
+              <span className="text-white/30"> operations for you</span>
             </h2>
           </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <motion.div
               initial="hidden"
               whileInView="visible"
@@ -289,22 +294,22 @@ export default function HomePage() {
               custom={1}
               variants={fade}
             >
-              <p className="text-sm sm:text-base text-neutral-400 font-light leading-relaxed mb-8">
+              <p className="text-base text-neutral-400 font-light mb-8">
                 One goal in. Finished work out.
               </p>
               <div className="space-y-4">
                 <div className="flex items-center gap-4">
-                  <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
                     <span className="text-primary text-sm font-semibold">1</span>
                   </div>
-                  <p className="font-serif text-base sm:text-lg italic text-primary">You describe the outcome.</p>
+                  <p className="font-serif text-lg italic text-primary">You describe the outcome.</p>
                 </div>
-                <div className="w-px h-4 bg-white/10 ml-4" />
+                <div className="w-px h-4 bg-white/10 ml-5" />
                 <div className="flex items-center gap-4">
-                  <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center flex-shrink-0">
-                    <span className="text-white/60 text-sm font-semibold">2</span>
+                  <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center flex-shrink-0">
+                    <span className="text-white/50 text-sm font-semibold">2</span>
                   </div>
-                  <p className="font-serif text-base sm:text-lg italic text-white/60">Grysics plans, executes, and delivers it.</p>
+                  <p className="font-serif text-lg italic text-white/50">Grysics plans, executes, and delivers it.</p>
                 </div>
               </div>
             </motion.div>
@@ -315,59 +320,59 @@ export default function HomePage() {
               viewport={{ once: true, margin: "-20px" }}
               custom={2}
               variants={fade}
-              className="relative w-full rounded-xl sm:rounded-2xl overflow-hidden bg-white/[0.03] border border-white/10 p-6 sm:p-8"
+              className="relative w-full rounded-2xl overflow-hidden bg-white/[0.02] border border-white/[0.08] p-6 sm:p-8"
             >
               <div className="flex flex-col items-center gap-5">
                 <div className="grid grid-cols-3 gap-3 w-full">
                   {['Your Goal', 'ERP System', 'Excel / Data'].map((label) => (
                     <div key={label} className="flex flex-col items-center gap-2">
-                      <div className="w-full py-3 rounded-lg bg-white/[0.06] border border-white/10 text-center">
-                        <span className="text-[11px] sm:text-xs text-white/60 font-medium">{label}</span>
+                      <div className="w-full py-3 rounded-lg bg-white/[0.04] border border-white/[0.08] text-center">
+                        <span className="text-xs text-white/60 font-medium">{label}</span>
                       </div>
                     </div>
                   ))}
                 </div>
 
                 <div className="flex items-center gap-2">
-                  <div className="w-px h-6 bg-primary/40" />
-                  <div className="w-px h-6 bg-primary/40" />
-                  <div className="w-px h-6 bg-primary/40" />
+                  <div className="w-px h-6 bg-primary/30" />
+                  <div className="w-px h-6 bg-primary/30" />
+                  <div className="w-px h-6 bg-primary/30" />
                 </div>
 
-                <div className="w-full py-4 sm:py-5 rounded-xl bg-primary/10 border border-primary/30 text-center">
+                <div className="w-full py-4 sm:py-5 rounded-xl bg-primary/[0.08] border border-primary/20 text-center">
                   <div className="flex items-center justify-center gap-2 mb-1">
                     <Image src="/images/grysics-logo.png" alt="Grysics" width={20} height={20} className="rounded" style={{ width: 20, height: 20 }} />
                     <span className="text-sm sm:text-base font-medium text-primary">Grysics</span>
                   </div>
-                  <span className="text-[10px] sm:text-[11px] text-white/40">AI Execution Engine</span>
+                  <span className="text-xs text-white/50">AI Execution Engine</span>
                 </div>
 
                 <div className="flex items-center gap-2">
-                  <div className="w-px h-6 bg-green-500/40" />
-                  <div className="w-px h-6 bg-green-500/40" />
-                  <div className="w-px h-6 bg-green-500/40" />
+                  <div className="w-px h-6 bg-green-500/30" />
+                  <div className="w-px h-6 bg-green-500/30" />
+                  <div className="w-px h-6 bg-green-500/30" />
                 </div>
 
                 <div className="grid grid-cols-3 gap-3 w-full">
                   {['Reports', 'Notifications', 'Audit Trail'].map((label) => (
                     <div key={label} className="flex flex-col items-center gap-2">
-                      <div className="w-full py-3 rounded-lg bg-green-500/[0.08] border border-green-500/20 text-center">
-                        <span className="text-[11px] sm:text-xs text-green-400/80 font-medium">{label}</span>
+                      <div className="w-full py-3 rounded-lg bg-green-500/[0.06] border border-green-500/15 text-center">
+                        <span className="text-xs text-green-400/80 font-medium">{label}</span>
                       </div>
                     </div>
                   ))}
                 </div>
               </div>
 
-              <div className="flex justify-center gap-6 mt-6 pt-4 border-t border-white/5">
+              <div className="flex justify-center gap-6 mt-6 pt-4 border-t border-white/[0.04]">
                 {[
-                  { label: 'Input', color: 'bg-white/30' },
+                  { label: 'Input', color: 'bg-white/20' },
                   { label: 'Processing', color: 'bg-primary' },
                   { label: 'Output', color: 'bg-green-500' },
                 ].map((item) => (
                   <div key={item.label} className="flex items-center gap-1.5">
                     <div className={`w-2 h-2 rounded-full ${item.color}`} />
-                    <span className="text-[10px] text-white/30">{item.label}</span>
+                    <span className="text-xs text-white/40">{item.label}</span>
                   </div>
                 ))}
               </div>
@@ -376,27 +381,27 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-16 sm:py-32 border-b border-neutral-100">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6">
+      <section className="py-20 sm:py-32 bg-neutral-50/70">
+        <div className="max-w-5xl mx-auto px-5 sm:px-8">
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-20px" }}
             custom={0}
             variants={fade}
-            className="text-center mb-10 sm:mb-16"
+            className="text-center mb-12 sm:mb-16"
           >
-            <p className="text-xs uppercase tracking-[0.2em] text-neutral-400 font-medium mb-3 sm:mb-4">Transparent execution</p>
-            <h2 className="font-serif text-2xl sm:text-5xl tracking-tight text-neutral-900 mb-3 sm:mb-4">
+            <p className="text-[11px] uppercase tracking-[0.25em] text-neutral-400 font-medium mb-4">Transparent execution</p>
+            <h2 className="font-serif text-3xl sm:text-5xl tracking-tight text-neutral-900 mb-3">
               You stay in control.
-              <span className="text-neutral-400"> Every step is visible.</span>
+              <span className="text-neutral-300"> Every step is visible.</span>
             </h2>
-            <p className="text-sm sm:text-base text-neutral-500 font-light max-w-lg mx-auto">
+            <p className="text-sm text-neutral-500 max-w-sm mx-auto">
               See every step. No black boxes.
             </p>
           </motion.div>
 
-          <div className="rounded-xl sm:rounded-2xl border border-neutral-100 bg-neutral-50/30 p-6 sm:p-10">
+          <div className="rounded-2xl bg-white border border-neutral-200/60 shadow-[0_1px_3px_rgba(0,0,0,0.04)] p-6 sm:p-10">
             <div className="max-w-xl mx-auto">
               <motion.p
                 initial="hidden"
@@ -404,17 +409,17 @@ export default function HomePage() {
                 viewport={{ once: true, margin: "-20px" }}
                 custom={0}
                 variants={fade}
-                className="text-sm sm:text-base text-neutral-900 font-medium mb-6 sm:mb-8"
+                className="text-base text-neutral-900 font-medium mb-8"
               >
                 Example: &quot;Reconcile Q1 transactions&quot;
               </motion.p>
               <div className="space-y-0">
                 {[
-                  { step: 'Connecting to your financial systems', status: 'Done', statusColor: 'text-green-600 bg-green-50' },
-                  { step: 'Pulling 847 transactions from payment records', status: 'Done', statusColor: 'text-green-600 bg-green-50' },
-                  { step: 'Cross-referencing with accounting data', status: 'Done', statusColor: 'text-green-600 bg-green-50' },
-                  { step: 'Found 3 discrepancies, resolved 2 automatically', status: 'Review', statusColor: 'text-amber-600 bg-amber-50' },
-                  { step: 'Report generated and ready for download', status: 'Done', statusColor: 'text-green-600 bg-green-50' },
+                  { step: 'Connecting to your financial systems', status: 'Done', statusColor: 'text-green-700 bg-green-50 border border-green-100' },
+                  { step: 'Pulling 847 transactions from payment records', status: 'Done', statusColor: 'text-green-700 bg-green-50 border border-green-100' },
+                  { step: 'Cross-referencing with accounting data', status: 'Done', statusColor: 'text-green-700 bg-green-50 border border-green-100' },
+                  { step: 'Found 3 discrepancies, resolved 2 automatically', status: 'Review', statusColor: 'text-amber-700 bg-amber-50 border border-amber-100' },
+                  { step: 'Report generated and ready for download', status: 'Done', statusColor: 'text-green-700 bg-green-50 border border-green-100' },
                 ].map((item, i) => (
                   <motion.div
                     key={item.step}
@@ -426,10 +431,10 @@ export default function HomePage() {
                   >
                     <div className="flex items-start gap-4 py-4 border-b border-neutral-100 last:border-b-0">
                       <div className="flex flex-col items-center flex-shrink-0 mt-0.5">
-                        <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center">
+                        <div className="w-7 h-7 rounded-lg bg-primary/[0.08] flex items-center justify-center">
                           <span className="text-[10px] font-semibold text-primary">{i + 1}</span>
                         </div>
-                        {i < 4 && <div className="w-px h-full min-h-[16px] bg-neutral-200 mt-1" />}
+                        {i < 4 && <div className="w-px h-full min-h-[16px] bg-neutral-100 mt-1" />}
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-sm text-neutral-700">{item.step}</p>
@@ -447,12 +452,12 @@ export default function HomePage() {
                 viewport={{ once: true, margin: "-20px" }}
                 custom={6}
                 variants={fade}
-                className="mt-6 sm:mt-8 flex items-center gap-3 p-4 rounded-xl bg-green-50 border border-green-100"
+                className="mt-8 flex items-center gap-3 p-4 rounded-xl bg-green-50/80 border border-green-100"
               >
                 <Check className="w-5 h-5 text-green-600 flex-shrink-0" />
                 <div>
                   <p className="text-sm font-medium text-neutral-900">Completed in 2 minutes 14 seconds</p>
-                  <p className="text-xs text-neutral-500 mt-0.5">847 records processed. $12.4K variance identified. Full audit trail available.</p>
+                  <p className="text-xs text-neutral-500 mt-0.5">847 records processed. $12.4K variance identified.</p>
                 </div>
               </motion.div>
             </div>
@@ -460,49 +465,48 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-16 sm:py-32 border-b border-neutral-100">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+      <section className="py-20 sm:py-32">
+        <div className="max-w-6xl mx-auto px-5 sm:px-8">
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-20px" }}
             custom={0}
             variants={fade}
-            className="text-center mb-10 sm:mb-16"
+            className="text-center mb-12 sm:mb-16"
           >
-            <p className="text-xs uppercase tracking-[0.2em] text-neutral-400 font-medium mb-3 sm:mb-4">Use cases</p>
-            <h2 className="font-serif text-2xl sm:text-5xl tracking-tight text-neutral-900">
+            <p className="text-[11px] uppercase tracking-[0.25em] text-neutral-400 font-medium mb-4">Use cases</p>
+            <h2 className="font-serif text-3xl sm:text-5xl tracking-tight text-neutral-900">
               Built for business operations.
             </h2>
           </motion.div>
 
           <UseCaseCards />
-        </div>
-      </section>
 
-      <section className="py-16 sm:py-32 border-b border-neutral-100 bg-neutral-50/50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6">
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-20px" }}
             custom={0}
             variants={fade}
-            className="text-center mb-10 sm:mb-16"
+            className="mt-16 sm:mt-20 pt-12 sm:pt-16 border-t border-neutral-100"
           >
-            <p className="text-xs uppercase tracking-[0.2em] text-neutral-400 font-medium mb-3 sm:mb-4">Key benefits</p>
-            <h2 className="font-serif text-2xl sm:text-5xl tracking-tight text-neutral-900">
-              Why teams choose Grysics.
-            </h2>
+            <div className="text-center mb-8">
+              <p className="text-[11px] uppercase tracking-[0.25em] text-neutral-400 font-medium mb-4">Key benefits</p>
+              <h2 className="font-serif text-2xl sm:text-4xl tracking-tight text-neutral-900">
+                Why teams choose Grysics.
+              </h2>
+            </div>
+            <div className="max-w-3xl mx-auto">
+              <BenefitsList />
+            </div>
           </motion.div>
-
-          <BenefitsList />
         </div>
       </section>
 
-      <section className="py-16 sm:py-32 border-b border-neutral-100">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+      <section className="py-20 sm:py-32 bg-neutral-50/70">
+        <div className="max-w-6xl mx-auto px-5 sm:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
             <motion.div
               initial="hidden"
               whileInView="visible"
@@ -510,12 +514,12 @@ export default function HomePage() {
               custom={0}
               variants={fade}
             >
-              <p className="text-xs uppercase tracking-[0.2em] text-neutral-400 font-medium mb-3 sm:mb-4">Differentiation</p>
-              <h2 className="font-serif text-2xl sm:text-4xl tracking-tight text-neutral-900 mb-3 sm:mb-4">
+              <p className="text-[11px] uppercase tracking-[0.25em] text-neutral-400 font-medium mb-4">Differentiation</p>
+              <h2 className="font-serif text-3xl sm:text-4xl tracking-tight text-neutral-900 mb-4">
                 Beyond dashboards and
-                <span className="text-neutral-400"> automation tools.</span>
+                <span className="text-neutral-300"> automation tools.</span>
               </h2>
-              <p className="text-sm sm:text-base text-neutral-500 font-light leading-relaxed mb-6 sm:mb-8">
+              <p className="text-base text-neutral-500 font-light mb-8">
                 Other tools visualize. Grysics completes.
               </p>
               <div className="space-y-3">
@@ -525,41 +529,50 @@ export default function HomePage() {
                   'No fragmented processes',
                 ].map((item) => (
                   <div key={item} className="flex items-center gap-3">
-                    <div className="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
+                    <div className="w-5 h-5 rounded-full bg-primary/[0.08] flex items-center justify-center flex-shrink-0">
+                      <Check className="w-3 h-3 text-primary" />
+                    </div>
                     <span className="text-sm text-neutral-600">{item}</span>
                   </div>
                 ))}
               </div>
-              <p className="text-sm text-neutral-400 font-light mt-6 italic">
+              <p className="text-sm text-neutral-400 font-light mt-8 italic">
                 From request to result. Fully executed.
               </p>
             </motion.div>
 
-            <div className="bg-neutral-950 rounded-xl sm:rounded-2xl p-4 sm:p-8 border border-neutral-200/10">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-20px" }}
+              custom={1}
+              variants={fade}
+              className="bg-neutral-950 rounded-2xl p-5 sm:p-8 border border-neutral-200/10 shadow-xl"
+            >
               <BenchmarkChart />
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
-      <section className="py-16 sm:py-32 bg-neutral-950 text-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6">
+      <section className="py-20 sm:py-32 bg-neutral-950 text-white">
+        <div className="max-w-5xl mx-auto px-5 sm:px-8">
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-20px" }}
             custom={0}
             variants={fade}
-            className="text-center mb-10 sm:mb-12"
+            className="text-center mb-12"
           >
-            <p className="text-xs uppercase tracking-[0.2em] text-neutral-500 font-medium mb-3 sm:mb-4">Trust & control</p>
-            <h2 className="font-serif text-2xl sm:text-5xl tracking-tight mb-4 sm:mb-6">
+            <p className="text-[11px] uppercase tracking-[0.25em] text-neutral-500 font-medium mb-4">Trust & control</p>
+            <h2 className="font-serif text-3xl sm:text-5xl tracking-tight mb-4">
               Built for reliability
-              <span className="text-white/40"> and control.</span>
+              <span className="text-white/30"> and control.</span>
             </h2>
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 max-w-3xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl mx-auto">
             {[
               { icon: Eye, title: 'Full traceability', desc: 'Every action logged.' },
               { icon: FileText, title: 'Recorded transformations', desc: 'All data changes tracked.' },
@@ -573,19 +586,22 @@ export default function HomePage() {
                 viewport={{ once: true, margin: "-20px" }}
                 custom={i}
                 variants={fade}
-                className="p-5 sm:p-6 rounded-xl sm:rounded-2xl border border-white/10 bg-white/[0.03]"
+                className="p-6 rounded-2xl border border-white/[0.06] bg-white/[0.02] hover:bg-white/[0.04] transition-colors duration-300"
               >
-                <item.icon className="w-5 h-5 text-primary mb-3" />
-                <h3 className="text-sm sm:text-base font-medium text-white mb-1.5">{item.title}</h3>
-                <p className="text-xs sm:text-sm text-white/40 font-light leading-relaxed">{item.desc}</p>
+                <div className="w-10 h-10 rounded-xl bg-primary/[0.08] flex items-center justify-center mb-4">
+                  <item.icon className="w-4.5 h-4.5 text-primary" />
+                </div>
+                <h3 className="text-base font-medium text-white mb-1.5">{item.title}</h3>
+                <p className="text-sm text-white/50">{item.desc}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="py-16 sm:py-32">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+      <section className="py-24 sm:py-36 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-neutral-50/50 to-white" />
+        <div className="max-w-4xl mx-auto px-5 sm:px-8 text-center relative z-10">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -593,17 +609,17 @@ export default function HomePage() {
             custom={0}
             variants={fade}
           >
-            <h2 className="font-serif text-2xl sm:text-5xl lg:text-6xl tracking-tight text-neutral-900 mb-3 sm:mb-4">
+            <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl tracking-tight text-neutral-900 mb-4">
               Give it a goal.
               <br />
               <span className="bg-gradient-to-r from-primary via-amber-400 to-primary bg-clip-text text-transparent">Get it done.</span>
             </h2>
-            <p className="text-sm sm:text-base text-neutral-500 font-light mb-8 sm:mb-10 max-w-md mx-auto">
+            <p className="text-base text-neutral-500 font-light mb-10">
               See Grysics in action.
             </p>
             <Link
               href="/demo"
-              className="inline-flex items-center gap-2 px-8 py-3.5 bg-primary text-white text-sm font-medium rounded-full hover:bg-primary-dark transition-colors"
+              className="inline-flex items-center gap-2 px-10 py-4 bg-primary text-white text-sm font-medium rounded-full hover:bg-primary-dark transition-all duration-200 shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30"
             >
               Request a Demo <ArrowRight className="w-4 h-4" />
             </Link>

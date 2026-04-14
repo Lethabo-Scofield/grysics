@@ -67,33 +67,40 @@ const UseCaseCards = memo(function UseCaseCards() {
   );
 });
 
-const BenefitsList = memo(function BenefitsList() {
+const BenefitsSlider = memo(function BenefitsSlider() {
   const benefits = [
-    'No manual workflows',
-    'Works with your existing systems',
-    'Reduces operational workload',
-    'Consistent, accurate outputs',
-    'Full audit trail for every action',
-    'Enterprise-ready from day one',
+    { title: 'No manual workflows', desc: 'Stop building complex automations. Just describe the goal.', icon: '01' },
+    { title: 'Works with your systems', desc: 'Connects to ERP, Excel, databases, and more.', icon: '02' },
+    { title: 'Reduces workload', desc: 'Free your team from repetitive operational tasks.', icon: '03' },
+    { title: 'Accurate outputs', desc: 'Consistent results every time. No human error.', icon: '04' },
+    { title: 'Full audit trail', desc: 'Every action logged and traceable for compliance.', icon: '05' },
+    { title: 'Enterprise-ready', desc: 'Built for regulated industries from day one.', icon: '06' },
   ];
+
+  const duplicated = [...benefits, ...benefits];
+
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-      {benefits.map((b, i) => (
-        <motion.div
-          key={b}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-20px" }}
-          custom={i}
-          variants={fade}
-          className="flex items-center gap-3 py-3 px-4"
-        >
-          <div className="w-5 h-5 rounded-full bg-green-500/10 flex items-center justify-center flex-shrink-0">
-            <Check className="w-3 h-3 text-green-600" />
+    <div className="relative overflow-hidden">
+      <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-24 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+      <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-24 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+      <motion.div
+        className="flex gap-4 sm:gap-5"
+        animate={{ x: ['0%', '-50%'] }}
+        transition={{ x: { duration: 30, repeat: Infinity, ease: 'linear' } }}
+      >
+        {duplicated.map((b, i) => (
+          <div
+            key={`${b.title}-${i}`}
+            className="flex-shrink-0 w-[260px] sm:w-[300px] p-6 rounded-2xl bg-white border border-neutral-200/60 shadow-[0_1px_3px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.06)] hover:border-primary/20 transition-all duration-300 group cursor-default"
+          >
+            <div className="w-10 h-10 rounded-xl bg-primary/[0.08] flex items-center justify-center mb-4 group-hover:bg-primary/[0.12] transition-colors">
+              <span className="text-sm font-semibold text-primary">{b.icon}</span>
+            </div>
+            <h4 className="text-base font-semibold text-neutral-900 mb-2">{b.title}</h4>
+            <p className="text-sm text-neutral-500 leading-relaxed">{b.desc}</p>
           </div>
-          <span className="text-sm text-neutral-600">{b}</span>
-        </motion.div>
-      ))}
+        ))}
+      </motion.div>
     </div>
   );
 });
@@ -491,14 +498,14 @@ export default function HomePage() {
             variants={fade}
             className="mt-16 sm:mt-20 pt-12 sm:pt-16 border-t border-neutral-100"
           >
-            <div className="text-center mb-8">
+            <div className="text-center mb-10">
               <p className="text-[11px] uppercase tracking-[0.25em] text-neutral-400 font-medium mb-4">Key benefits</p>
               <h2 className="font-serif text-2xl sm:text-4xl tracking-tight text-neutral-900">
                 Why teams choose Grysics.
               </h2>
             </div>
-            <div className="max-w-3xl mx-auto">
-              <BenefitsList />
+            <div className="-mx-5 sm:-mx-8">
+              <BenefitsSlider />
             </div>
           </motion.div>
         </div>

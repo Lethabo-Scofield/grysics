@@ -173,6 +173,40 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="py-12 sm:py-16 border-y border-neutral-100 bg-neutral-50/50">
+        <div className="max-w-5xl mx-auto px-5 sm:px-8">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-20px" }}
+            custom={0}
+            variants={fade}
+            className="text-center"
+          >
+            <p className="text-[11px] uppercase tracking-[0.25em] text-neutral-400 font-medium mb-8">
+              Trusted by teams at leading companies
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-x-10 sm:gap-x-16 gap-y-6">
+              {[
+                { name: 'Meridian', style: 'font-serif font-bold text-xl' },
+                { name: 'AXON', style: 'font-mono font-bold text-lg tracking-[0.15em]' },
+                { name: 'Vaultbridge', style: 'font-serif font-medium text-xl italic' },
+                { name: 'NovaCrest', style: 'font-sans font-bold text-lg' },
+                { name: 'LEDGR', style: 'font-mono font-bold text-lg tracking-[0.2em]' },
+                { name: 'Finworth', style: 'font-serif font-bold text-xl' },
+              ].map((company) => (
+                <span
+                  key={company.name}
+                  className={`${company.style} text-neutral-300 select-none transition-colors duration-300 hover:text-neutral-500`}
+                >
+                  {company.name}
+                </span>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       <section id="how-it-works" className="py-20 sm:py-32 bg-neutral-950 text-white">
         <div className="max-w-6xl mx-auto px-5 sm:px-8">
           <motion.div

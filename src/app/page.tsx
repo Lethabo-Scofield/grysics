@@ -151,7 +151,7 @@ export default function HomePage() {
             variants={fade}
             className="text-[15px] leading-relaxed sm:text-lg text-white/40 font-light mb-10 sm:mb-14 max-w-xl mx-auto px-2"
           >
-            Describe what needs to be done. Grysics executes it across your systems, data, and workflows—automatically and reliably.
+            Describe what needs to be done. Grysics executes it across your systems, data, and workflows. Automatically and reliably.
           </motion.p>
 
           <motion.div
@@ -244,7 +244,7 @@ export default function HomePage() {
               variants={fade}
             >
             <p className="text-sm sm:text-base text-neutral-500 font-light leading-relaxed mb-6 sm:mb-8">
-              Most companies rely on multiple systems—ERP, Excel, HR platforms, and reporting tools. Teams still spend hours on tasks that should be automatic.
+              Most companies rely on multiple systems like ERP, Excel, HR platforms, and reporting tools. Teams still spend hours on tasks that should be automatic.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               {[
@@ -457,7 +457,7 @@ export default function HomePage() {
                 ))}
               </div>
               <p className="text-sm text-neutral-400 font-light mt-6 italic">
-                From request to result—fully executed.
+                From request to result. Fully executed.
               </p>
             </motion.div>
 
@@ -525,7 +525,7 @@ export default function HomePage() {
               <span className="bg-gradient-to-r from-primary via-amber-400 to-primary bg-clip-text text-transparent">Get it done.</span>
             </h2>
             <p className="text-sm sm:text-base text-neutral-500 font-light mb-8 sm:mb-10 max-w-md mx-auto">
-              See how Grysics can handle your business operations—from goal to completed result.
+              See how Grysics can handle your business operations, from goal to completed result.
             </p>
             <Link
               href="/demo"

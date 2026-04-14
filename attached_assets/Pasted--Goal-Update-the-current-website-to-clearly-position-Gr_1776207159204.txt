@@ -1,0 +1,183 @@
+**Goal:** Update the current website to clearly position Grysics as an AI execution system for business operations (finance, HR, compliance, reporting). The audience is business leaders, managers, and decision-makers—not engineers.
+
+---
+
+## Instructions for Update
+
+### 1. Homepage (Above the Fold)
+
+**Headline:**
+Turn business goals into completed work.
+
+**Subheadline:**
+Describe what needs to be done. Grysics executes it across your systems, data, and workflows—automatically and reliably.
+
+**Primary CTA:**
+Request Demo
+Secondary CTA: See How It Works
+
+---
+
+### 2. Problem Section
+
+**Title:**
+Business operations are still manual and fragmented
+
+**Content:**
+Most companies rely on multiple systems—ERP, Excel, HR platforms, and reporting tools.
+Teams still spend hours:
+
+* collecting data
+* cleaning and reconciling it
+* building reports
+* coordinating across departments
+
+Even with modern tools, execution remains manual and time-consuming.
+
+---
+
+### 3. Solution Section
+
+**Title:**
+Grysics executes business operations for you
+
+**Content:**
+Grysics is an AI execution system that takes a business goal and handles the entire process across your tools and data.
+
+You describe the outcome.
+Grysics plans, executes, and delivers it.
+
+---
+
+### 4. How It Works (Simple 4-step flow)
+
+**Step 1: Define the goal**
+Example:
+“Generate monthly financial report”
+“Prepare compliance report”
+“Update HR records and notify team”
+
+**Step 2: Grysics plans the work**
+
+* identifies required data
+* selects systems
+* builds execution steps
+
+**Step 3: Grysics executes across systems**
+
+* pulls data from ERP, Excel, and databases
+* processes and validates data
+* performs required calculations
+
+**Step 4: Delivers results**
+
+* Excel reports
+* PDF summaries
+* automated distribution
+* full audit trail
+
+---
+
+### 5. Use Cases Section
+
+**Finance**
+
+* monthly reporting packs
+* expense reconciliation
+* financial summaries
+
+**Compliance**
+
+* audit-ready reports
+* regulatory reporting
+* data validation workflows
+
+**HR Operations**
+
+* onboarding/offboarding execution
+* employee data updates
+* reporting
+
+**Enterprise Reporting**
+
+* cross-system data aggregation
+* executive dashboards and summaries
+
+---
+
+### 6. Key Benefits
+
+* No manual workflows
+* Works with your existing systems
+* Reduces operational workload
+* Delivers consistent, accurate outputs
+* Full audit trail for every action
+
+---
+
+### 7. Differentiation Section
+
+**Title:**
+Beyond dashboards and automation tools
+
+**Content:**
+Traditional tools help teams build workflows or visualize data.
+Grysics completes the work.
+
+* No workflow setup required
+* No manual data coordination
+* No fragmented processes
+
+From request to result—fully executed.
+
+---
+
+### 8. Trust / Control Section
+
+**Title:**
+Built for reliability and control
+
+**Content:**
+
+* Every action is logged and traceable
+* Data sources and transformations are recorded
+* Approval workflows can be added
+* Designed for finance, compliance, and enterprise operations
+
+---
+
+### 9. Closing Section
+
+**Headline:**
+Give it a goal. Get it done.
+
+**CTA:**
+Request a Demo
+
+---
+
+## Design Notes
+
+* Keep layout clean and professional (enterprise feel)
+* Avoid technical jargon (no mention of AI models, APIs, or workflows)
+* Focus on outcomes, reliability, and time saved
+* Use simple diagrams or flow visuals for “How it works”
+* Prioritize clarity over creativity
+
+---
+
+## Tone Guidelines
+
+* Direct and factual
+* Business-focused
+* No hype or exaggerated claims
+* Emphasize execution, reliability, and results
+
+---
+
+## Output Requirement
+
+Update the existing website content and structure to reflect this positioning.
+Ensure all sections are consistent with the idea:
+
+> Grysics = system that executes business operations from goal to result

@@ -124,7 +124,7 @@ export default function WorkflowDemo() {
                   <FileSpreadsheet className="w-7 h-7 text-primary" />
                 </motion.div>
                 <p className="text-white/70 text-base font-medium mb-2">Reconcile Q1 financial transactions</p>
-                <p className="text-white/30 text-sm font-mono">mockDriverData.json attached</p>
+                <p className="text-white/30 text-sm font-mono">Connected to ERP + Bank</p>
               </motion.div>
             )}
 
@@ -197,7 +197,7 @@ export default function WorkflowDemo() {
                 <p className="text-xs text-white/30 uppercase tracking-widest mb-6 text-center">Executing</p>
                 <div className="max-w-md mx-auto space-y-3 font-mono">
                   {[
-                    { text: 'Reading mockDriverData.json (847 records)', icon: '📄' },
+                    { text: 'Pulling 847 records from ERP system', icon: '📄' },
                     { text: 'Matching with bank statement entries', icon: '🔍' },
                     { text: 'Resolving 2 of 3 discrepancies', icon: '⚡' },
                     { text: 'Generating bank reconciliation statement', icon: '📊' },

@@ -11,7 +11,7 @@ interface TermLine {
 
 const lines: TermLine[] = [
   { text: 'Connecting to financial systems...', status: 'done', delay: 800 },
-  { text: 'Pulling 847 transactions from payment records...', status: 'done', delay: 1200 },
+  { text: 'Pulling 847 transactions from ERP system...', status: 'done', delay: 1200 },
   { text: 'Cross-referencing with accounting data...', status: 'done', delay: 1400 },
   { text: 'Found 3 discrepancies — resolved 2 automatically', status: 'review', delay: 1000 },
   { text: 'Report generated and ready for download', status: 'done', delay: 800 },

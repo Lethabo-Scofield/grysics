@@ -166,6 +166,30 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section id="how-it-works" className="pt-16 sm:pt-32 pb-16 sm:pb-32 bg-neutral-950 text-white overflow-hidden">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-20px" }}
+            custom={0}
+            variants={fade}
+            className="text-center mb-10 sm:mb-16"
+          >
+            <p className="text-xs uppercase tracking-[0.2em] text-neutral-500 font-medium mb-3 sm:mb-4">How it works</p>
+            <h2 className="font-serif text-2xl sm:text-5xl lg:text-6xl tracking-tight mb-3 sm:mb-4">
+              Goal in.
+              <span className="text-white/40"> Task done.</span>
+            </h2>
+            <p className="text-sm sm:text-base text-neutral-400 font-light max-w-lg mx-auto">
+              You describe what needs to happen. Grysics figures out the steps, connects to your systems, and delivers the finished result.
+            </p>
+          </motion.div>
+
+          <ArchitectureDiagram />
+        </div>
+      </section>
+
       <section className="py-16 sm:py-32 border-b border-neutral-100">
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
           <motion.div
@@ -279,30 +303,6 @@ export default function HomePage() {
               </motion.div>
             </div>
           </motion.div>
-        </div>
-      </section>
-
-      <section id="how-it-works" className="pt-16 sm:pt-32 pb-16 sm:pb-32 bg-neutral-950 text-white overflow-hidden border-t border-white/5">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-20px" }}
-            custom={0}
-            variants={fade}
-            className="text-center mb-10 sm:mb-16"
-          >
-            <p className="text-xs uppercase tracking-[0.2em] text-neutral-500 font-medium mb-3 sm:mb-4">How it works</p>
-            <h2 className="font-serif text-2xl sm:text-5xl lg:text-6xl tracking-tight mb-3 sm:mb-4">
-              Goal in.
-              <span className="text-white/40"> Task done.</span>
-            </h2>
-            <p className="text-sm sm:text-base text-neutral-400 font-light max-w-lg mx-auto">
-              You describe what needs to happen. Grysics figures out the steps, connects to your systems, and delivers the finished result.
-            </p>
-          </motion.div>
-
-          <ArchitectureDiagram />
         </div>
       </section>
 

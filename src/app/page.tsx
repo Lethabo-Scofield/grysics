@@ -332,15 +332,62 @@ export default function HomePage() {
               viewport={{ once: true, margin: "-20px" }}
               custom={2}
               variants={fade}
-              className="relative w-full aspect-square rounded-xl sm:rounded-2xl overflow-hidden bg-white/5"
+              className="relative w-full rounded-xl sm:rounded-2xl overflow-hidden bg-white/[0.03] border border-white/10 p-6 sm:p-8"
             >
-              <Image
-                src="/images/ai-operations.png"
-                alt="AI in business operations and design process"
-                fill
-                className="object-contain p-4"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
+              <div className="flex flex-col items-center gap-5">
+                <div className="grid grid-cols-3 gap-3 w-full">
+                  {['Your Goal', 'ERP System', 'Excel / Data'].map((label) => (
+                    <div key={label} className="flex flex-col items-center gap-2">
+                      <div className="w-full py-3 rounded-lg bg-white/[0.06] border border-white/10 text-center">
+                        <span className="text-[11px] sm:text-xs text-white/60 font-medium">{label}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <div className="w-px h-6 bg-primary/40" />
+                  <div className="w-px h-6 bg-primary/40" />
+                  <div className="w-px h-6 bg-primary/40" />
+                </div>
+
+                <div className="w-full py-4 sm:py-5 rounded-xl bg-primary/10 border border-primary/30 text-center">
+                  <div className="flex items-center justify-center gap-2 mb-1">
+                    <Image src="/images/grysics-logo.png" alt="Grysics" width={20} height={20} className="rounded" style={{ width: 20, height: 20 }} />
+                    <span className="text-sm sm:text-base font-medium text-primary">Grysics</span>
+                  </div>
+                  <span className="text-[10px] sm:text-[11px] text-white/40">AI Execution Engine</span>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <div className="w-px h-6 bg-green-500/40" />
+                  <div className="w-px h-6 bg-green-500/40" />
+                  <div className="w-px h-6 bg-green-500/40" />
+                </div>
+
+                <div className="grid grid-cols-3 gap-3 w-full">
+                  {['Reports', 'Notifications', 'Audit Trail'].map((label) => (
+                    <div key={label} className="flex flex-col items-center gap-2">
+                      <div className="w-full py-3 rounded-lg bg-green-500/[0.08] border border-green-500/20 text-center">
+                        <span className="text-[11px] sm:text-xs text-green-400/80 font-medium">{label}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="flex justify-center gap-6 mt-6 pt-4 border-t border-white/5">
+                {[
+                  { label: 'Input', color: 'bg-white/30' },
+                  { label: 'Processing', color: 'bg-primary' },
+                  { label: 'Output', color: 'bg-green-500' },
+                ].map((item) => (
+                  <div key={item.label} className="flex items-center gap-1.5">
+                    <div className={`w-2 h-2 rounded-full ${item.color}`} />
+                    <span className="text-[10px] text-white/30">{item.label}</span>
+                  </div>
+                ))}
+              </div>
             </motion.div>
           </div>
         </div>

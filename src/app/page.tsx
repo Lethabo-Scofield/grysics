@@ -12,6 +12,7 @@ import { fade } from '@/components/fade';
 import HeroBackground from '@/components/hero-background';
 
 const ArchitectureDiagram = dynamic(() => import('@/components/diagrams/architecture-diagram'), { ssr: false, loading: () => <DiagramFallback /> });
+const WorkflowDemo = dynamic(() => import('@/components/workflow-demo'), { ssr: false, loading: () => <DiagramFallback /> });
 const BenchmarkChart = dynamic(() => import('@/components/diagrams/benchmark-chart'), { ssr: false, loading: () => <DiagramFallback /> });
 
 function DiagramFallback() {
@@ -192,7 +193,7 @@ export default function HomePage() {
             </p>
           </motion.div>
 
-          <ArchitectureDiagram />
+          <WorkflowDemo />
         </div>
       </section>
 

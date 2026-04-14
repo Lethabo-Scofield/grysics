@@ -12,7 +12,6 @@ import { fade } from '@/components/fade';
 import HeroBackground from '@/components/hero-background';
 
 const ArchitectureDiagram = dynamic(() => import('@/components/diagrams/architecture-diagram'), { ssr: false, loading: () => <DiagramFallback /> });
-const ExecutionTerminal = dynamic(() => import('@/components/diagrams/verification-terminal'), { ssr: false, loading: () => <DiagramFallback /> });
 const BenchmarkChart = dynamic(() => import('@/components/diagrams/benchmark-chart'), { ssr: false, loading: () => <DiagramFallback /> });
 
 function DiagramFallback() {
@@ -348,39 +347,85 @@ export default function HomePage() {
       </section>
 
       <section className="py-16 sm:py-32 border-b border-neutral-100">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-20px" }}
-              custom={0}
-              variants={fade}
-            >
-              <p className="text-xs uppercase tracking-[0.2em] text-neutral-400 font-medium mb-3 sm:mb-4">Live execution</p>
-              <h2 className="font-serif text-2xl sm:text-4xl tracking-tight text-neutral-900 mb-3 sm:mb-4">
-                Watch it work.
-                <span className="text-neutral-400"> Step by step.</span>
-              </h2>
-              <p className="text-sm sm:text-base text-neutral-500 font-light leading-relaxed mb-6 sm:mb-8">
-                Every execution is transparent. You see each step as it happens: what data is being pulled, what&apos;s being processed, and what the final output looks like.
-              </p>
-              <div className="space-y-3">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-20px" }}
+            custom={0}
+            variants={fade}
+            className="text-center mb-10 sm:mb-16"
+          >
+            <p className="text-xs uppercase tracking-[0.2em] text-neutral-400 font-medium mb-3 sm:mb-4">Transparent execution</p>
+            <h2 className="font-serif text-2xl sm:text-5xl tracking-tight text-neutral-900 mb-3 sm:mb-4">
+              You stay in control.
+              <span className="text-neutral-400"> Every step is visible.</span>
+            </h2>
+            <p className="text-sm sm:text-base text-neutral-500 font-light max-w-lg mx-auto">
+              Grysics shows you exactly what it is doing at each stage. No black boxes.
+            </p>
+          </motion.div>
+
+          <div className="rounded-xl sm:rounded-2xl border border-neutral-100 bg-neutral-50/30 p-6 sm:p-10">
+            <div className="max-w-xl mx-auto">
+              <motion.p
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-20px" }}
+                custom={0}
+                variants={fade}
+                className="text-sm sm:text-base text-neutral-900 font-medium mb-6 sm:mb-8"
+              >
+                Example: &quot;Reconcile Q1 transactions&quot;
+              </motion.p>
+              <div className="space-y-0">
                 {[
-                  { label: 'Connects to your data sources', color: 'bg-green-500' },
-                  { label: 'Processes records across systems', color: 'bg-green-500' },
-                  { label: 'Handles errors and edge cases', color: 'bg-green-500' },
-                  { label: 'Delivers structured results', color: 'bg-amber-500' },
-                ].map((item) => (
-                  <div key={item.label} className="flex items-center gap-3">
-                    <div className={`w-1.5 h-1.5 rounded-full ${item.color} flex-shrink-0`} />
-                    <span className="text-sm text-neutral-600">{item.label}</span>
-                  </div>
+                  { step: 'Connecting to your financial systems', status: 'Done', statusColor: 'text-green-600 bg-green-50' },
+                  { step: 'Pulling 847 transactions from payment records', status: 'Done', statusColor: 'text-green-600 bg-green-50' },
+                  { step: 'Cross-referencing with accounting data', status: 'Done', statusColor: 'text-green-600 bg-green-50' },
+                  { step: 'Found 3 discrepancies, resolved 2 automatically', status: 'Review', statusColor: 'text-amber-600 bg-amber-50' },
+                  { step: 'Report generated and ready for download', status: 'Done', statusColor: 'text-green-600 bg-green-50' },
+                ].map((item, i) => (
+                  <motion.div
+                    key={item.step}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, margin: "-20px" }}
+                    custom={i + 1}
+                    variants={fade}
+                  >
+                    <div className="flex items-start gap-4 py-4 border-b border-neutral-100 last:border-b-0">
+                      <div className="flex flex-col items-center flex-shrink-0 mt-0.5">
+                        <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center">
+                          <span className="text-[10px] font-semibold text-primary">{i + 1}</span>
+                        </div>
+                        {i < 4 && <div className="w-px h-full min-h-[16px] bg-neutral-200 mt-1" />}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm text-neutral-700">{item.step}</p>
+                      </div>
+                      <span className={`text-[11px] font-medium px-2.5 py-1 rounded-full flex-shrink-0 ${item.statusColor}`}>
+                        {item.status}
+                      </span>
+                    </div>
+                  </motion.div>
                 ))}
               </div>
-            </motion.div>
-
-            <ExecutionTerminal />
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-20px" }}
+                custom={6}
+                variants={fade}
+                className="mt-6 sm:mt-8 flex items-center gap-3 p-4 rounded-xl bg-green-50 border border-green-100"
+              >
+                <Check className="w-5 h-5 text-green-600 flex-shrink-0" />
+                <div>
+                  <p className="text-sm font-medium text-neutral-900">Completed in 2 minutes 14 seconds</p>
+                  <p className="text-xs text-neutral-500 mt-0.5">847 records processed. $12.4K variance identified. Full audit trail available.</p>
+                </div>
+              </motion.div>
+            </div>
           </div>
         </div>
       </section>

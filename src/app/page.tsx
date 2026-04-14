@@ -136,7 +136,7 @@ export default function HomePage() {
             variants={fade}
             className="text-[15px] leading-relaxed sm:text-lg text-white/40 font-light mb-10 sm:mb-14 max-w-xl mx-auto px-2"
           >
-            Describe what needs to be done. Grysics executes it across your systems, data, and workflows. Automatically and reliably.
+            Describe what needs to be done. Grysics handles the rest.
           </motion.p>
 
           <motion.div
@@ -178,7 +178,7 @@ export default function HomePage() {
               <span className="text-white/40"> Task done.</span>
             </h2>
             <p className="text-sm sm:text-base text-neutral-400 font-light max-w-lg mx-auto">
-              You describe what needs to happen. Grysics figures out the steps, connects to your systems, and delivers the finished result.
+              You set the goal. Grysics delivers the result.
             </p>
           </motion.div>
 
@@ -204,7 +204,7 @@ export default function HomePage() {
                   <span className="text-neutral-400"> manual and fragmented</span>
                 </h2>
                 <p className="text-sm sm:text-base text-neutral-500 font-light leading-relaxed">
-                  Most companies rely on multiple systems like ERP, Excel, HR platforms, and reporting tools. Teams still spend hours on tasks that should be automatic.
+                  Multiple systems. Manual steps. Hours wasted on tasks that should be automatic.
                 </p>
               </motion.div>
 
@@ -238,7 +238,7 @@ export default function HomePage() {
                 variants={fade}
                 className="text-sm text-neutral-400 font-light"
               >
-                Even with modern tools, execution remains manual and time-consuming.
+                It adds up. Every single day.
               </motion.p>
             </div>
 
@@ -290,7 +290,7 @@ export default function HomePage() {
               variants={fade}
             >
               <p className="text-sm sm:text-base text-neutral-400 font-light leading-relaxed mb-8">
-                Grysics is an AI execution system that takes a business goal and handles the entire process across your tools and data.
+                One goal in. Finished work out.
               </p>
               <div className="space-y-4">
                 <div className="flex items-center gap-4">
@@ -392,7 +392,7 @@ export default function HomePage() {
               <span className="text-neutral-400"> Every step is visible.</span>
             </h2>
             <p className="text-sm sm:text-base text-neutral-500 font-light max-w-lg mx-auto">
-              Grysics shows you exactly what it is doing at each stage. No black boxes.
+              See every step. No black boxes.
             </p>
           </motion.div>
 
@@ -516,7 +516,7 @@ export default function HomePage() {
                 <span className="text-neutral-400"> automation tools.</span>
               </h2>
               <p className="text-sm sm:text-base text-neutral-500 font-light leading-relaxed mb-6 sm:mb-8">
-                Traditional tools help teams build workflows or visualize data. Grysics completes the work.
+                Other tools visualize. Grysics completes.
               </p>
               <div className="space-y-3">
                 {[
@@ -561,10 +561,10 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 max-w-3xl mx-auto">
             {[
-              { icon: Eye, title: 'Full traceability', desc: 'Every action is logged and traceable across all systems.' },
-              { icon: FileText, title: 'Recorded transformations', desc: 'Data sources and transformations are recorded for review.' },
-              { icon: Lock, title: 'Approval workflows', desc: 'Approval steps can be added to any execution process.' },
-              { icon: Shield, title: 'Enterprise-grade', desc: 'Designed for finance, compliance, and enterprise operations.' },
+              { icon: Eye, title: 'Full traceability', desc: 'Every action logged.' },
+              { icon: FileText, title: 'Recorded transformations', desc: 'All data changes tracked.' },
+              { icon: Lock, title: 'Approval workflows', desc: 'Human checkpoints built in.' },
+              { icon: Shield, title: 'Enterprise-grade', desc: 'Built for regulated industries.' },
             ].map((item, i) => (
               <motion.div
                 key={item.title}
@@ -599,7 +599,7 @@ export default function HomePage() {
               <span className="bg-gradient-to-r from-primary via-amber-400 to-primary bg-clip-text text-transparent">Get it done.</span>
             </h2>
             <p className="text-sm sm:text-base text-neutral-500 font-light mb-8 sm:mb-10 max-w-md mx-auto">
-              See how Grysics can handle your business operations, from goal to completed result.
+              See Grysics in action.
             </p>
             <Link
               href="/demo"

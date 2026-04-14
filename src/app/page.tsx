@@ -388,7 +388,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-20 sm:py-32 bg-neutral-50/70">
+      <section className="py-20 sm:py-32 bg-neutral-950">
         <div className="max-w-5xl mx-auto px-5 sm:px-8">
           <motion.div
             initial="hidden"
@@ -398,77 +398,105 @@ export default function HomePage() {
             variants={fade}
             className="text-center mb-12 sm:mb-16"
           >
-            <p className="text-[11px] uppercase tracking-[0.25em] text-neutral-400 font-medium mb-4">Transparent execution</p>
-            <h2 className="font-serif text-3xl sm:text-5xl tracking-tight text-neutral-900 mb-3">
+            <p className="text-[11px] uppercase tracking-[0.25em] text-neutral-500 font-medium mb-4">Transparent execution</p>
+            <h2 className="font-serif text-3xl sm:text-5xl tracking-tight text-white mb-3">
               You stay in control.
-              <span className="text-neutral-300"> Every step is visible.</span>
+              <span className="text-white/30"> Every step is visible.</span>
             </h2>
             <p className="text-sm text-neutral-500 max-w-sm mx-auto">
               See every step. No black boxes.
             </p>
           </motion.div>
 
-          <div className="rounded-2xl bg-white border border-neutral-200/60 shadow-[0_1px_3px_rgba(0,0,0,0.04)] p-6 sm:p-10">
-            <div className="max-w-xl mx-auto">
-              <motion.p
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-20px" }}
-                custom={0}
-                variants={fade}
-                className="text-base text-neutral-900 font-medium mb-8"
-              >
-                Example: &quot;Reconcile Q1 transactions&quot;
-              </motion.p>
-              <div className="space-y-0">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-20px" }}
+            custom={1}
+            variants={fade}
+            className="rounded-xl overflow-hidden shadow-2xl shadow-black/40 border border-white/[0.08]"
+          >
+            <div className="bg-[#2a2a2e] px-4 py-3 flex items-center gap-2 border-b border-white/[0.06]">
+              <div className="flex items-center gap-1.5">
+                <div className="w-3 h-3 rounded-full bg-[#ff5f57]" />
+                <div className="w-3 h-3 rounded-full bg-[#febc2e]" />
+                <div className="w-3 h-3 rounded-full bg-[#28c840]" />
+              </div>
+              <div className="flex-1 text-center">
+                <span className="text-xs text-white/40 font-mono">grysics — reconcile-q1</span>
+              </div>
+              <div className="w-[52px]" />
+            </div>
+
+            <div className="bg-[#1e1e22] p-5 sm:p-8 font-mono text-sm leading-relaxed">
+              <div className="mb-4">
+                <span className="text-green-400">grysics</span>
+                <span className="text-white/30"> ~ </span>
+                <span className="text-blue-400">$</span>
+                <span className="text-white/80"> grysics run &quot;Reconcile Q1 transactions&quot;</span>
+              </div>
+
+              <div className="border-t border-white/[0.06] pt-4 space-y-3">
                 {[
-                  { step: 'Connecting to your financial systems', status: 'Done', statusColor: 'text-green-700 bg-green-50 border border-green-100' },
-                  { step: 'Pulling 847 transactions from payment records', status: 'Done', statusColor: 'text-green-700 bg-green-50 border border-green-100' },
-                  { step: 'Cross-referencing with accounting data', status: 'Done', statusColor: 'text-green-700 bg-green-50 border border-green-100' },
-                  { step: 'Found 3 discrepancies, resolved 2 automatically', status: 'Review', statusColor: 'text-amber-700 bg-amber-50 border border-amber-100' },
-                  { step: 'Report generated and ready for download', status: 'Done', statusColor: 'text-green-700 bg-green-50 border border-green-100' },
-                ].map((item, i) => (
+                  { text: 'Connecting to financial systems...', status: 'done', delay: 1 },
+                  { text: 'Pulling 847 transactions from payment records...', status: 'done', delay: 2 },
+                  { text: 'Cross-referencing with accounting data...', status: 'done', delay: 3 },
+                  { text: 'Found 3 discrepancies — resolved 2 automatically', status: 'review', delay: 4 },
+                  { text: 'Report generated and ready for download', status: 'done', delay: 5 },
+                ].map((line, i) => (
                   <motion.div
-                    key={item.step}
+                    key={i}
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, margin: "-20px" }}
-                    custom={i + 1}
+                    custom={i + 2}
                     variants={fade}
+                    className="flex items-start gap-3"
                   >
-                    <div className="flex items-start gap-4 py-4 border-b border-neutral-100 last:border-b-0">
-                      <div className="flex flex-col items-center flex-shrink-0 mt-0.5">
-                        <div className="w-7 h-7 rounded-lg bg-primary/[0.08] flex items-center justify-center">
-                          <span className="text-[10px] font-semibold text-primary">{i + 1}</span>
-                        </div>
-                        {i < 4 && <div className="w-px h-full min-h-[16px] bg-neutral-100 mt-1" />}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm text-neutral-700">{item.step}</p>
-                      </div>
-                      <span className={`text-[11px] font-medium px-2.5 py-1 rounded-full flex-shrink-0 ${item.statusColor}`}>
-                        {item.status}
-                      </span>
-                    </div>
+                    <span className="text-white/20 select-none flex-shrink-0 w-4 text-right">{i + 1}</span>
+                    <span className={line.status === 'done' ? 'text-green-400/80' : 'text-amber-400/80'}>
+                      {line.status === 'done' ? '✓' : '⚠'}
+                    </span>
+                    <span className="text-white/60">{line.text}</span>
                   </motion.div>
                 ))}
               </div>
+
               <motion.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, margin: "-20px" }}
-                custom={6}
+                custom={7}
                 variants={fade}
-                className="mt-8 flex items-center gap-3 p-4 rounded-xl bg-green-50/80 border border-green-100"
+                className="mt-6 pt-4 border-t border-white/[0.06]"
               >
-                <Check className="w-5 h-5 text-green-600 flex-shrink-0" />
-                <div>
-                  <p className="text-sm font-medium text-neutral-900">Completed in 2 minutes 14 seconds</p>
-                  <p className="text-xs text-neutral-500 mt-0.5">847 records processed. $12.4K variance identified.</p>
+                <div className="flex items-center gap-2 text-green-400 mb-2">
+                  <span>✓</span>
+                  <span className="font-semibold">Execution complete</span>
+                </div>
+                <div className="text-white/40 space-y-1 pl-5">
+                  <p>Time: 2m 14s</p>
+                  <p>Records: 847 processed</p>
+                  <p>Variance: $12.4K identified</p>
+                  <p>Audit trail: <span className="text-blue-400 underline underline-offset-2">view full log →</span></p>
                 </div>
               </motion.div>
+
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-20px" }}
+                custom={8}
+                variants={fade}
+                className="mt-4 pt-3"
+              >
+                <span className="text-green-400">grysics</span>
+                <span className="text-white/30"> ~ </span>
+                <span className="text-blue-400">$</span>
+                <span className="inline-block w-2 h-4 bg-white/50 ml-1 animate-pulse" />
+              </motion.div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 

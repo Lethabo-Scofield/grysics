@@ -11,45 +11,84 @@ export default function ArchitectureDiagram() {
 
   useEffect(() => {
     if (!isInView) return;
-    if (prefersReducedMotion) { setActiveStep(4); return; }
+    if (prefersReducedMotion) { setActiveStep(3); return; }
     let step = 0;
     const timer = setInterval(() => {
       setActiveStep(step);
       step++;
-      if (step > 4) clearInterval(timer);
-    }, 600);
+      if (step > 3) clearInterval(timer);
+    }, 700);
     return () => clearInterval(timer);
   }, [isInView, prefersReducedMotion]);
 
-  const nodes = [
-    { x: 60, y: 100, label: 'Your Goal', sub: 'Plain text' },
-    { x: 240, y: 50, label: 'Grysics', sub: 'Execution' },
-    { x: 240, y: 150, label: 'Systems', sub: 'APIs / Data' },
-    { x: 420, y: 100, label: 'Processing', sub: 'Multi-step' },
-    { x: 560, y: 100, label: 'Output', sub: 'Completed' },
-  ];
-
   const instant = prefersReducedMotion;
 
-  return (
-    <div ref={ref} className="relative w-full max-w-2xl mx-auto">
-      <svg viewBox="0 0 620 200" className="w-full h-auto" fill="none" role="img" aria-labelledby="arch-title arch-desc">
-        <title id="arch-title">Grysics execution flow</title>
-        <desc id="arch-desc">Diagram showing the flow: Your goal connects to Grysics execution engine and external systems, which processes tasks and produces a completed output.</desc>
-        <motion.line x1="110" y1="100" x2="200" y2="55" stroke={activeStep >= 1 ? '#F97316' : '#333'} strokeWidth="1.5" strokeDasharray={activeStep >= 1 ? "0" : "4 4"} initial={{ pathLength: instant ? 1 : 0 }} animate={isInView ? { pathLength: 1 } : {}} transition={{ duration: instant ? 0 : 0.5, delay: instant ? 0 : 0.3 }} />
-        <motion.line x1="110" y1="100" x2="200" y2="150" stroke={activeStep >= 2 ? '#F97316' : '#333'} strokeWidth="1.5" strokeDasharray={activeStep >= 2 ? "0" : "4 4"} initial={{ pathLength: instant ? 1 : 0 }} animate={isInView ? { pathLength: 1 } : {}} transition={{ duration: instant ? 0 : 0.5, delay: instant ? 0 : 0.6 }} />
-        <motion.line x1="290" y1="55" x2="380" y2="100" stroke={activeStep >= 3 ? '#F97316' : '#333'} strokeWidth="1.5" strokeDasharray={activeStep >= 3 ? "0" : "4 4"} initial={{ pathLength: instant ? 1 : 0 }} animate={isInView ? { pathLength: 1 } : {}} transition={{ duration: instant ? 0 : 0.5, delay: instant ? 0 : 0.9 }} />
-        <motion.line x1="290" y1="150" x2="380" y2="100" stroke={activeStep >= 3 ? '#F97316' : '#333'} strokeWidth="1.5" strokeDasharray={activeStep >= 3 ? "0" : "4 4"} initial={{ pathLength: instant ? 1 : 0 }} animate={isInView ? { pathLength: 1 } : {}} transition={{ duration: instant ? 0 : 0.5, delay: instant ? 0 : 1.0 }} />
-        <motion.line x1="460" y1="100" x2="520" y2="100" stroke={activeStep >= 4 ? '#22c55e' : '#333'} strokeWidth="1.5" strokeDasharray={activeStep >= 4 ? "0" : "4 4"} initial={{ pathLength: instant ? 1 : 0 }} animate={isInView ? { pathLength: 1 } : {}} transition={{ duration: instant ? 0 : 0.5, delay: instant ? 0 : 1.3 }} />
+  const steps = [
+    {
+      num: '01',
+      title: 'Define the goal',
+      examples: ['"Generate monthly financial report"', '"Prepare compliance report"', '"Update HR records and notify team"'],
+    },
+    {
+      num: '02',
+      title: 'Grysics plans the work',
+      examples: ['Identifies required data', 'Selects systems', 'Builds execution steps'],
+    },
+    {
+      num: '03',
+      title: 'Executes across systems',
+      examples: ['Pulls data from ERP, Excel, databases', 'Processes and validates data', 'Performs required calculations'],
+    },
+    {
+      num: '04',
+      title: 'Delivers results',
+      examples: ['Excel reports & PDF summaries', 'Automated distribution', 'Full audit trail'],
+    },
+  ];
 
-        {nodes.map((node, i) => (
-          <motion.g key={node.label} initial={{ opacity: instant ? 1 : 0, scale: instant ? 1 : 0.8 }} animate={isInView ? { opacity: 1, scale: 1 } : {}} transition={{ duration: instant ? 0 : 0.4, delay: instant ? 0 : i * 0.2 }}>
-            <rect x={node.x - 45} y={node.y - 30} width="90" height="60" rx="12" fill={activeStep >= i ? (i === 4 ? '#22c55e10' : '#F9731610') : '#ffffff08'} stroke={activeStep >= i ? (i === 4 ? '#22c55e40' : '#F9731640') : '#ffffff15'} strokeWidth="1" />
-            <text x={node.x} y={node.y - 5} textAnchor="middle" fill={activeStep >= i ? '#fff' : '#888'} fontSize="12" fontWeight="500">{node.label}</text>
-            <text x={node.x} y={node.y + 12} textAnchor="middle" fill="#666" fontSize="9">{node.sub}</text>
-          </motion.g>
-        ))}
-      </svg>
+  return (
+    <div ref={ref} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+      {steps.map((step, i) => (
+        <motion.div
+          key={step.num}
+          initial={{ opacity: instant ? 1 : 0, y: instant ? 0 : 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: instant ? 0 : 0.5, delay: instant ? 0 : i * 0.15 }}
+          className={`relative p-5 sm:p-6 rounded-xl sm:rounded-2xl border transition-all duration-500 ${
+            activeStep >= i
+              ? 'border-primary/40 bg-primary/[0.06]'
+              : 'border-white/10 bg-white/[0.03]'
+          }`}
+        >
+          <div className="flex items-center gap-3 mb-3 sm:mb-4">
+            <span className={`font-serif text-2xl sm:text-3xl italic transition-colors duration-500 ${
+              activeStep >= i ? 'text-primary' : 'text-white/20'
+            }`}>
+              {step.num}
+            </span>
+            {i < 3 && (
+              <div className={`hidden lg:block absolute -right-3 top-1/2 -translate-y-1/2 w-6 h-px transition-colors duration-500 ${
+                activeStep > i ? 'bg-primary/60' : 'bg-white/10'
+              }`} />
+            )}
+          </div>
+          <h3 className={`text-sm sm:text-base font-medium mb-2 sm:mb-3 transition-colors duration-500 ${
+            activeStep >= i ? 'text-white' : 'text-white/50'
+          }`}>
+            {step.title}
+          </h3>
+          <ul className="space-y-1.5">
+            {step.examples.map((ex) => (
+              <li key={ex} className="flex items-start gap-2">
+                <div className={`w-1 h-1 rounded-full mt-1.5 flex-shrink-0 transition-colors duration-500 ${
+                  activeStep >= i ? 'bg-primary/60' : 'bg-white/15'
+                }`} />
+                <span className="text-[11px] sm:text-xs text-white/40 leading-relaxed">{ex}</span>
+              </li>
+            ))}
+          </ul>
+        </motion.div>
+      ))}
     </div>
   );
 }

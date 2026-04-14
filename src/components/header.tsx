@@ -55,7 +55,7 @@ export default function Header() {
                 : 'bg-white text-neutral-900 hover:bg-white/90'
             }`}
           >
-            Book Demo
+            Request Demo
           </Link>
         </nav>
 
@@ -92,7 +92,7 @@ export default function Header() {
                 className="flex items-center justify-center px-5 py-3 bg-primary text-white text-sm font-medium rounded-xl hover:bg-primary-dark transition-colors"
                 onClick={() => setMenuOpen(false)}
               >
-                Book Demo
+                Request Demo
               </Link>
             </div>
           </motion.div>

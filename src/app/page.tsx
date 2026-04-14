@@ -3,62 +3,49 @@
 import { memo } from 'react';
 import dynamic from 'next/dynamic';
 import { motion, MotionConfig } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, FileText, Shield, Users, BarChart3, Check, Eye, Lock } from 'lucide-react';
 import Link from 'next/link';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
 import { fade } from '@/components/fade';
-import { WaitlistForm } from '@/components/waitlist-form';
 import HeroBackground from '@/components/hero-background';
 
 const ArchitectureDiagram = dynamic(() => import('@/components/diagrams/architecture-diagram'), { ssr: false, loading: () => <DiagramFallback /> });
 const ExecutionTerminal = dynamic(() => import('@/components/diagrams/verification-terminal'), { ssr: false, loading: () => <DiagramFallback /> });
-const CoverageGraph = dynamic(() => import('@/components/diagrams/coverage-graph'), { ssr: false, loading: () => <DiagramFallback /> });
-const LLMNetworkDiagram = dynamic(() => import('@/components/diagrams/llm-network-diagram'), { ssr: false, loading: () => <DiagramFallback /> });
 const BenchmarkChart = dynamic(() => import('@/components/diagrams/benchmark-chart'), { ssr: false, loading: () => <DiagramFallback /> });
 
 function DiagramFallback() {
   return <div className="w-full h-48 animate-pulse bg-white/5 rounded-xl" />;
 }
 
-const StatsGrid = memo(function StatsGrid() {
-  const stats = [
-    { value: '< 3min', label: 'Average execution' },
-    { value: '3', label: 'Launch workflows' },
-    { value: '100%', label: 'Goal completion' },
-    { value: '0', label: 'Manual steps' },
+const UseCaseCards = memo(function UseCaseCards() {
+  const cases = [
+    {
+      icon: FileText,
+      title: 'Finance',
+      items: ['Monthly reporting packs', 'Expense reconciliation', 'Financial summaries'],
+    },
+    {
+      icon: Shield,
+      title: 'Compliance',
+      items: ['Audit-ready reports', 'Regulatory reporting', 'Data validation workflows'],
+    },
+    {
+      icon: Users,
+      title: 'HR Operations',
+      items: ['Onboarding/offboarding execution', 'Employee data updates', 'Reporting'],
+    },
+    {
+      icon: BarChart3,
+      title: 'Enterprise Reporting',
+      items: ['Cross-system data aggregation', 'Executive dashboards and summaries'],
+    },
   ];
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-white/5 rounded-xl sm:rounded-2xl overflow-hidden mt-10 sm:mt-16">
-      {stats.map((stat, i) => (
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+      {cases.map((uc, i) => (
         <motion.div
-          key={stat.label}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-20px" }}
-          custom={i}
-          variants={fade}
-          className="bg-neutral-950 p-4 sm:p-8 text-center"
-        >
-          <p className="font-serif text-lg sm:text-2xl italic text-white mb-1">{stat.value}</p>
-          <p className="text-[9px] sm:text-xs text-neutral-500">{stat.label}</p>
-        </motion.div>
-      ))}
-    </div>
-  );
-});
-
-const WorkflowCards = memo(function WorkflowCards() {
-  const items = [
-    { num: '01', title: 'Financial Reconciliation', desc: 'Match transactions across bank statements, payment processors, and accounting tools. Flag discrepancies automatically.' },
-    { num: '02', title: 'Sales Lead Processing', desc: 'Pull leads from your CRM, enrich and score them, then route qualified ones to the right reps.' },
-    { num: '03', title: 'Enterprise Reporting', desc: 'Aggregate data from multiple sources, calculate trends, and produce structured weekly reports.' },
-  ];
-  return (
-    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
-      {items.map((item, i) => (
-        <motion.div
-          key={item.title}
+          key={uc.title}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-20px" }}
@@ -66,9 +53,46 @@ const WorkflowCards = memo(function WorkflowCards() {
           variants={fade}
           className="p-5 sm:p-8 rounded-xl sm:rounded-2xl border border-neutral-100 bg-neutral-50/50"
         >
-          <p className="font-serif text-2xl sm:text-4xl italic text-primary mb-2 sm:mb-3">{item.num}</p>
-          <h3 className="text-sm sm:text-base font-medium text-neutral-900 mb-1.5 sm:mb-2">{item.title}</h3>
-          <p className="text-xs sm:text-sm text-neutral-500 font-light leading-relaxed">{item.desc}</p>
+          <uc.icon className="w-6 h-6 text-primary mb-3 sm:mb-4" />
+          <h3 className="text-sm sm:text-base font-medium text-neutral-900 mb-2 sm:mb-3">{uc.title}</h3>
+          <ul className="space-y-1.5">
+            {uc.items.map((item) => (
+              <li key={item} className="flex items-start gap-2">
+                <div className="w-1 h-1 rounded-full bg-primary/40 mt-1.5 flex-shrink-0" />
+                <span className="text-xs sm:text-sm text-neutral-500 font-light leading-relaxed">{item}</span>
+              </li>
+            ))}
+          </ul>
+        </motion.div>
+      ))}
+    </div>
+  );
+});
+
+const BenefitsList = memo(function BenefitsList() {
+  const benefits = [
+    'No manual workflows',
+    'Works with your existing systems',
+    'Reduces operational workload',
+    'Delivers consistent, accurate outputs',
+    'Full audit trail for every action',
+  ];
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+      {benefits.map((b, i) => (
+        <motion.div
+          key={b}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-20px" }}
+          custom={i}
+          variants={fade}
+          className="flex items-center gap-3 p-4 sm:p-5 rounded-xl border border-neutral-100 bg-white"
+        >
+          <div className="w-6 h-6 rounded-full bg-green-50 flex items-center justify-center flex-shrink-0">
+            <Check className="w-3.5 h-3.5 text-green-600" />
+          </div>
+          <span className="text-sm text-neutral-700 font-medium">{b}</span>
         </motion.div>
       ))}
     </div>
@@ -104,9 +128,9 @@ export default function HomePage() {
             variants={fade}
             className="font-serif text-[2rem] leading-[1.1] sm:text-6xl lg:text-[5.5rem] text-white tracking-tight sm:leading-[1.05] mb-6 sm:mb-8"
           >
-            Give it a goal.
+            Turn business goals
             <br />
-            <span className="bg-gradient-to-r from-primary via-amber-400 to-primary bg-clip-text text-transparent">Get it done.</span>
+            <span className="bg-gradient-to-r from-primary via-amber-400 to-primary bg-clip-text text-transparent">into completed work.</span>
           </motion.h1>
 
           <motion.p
@@ -114,11 +138,9 @@ export default function HomePage() {
             animate="visible"
             custom={2}
             variants={fade}
-            className="text-[15px] leading-relaxed sm:text-lg text-white/40 font-light mb-10 sm:mb-14 max-w-lg mx-auto px-2"
+            className="text-[15px] leading-relaxed sm:text-lg text-white/40 font-light mb-10 sm:mb-14 max-w-xl mx-auto px-2"
           >
-            Grysics is an AI execution system. Describe a business task,
-            <br className="hidden sm:block" />
-            and it handles the rest, across your tools and data.
+            Describe what needs to be done. Grysics executes it across your systems, data, and workflows—automatically and reliably.
           </motion.p>
 
           <motion.div
@@ -126,15 +148,141 @@ export default function HomePage() {
             animate="visible"
             custom={3}
             variants={fade}
-            className="flex flex-col items-center px-2 sm:px-0"
+            className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 px-2 sm:px-0"
           >
-            <WaitlistForm />
-            <p className="text-[11px] text-white/20 mt-4 font-mono tracking-wide">Join the early access waitlist</p>
+            <Link
+              href="/demo"
+              className="inline-flex items-center gap-2 px-8 py-3.5 bg-primary text-white text-sm font-medium rounded-full hover:bg-primary-dark transition-colors"
+            >
+              Request Demo <ArrowRight className="w-4 h-4" />
+            </Link>
+            <a
+              href="#how-it-works"
+              className="inline-flex items-center gap-2 px-8 py-3.5 border border-white/20 text-white/70 text-sm font-medium rounded-full hover:bg-white/5 transition-colors backdrop-blur-sm"
+            >
+              See How It Works
+            </a>
           </motion.div>
         </div>
       </section>
 
-      <section id="how-it-works" className="pt-16 sm:pt-32 pb-16 sm:pb-32 bg-neutral-950 text-white overflow-hidden">
+      <section className="py-16 sm:py-32 border-b border-neutral-100">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-20px" }}
+            custom={0}
+            variants={fade}
+            className="text-center mb-10 sm:mb-16"
+          >
+            <p className="text-xs uppercase tracking-[0.2em] text-neutral-400 font-medium mb-3 sm:mb-4">The problem</p>
+            <h2 className="font-serif text-2xl sm:text-5xl tracking-tight text-neutral-900 mb-4 sm:mb-6">
+              Business operations are still
+              <span className="text-neutral-400"> manual and fragmented</span>
+            </h2>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-20px" }}
+            custom={1}
+            variants={fade}
+            className="max-w-2xl mx-auto"
+          >
+            <p className="text-sm sm:text-base text-neutral-500 font-light leading-relaxed mb-6 sm:mb-8 text-center">
+              Most companies rely on multiple systems—ERP, Excel, HR platforms, and reporting tools. Teams still spend hours on tasks that should be automatic.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+              {[
+                'Collecting data across systems',
+                'Cleaning and reconciling records',
+                'Building reports manually',
+                'Coordinating across departments',
+              ].map((item, i) => (
+                <motion.div
+                  key={item}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, margin: "-20px" }}
+                  custom={i + 2}
+                  variants={fade}
+                  className="flex items-center gap-3 p-4 rounded-xl border border-neutral-100 bg-neutral-50/50"
+                >
+                  <div className="w-1.5 h-1.5 rounded-full bg-red-400 flex-shrink-0" />
+                  <span className="text-sm text-neutral-600">{item}</span>
+                </motion.div>
+              ))}
+            </div>
+            <motion.p
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-20px" }}
+              custom={6}
+              variants={fade}
+              className="text-sm text-neutral-400 font-light text-center mt-6 sm:mt-8"
+            >
+              Even with modern tools, execution remains manual and time-consuming.
+            </motion.p>
+          </motion.div>
+        </div>
+      </section>
+
+      <section className="py-16 sm:py-32 bg-neutral-950 text-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-20px" }}
+            custom={0}
+            variants={fade}
+            className="text-center"
+          >
+            <p className="text-xs uppercase tracking-[0.2em] text-neutral-500 font-medium mb-3 sm:mb-4">The solution</p>
+            <h2 className="font-serif text-2xl sm:text-5xl lg:text-6xl tracking-tight mb-4 sm:mb-6">
+              Grysics executes business
+              <br className="hidden sm:block" />
+              <span className="text-white/40"> operations for you</span>
+            </h2>
+            <p className="text-sm sm:text-base text-neutral-400 font-light max-w-xl mx-auto mb-8 sm:mb-12 leading-relaxed">
+              Grysics is an AI execution system that takes a business goal and handles the entire process across your tools and data.
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-12">
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-20px" }}
+                custom={1}
+                variants={fade}
+                className="text-center"
+              >
+                <p className="font-serif text-lg sm:text-xl italic text-primary mb-1">You describe the outcome.</p>
+              </motion.div>
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-20px" }}
+                custom={2}
+                variants={fade}
+                className="hidden sm:block w-12 h-px bg-white/10"
+              />
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-20px" }}
+                custom={3}
+                variants={fade}
+                className="text-center"
+              >
+                <p className="font-serif text-lg sm:text-xl italic text-white/60 mb-1">Grysics plans, executes, and delivers it.</p>
+              </motion.div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      <section id="how-it-works" className="pt-16 sm:pt-32 pb-16 sm:pb-32 bg-neutral-950 text-white overflow-hidden border-t border-white/5">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
           <motion.div
             initial="hidden"
@@ -154,36 +302,7 @@ export default function HomePage() {
             </p>
           </motion.div>
 
-          <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
-            <ArchitectureDiagram />
-          </div>
-
-          <StatsGrid />
-        </div>
-      </section>
-
-      <section id="ecosystem" className="py-16 sm:py-32 border-b border-neutral-100">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-20px" }}
-            custom={0}
-            variants={fade}
-            className="text-center mb-10 sm:mb-16"
-          >
-            <p className="text-xs uppercase tracking-[0.2em] text-neutral-400 font-medium mb-3 sm:mb-4">Ecosystem</p>
-            <h2 className="font-serif text-2xl sm:text-5xl tracking-tight text-neutral-900 mb-3 sm:mb-4">
-              Connects to the tools you use.
-            </h2>
-            <p className="text-sm sm:text-base text-neutral-500 font-light max-w-lg mx-auto">
-              Grysics works with major AI providers and integrates with your existing stack through a single connection.
-            </p>
-          </motion.div>
-
-          <div className="bg-neutral-900 rounded-xl sm:rounded-2xl p-4 sm:p-10 border border-neutral-700/30 overflow-x-auto">
-            <LLMNetworkDiagram />
-          </div>
+          <ArchitectureDiagram />
         </div>
       </section>
 
@@ -225,7 +344,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-16 sm:py-32 bg-neutral-950 text-white overflow-hidden">
+      <section className="py-16 sm:py-32 border-b border-neutral-100">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
           <motion.div
             initial="hidden"
@@ -235,14 +354,33 @@ export default function HomePage() {
             variants={fade}
             className="text-center mb-10 sm:mb-16"
           >
-            <p className="text-xs uppercase tracking-[0.2em] text-neutral-500 font-medium mb-3 sm:mb-4">Coverage</p>
-            <h2 className="font-serif text-2xl sm:text-5xl tracking-tight">
-              Operations we handle.
-              <span className="text-white/40"> And what&apos;s next.</span>
+            <p className="text-xs uppercase tracking-[0.2em] text-neutral-400 font-medium mb-3 sm:mb-4">Use cases</p>
+            <h2 className="font-serif text-2xl sm:text-5xl tracking-tight text-neutral-900">
+              Built for business operations.
             </h2>
           </motion.div>
 
-          <CoverageGraph />
+          <UseCaseCards />
+        </div>
+      </section>
+
+      <section className="py-16 sm:py-32 border-b border-neutral-100 bg-neutral-50/50">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-20px" }}
+            custom={0}
+            variants={fade}
+            className="text-center mb-10 sm:mb-16"
+          >
+            <p className="text-xs uppercase tracking-[0.2em] text-neutral-400 font-medium mb-3 sm:mb-4">Key benefits</p>
+            <h2 className="font-serif text-2xl sm:text-5xl tracking-tight text-neutral-900">
+              Why teams choose Grysics.
+            </h2>
+          </motion.div>
+
+          <BenefitsList />
         </div>
       </section>
 
@@ -256,12 +394,28 @@ export default function HomePage() {
               custom={0}
               variants={fade}
             >
-              <p className="text-xs uppercase tracking-[0.2em] text-neutral-400 font-medium mb-3 sm:mb-4">Performance</p>
+              <p className="text-xs uppercase tracking-[0.2em] text-neutral-400 font-medium mb-3 sm:mb-4">Differentiation</p>
               <h2 className="font-serif text-2xl sm:text-4xl tracking-tight text-neutral-900 mb-3 sm:mb-4">
-                Manual vs. Grysics.
+                Beyond dashboards and
+                <span className="text-neutral-400"> automation tools.</span>
               </h2>
               <p className="text-sm sm:text-base text-neutral-500 font-light leading-relaxed mb-6 sm:mb-8">
-                Side-by-side comparison across common business operations. Based on internal testing with reconciliation, lead processing, and reporting workflows.
+                Traditional tools help teams build workflows or visualize data. Grysics completes the work.
+              </p>
+              <div className="space-y-3">
+                {[
+                  'No workflow setup required',
+                  'No manual data coordination',
+                  'No fragmented processes',
+                ].map((item) => (
+                  <div key={item} className="flex items-center gap-3">
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
+                    <span className="text-sm text-neutral-600">{item}</span>
+                  </div>
+                ))}
+              </div>
+              <p className="text-sm text-neutral-400 font-light mt-6 italic">
+                From request to result—fully executed.
               </p>
             </motion.div>
 
@@ -272,7 +426,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-16 sm:py-32 border-b border-neutral-100">
+      <section className="py-16 sm:py-32 bg-neutral-950 text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
           <motion.div
             initial="hidden"
@@ -280,15 +434,37 @@ export default function HomePage() {
             viewport={{ once: true, margin: "-20px" }}
             custom={0}
             variants={fade}
-            className="text-center mb-12 sm:mb-20"
+            className="text-center mb-10 sm:mb-12"
           >
-            <p className="text-xs uppercase tracking-[0.2em] text-neutral-400 font-medium mb-3 sm:mb-4">At launch</p>
-            <h2 className="font-serif text-2xl sm:text-5xl tracking-tight text-neutral-900">
-              Three workflows. More coming.
+            <p className="text-xs uppercase tracking-[0.2em] text-neutral-500 font-medium mb-3 sm:mb-4">Trust & control</p>
+            <h2 className="font-serif text-2xl sm:text-5xl tracking-tight mb-4 sm:mb-6">
+              Built for reliability
+              <span className="text-white/40"> and control.</span>
             </h2>
           </motion.div>
 
-          <WorkflowCards />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 max-w-3xl mx-auto">
+            {[
+              { icon: Eye, title: 'Full traceability', desc: 'Every action is logged and traceable across all systems.' },
+              { icon: FileText, title: 'Recorded transformations', desc: 'Data sources and transformations are recorded for review.' },
+              { icon: Lock, title: 'Approval workflows', desc: 'Approval steps can be added to any execution process.' },
+              { icon: Shield, title: 'Enterprise-grade', desc: 'Designed for finance, compliance, and enterprise operations.' },
+            ].map((item, i) => (
+              <motion.div
+                key={item.title}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-20px" }}
+                custom={i}
+                variants={fade}
+                className="p-5 sm:p-6 rounded-xl sm:rounded-2xl border border-white/10 bg-white/[0.03]"
+              >
+                <item.icon className="w-5 h-5 text-primary mb-3" />
+                <h3 className="text-sm sm:text-base font-medium text-white mb-1.5">{item.title}</h3>
+                <p className="text-xs sm:text-sm text-white/40 font-light leading-relaxed">{item.desc}</p>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -301,18 +477,19 @@ export default function HomePage() {
             custom={0}
             variants={fade}
           >
-            <h2 className="font-serif text-2xl sm:text-4xl tracking-tight text-neutral-900 mb-3 sm:mb-4">
-              Interested?
+            <h2 className="font-serif text-2xl sm:text-5xl lg:text-6xl tracking-tight text-neutral-900 mb-3 sm:mb-4">
+              Give it a goal.
+              <br />
+              <span className="bg-gradient-to-r from-primary via-amber-400 to-primary bg-clip-text text-transparent">Get it done.</span>
             </h2>
-            <p className="text-sm text-neutral-500 font-light mb-6 sm:mb-8">Join the waitlist or book a demo to see it in action.</p>
-            <div className="flex justify-center mb-6 sm:mb-8">
-              <WaitlistForm variant="light" />
-            </div>
+            <p className="text-sm sm:text-base text-neutral-500 font-light mb-8 sm:mb-10 max-w-md mx-auto">
+              See how Grysics can handle your business operations—from goal to completed result.
+            </p>
             <Link
               href="/demo"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white text-sm font-medium rounded-full hover:bg-primary-dark transition-colors"
+              className="inline-flex items-center gap-2 px-8 py-3.5 bg-primary text-white text-sm font-medium rounded-full hover:bg-primary-dark transition-colors"
             >
-              Book a Demo <ArrowRight className="w-4 h-4" />
+              Request a Demo <ArrowRight className="w-4 h-4" />
             </Link>
           </motion.div>
         </div>

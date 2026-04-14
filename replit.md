@@ -2,7 +2,7 @@
 
 ## Overview
 
-A single-page Next.js landing site for **Grysics** (by Olyxee), an AI execution system that turns business goals into completed real-world operations. The system is coming soon — this landing page introduces the product and collects early access signups. Separate demo booking page at `/demo`.
+A single-page Next.js landing site for **Grysics** (by Olyxee), an AI execution system that turns business goals into completed real-world operations. Positioned for business leaders, managers, and decision-makers in finance, HR, compliance, and reporting. The system is coming soon — this landing page introduces the product and collects demo requests. Separate demo booking page at `/demo`.
 
 ## Tech Stack
 
@@ -20,7 +20,7 @@ A single-page Next.js landing site for **Grysics** (by Olyxee), an AI execution 
 src/
   app/
     layout.tsx              - Root layout with SEO metadata, JSON-LD structured data, viewport config
-    page.tsx                - Landing page (hero + how it works + execution demo + launch workflows + why grysics + waitlist CTA)
+    page.tsx                - Landing page (hero + problem + solution + how it works + live execution + use cases + benefits + differentiation + trust + CTA)
     demo/
       page.tsx              - Server component with per-page metadata, imports content.tsx
       content.tsx           - Client component with demo booking UI
@@ -32,18 +32,22 @@ src/
       demo/route.ts         - POST /api/demo — stores demo requests
   components/
     fade.ts                 - Shared fade animation variant
-    waitlist-form.tsx       - WaitlistForm component (used on landing page hero + CTA)
+    waitlist-form.tsx       - WaitlistForm component (legacy, may still be used)
     header.tsx              - Scroll-aware header (transparent on home hero, solid when scrolled/other pages)
     footer.tsx              - Footer with nav links and company email
     shared.tsx              - DemoForm component (used on demo page)
     hero-background.tsx     - Hero background with sunset image + dark overlays + animated glow elements
     diagrams/
-      execution-demo.tsx    - Interactive tabbed demo showing 3 simulated workflow executions (reconciliation, lead processing, reporting)
+      architecture-diagram.tsx - 4-step animated how-it-works flow (Define goal → Plan → Execute → Deliver)
+      verification-terminal.tsx - Animated terminal showing live execution simulation
+      benchmark-chart.tsx   - Manual vs Grysics performance comparison chart
+      coverage-graph.tsx    - Operations coverage bar chart (legacy)
+      llm-network-diagram.tsx - LLM network diagram (legacy, no longer on homepage)
 public/
   images/
     grysics-logo.png        - Product logo
     bg.png                  - Hero background image (sunset)
-    logos/                  - LLM brand logos (legacy, may be removed)
+    logos/                  - LLM brand logos (legacy)
   favicon.png               - Favicon
 data/                       - Form submissions (gitignored)
 next.config.js              - Next.js config (standalone output, unoptimized images)
@@ -53,14 +57,18 @@ tailwind.config.ts          - Tailwind config with serif font + orange primary c
 ## Pages
 
 ### `/` — Landing Page
-- Hero with sunset background image, "Coming soon" badge, headline ("AI that executes real business tasks"), waitlist form
-- How it works: 4-step process (goal → planning → execution → output) + stats grid
-- Execution demo: interactive tabbed component showing simulated workflow execution for 3 workflows
-- Launch workflows: 3 cards (Financial Reconciliation, Sales Lead Processing, Enterprise Reporting)
-- Why Grysics: 6 feature cards (goal-driven, cross-system, error handling, speed, structured outputs, transparency)
-- CTA: waitlist form + Book a Demo link
+- Hero with sunset background image, "Coming soon" badge, headline ("Turn business goals into completed work."), Request Demo + See How It Works CTAs
+- Problem section: "Business operations are still manual and fragmented" with pain point cards
+- Solution section: "Grysics executes business operations for you" — dark bg, outcome-focused messaging
+- How it works: 4-step animated flow (Define goal → Plan → Execute → Deliver results)
+- Live execution: terminal simulation showing step-by-step goal execution
+- Use cases: Finance, Compliance, HR Operations, Enterprise Reporting cards
+- Key benefits: 5 benefit items (no manual workflows, existing systems, reduced workload, accurate outputs, audit trail)
+- Differentiation: "Beyond dashboards and automation tools" with benchmark chart
+- Trust & control: 4 cards (traceability, recorded transformations, approval workflows, enterprise-grade)
+- CTA: "Give it a goal. Get it done." with Request a Demo button
 
-### `/demo` — Book a Demo
+### `/demo` — Request a Demo
 - Two-column layout: value props + demo form
 - Form: name, email, company, operations type dropdown
 - "Prefer email?" fallback to scofield@olyxee.com
@@ -74,14 +82,15 @@ tailwind.config.ts          - Tailwind config with serif font + orange primary c
 
 ## Navigation
 
-- **Header**: Logo, "Book Demo" (link to /demo)
-- **Footer**: Book a Demo, Contact (mailto), Olyxee (external)
+- **Header**: Logo, "Request Demo" (link to /demo)
+- **Footer**: Request a Demo, Contact (mailto), Olyxee (external)
 - Header adapts: transparent on home hero, solid white when scrolled or on other pages
 
 ## Functional Buttons & Forms
 
-- **Join (Waitlist)**: POSTs to `/api/waitlist`, stores in `data/waitlist.json`
-- **Request Demo**: POSTs to `/api/demo`, stores in `data/demo-requests.json`
+- **Request Demo (hero)**: Links to `/demo` page
+- **See How It Works**: Smooth scroll to `#how-it-works` section
+- **Request Demo (demo page)**: POSTs to `/api/demo`, stores in `data/demo-requests.json`
 - **Contact**: mailto to scofield@olyxee.com
 
 ## Design System

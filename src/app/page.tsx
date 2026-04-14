@@ -3,8 +3,9 @@
 import { memo } from 'react';
 import dynamic from 'next/dynamic';
 import { motion, MotionConfig } from 'framer-motion';
-import { ArrowRight, FileText, Shield, Users, BarChart3, Check, Eye, Lock } from 'lucide-react';
+import { ArrowRight, Check, Eye, Lock, FileText, Shield } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
 import { fade } from '@/components/fade';
@@ -21,22 +22,22 @@ function DiagramFallback() {
 const UseCaseCards = memo(function UseCaseCards() {
   const cases = [
     {
-      icon: FileText,
+      image: '/images/usecase-finance.png',
       title: 'Finance',
       items: ['Monthly reporting packs', 'Expense reconciliation', 'Financial summaries'],
     },
     {
-      icon: Shield,
+      image: '/images/usecase-compliance.png',
       title: 'Compliance',
       items: ['Audit-ready reports', 'Regulatory reporting', 'Data validation workflows'],
     },
     {
-      icon: Users,
+      image: '/images/usecase-hr.png',
       title: 'HR Operations',
       items: ['Onboarding/offboarding execution', 'Employee data updates', 'Reporting'],
     },
     {
-      icon: BarChart3,
+      image: '/images/usecase-reporting.png',
       title: 'Enterprise Reporting',
       items: ['Cross-system data aggregation', 'Executive dashboards and summaries'],
     },
@@ -51,18 +52,28 @@ const UseCaseCards = memo(function UseCaseCards() {
           viewport={{ once: true, margin: "-20px" }}
           custom={i}
           variants={fade}
-          className="p-5 sm:p-8 rounded-xl sm:rounded-2xl border border-neutral-100 bg-neutral-50/50"
+          className="rounded-xl sm:rounded-2xl border border-neutral-100 bg-neutral-50/50 overflow-hidden"
         >
-          <uc.icon className="w-6 h-6 text-primary mb-3 sm:mb-4" />
-          <h3 className="text-sm sm:text-base font-medium text-neutral-900 mb-2 sm:mb-3">{uc.title}</h3>
-          <ul className="space-y-1.5">
-            {uc.items.map((item) => (
-              <li key={item} className="flex items-start gap-2">
-                <div className="w-1 h-1 rounded-full bg-primary/40 mt-1.5 flex-shrink-0" />
-                <span className="text-xs sm:text-sm text-neutral-500 font-light leading-relaxed">{item}</span>
-              </li>
-            ))}
-          </ul>
+          <div className="relative w-full h-36 sm:h-44 overflow-hidden bg-neutral-100">
+            <Image
+              src={uc.image}
+              alt={uc.title}
+              fill
+              className="object-cover"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+            />
+          </div>
+          <div className="p-5 sm:p-6">
+            <h3 className="text-sm sm:text-base font-medium text-neutral-900 mb-2 sm:mb-3">{uc.title}</h3>
+            <ul className="space-y-1.5">
+              {uc.items.map((item) => (
+                <li key={item} className="flex items-start gap-2">
+                  <div className="w-1 h-1 rounded-full bg-primary/40 mt-1.5 flex-shrink-0" />
+                  <span className="text-xs sm:text-sm text-neutral-500 font-light leading-relaxed">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </motion.div>
       ))}
     </div>
@@ -191,7 +202,7 @@ export default function HomePage() {
       </section>
 
       <section className="py-16 sm:py-32 border-b border-neutral-100">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -207,15 +218,32 @@ export default function HomePage() {
             </h2>
           </motion.div>
 
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-20px" }}
-            custom={1}
-            variants={fade}
-            className="max-w-2xl mx-auto"
-          >
-            <p className="text-sm sm:text-base text-neutral-500 font-light leading-relaxed mb-6 sm:mb-8 text-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-20px" }}
+              custom={1}
+              variants={fade}
+              className="relative w-full aspect-[4/3] rounded-xl sm:rounded-2xl overflow-hidden"
+            >
+              <Image
+                src="/images/business-docs.png"
+                alt="Manual business document processing"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
+            </motion.div>
+
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-20px" }}
+              custom={1}
+              variants={fade}
+            >
+            <p className="text-sm sm:text-base text-neutral-500 font-light leading-relaxed mb-6 sm:mb-8">
               Most companies rely on multiple systems—ERP, Excel, HR platforms, and reporting tools. Teams still spend hours on tasks that should be automatic.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
@@ -250,18 +278,19 @@ export default function HomePage() {
               Even with modern tools, execution remains manual and time-consuming.
             </motion.p>
           </motion.div>
+          </div>
         </div>
       </section>
 
       <section className="py-16 sm:py-32 bg-neutral-950 text-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6">
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-20px" }}
             custom={0}
             variants={fade}
-            className="text-center"
+            className="text-center mb-10 sm:mb-14"
           >
             <p className="text-xs uppercase tracking-[0.2em] text-neutral-500 font-medium mb-3 sm:mb-4">The solution</p>
             <h2 className="font-serif text-2xl sm:text-5xl lg:text-6xl tracking-tight mb-4 sm:mb-6">
@@ -269,40 +298,53 @@ export default function HomePage() {
               <br className="hidden sm:block" />
               <span className="text-white/40"> operations for you</span>
             </h2>
-            <p className="text-sm sm:text-base text-neutral-400 font-light max-w-xl mx-auto mb-8 sm:mb-12 leading-relaxed">
-              Grysics is an AI execution system that takes a business goal and handles the entire process across your tools and data.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-12">
-              <motion.div
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-20px" }}
-                custom={1}
-                variants={fade}
-                className="text-center"
-              >
-                <p className="font-serif text-lg sm:text-xl italic text-primary mb-1">You describe the outcome.</p>
-              </motion.div>
-              <motion.div
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-20px" }}
-                custom={2}
-                variants={fade}
-                className="hidden sm:block w-12 h-px bg-white/10"
-              />
-              <motion.div
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-20px" }}
-                custom={3}
-                variants={fade}
-                className="text-center"
-              >
-                <p className="font-serif text-lg sm:text-xl italic text-white/60 mb-1">Grysics plans, executes, and delivers it.</p>
-              </motion.div>
-            </div>
           </motion.div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-20px" }}
+              custom={1}
+              variants={fade}
+            >
+              <p className="text-sm sm:text-base text-neutral-400 font-light leading-relaxed mb-8">
+                Grysics is an AI execution system that takes a business goal and handles the entire process across your tools and data.
+              </p>
+              <div className="space-y-4">
+                <div className="flex items-center gap-4">
+                  <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <span className="text-primary text-sm font-semibold">1</span>
+                  </div>
+                  <p className="font-serif text-base sm:text-lg italic text-primary">You describe the outcome.</p>
+                </div>
+                <div className="w-px h-4 bg-white/10 ml-4" />
+                <div className="flex items-center gap-4">
+                  <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center flex-shrink-0">
+                    <span className="text-white/60 text-sm font-semibold">2</span>
+                  </div>
+                  <p className="font-serif text-base sm:text-lg italic text-white/60">Grysics plans, executes, and delivers it.</p>
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-20px" }}
+              custom={2}
+              variants={fade}
+              className="relative w-full aspect-square rounded-xl sm:rounded-2xl overflow-hidden bg-white/5"
+            >
+              <Image
+                src="/images/ai-operations.png"
+                alt="AI in business operations and design process"
+                fill
+                className="object-contain p-4"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
+            </motion.div>
+          </div>
         </div>
       </section>
 

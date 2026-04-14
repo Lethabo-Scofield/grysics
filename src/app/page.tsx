@@ -543,66 +543,73 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-24 sm:py-36 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-neutral-50/50 to-white" />
-        <div className="max-w-4xl mx-auto px-5 sm:px-8 text-center relative z-10">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-20px" }}
-            custom={0}
-            variants={fade}
-          >
-            <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl tracking-tight text-neutral-900 mb-4">
-              Give it a goal.
-              <br />
-              <span className="bg-gradient-to-r from-primary via-amber-400 to-primary bg-clip-text text-transparent">Get it done.</span>
-            </h2>
-            <p className="text-base text-neutral-500 font-light mb-10">
-              See Grysics in action.
-            </p>
-            <Link
-              href="/demo"
-              className="inline-flex items-center gap-2 px-10 py-4 bg-primary text-white text-sm font-medium rounded-full hover:bg-primary-dark transition-all duration-200 shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30"
-            >
-              Request a Demo <ArrowRight className="w-4 h-4" />
-            </Link>
-          </motion.div>
-        </div>
-      </section>
-      <section className="py-12 sm:py-16 border-t border-neutral-100 bg-neutral-50/50">
-        <div className="max-w-5xl mx-auto px-5 sm:px-8">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-20px" }}
-            custom={0}
-            variants={fade}
-            className="text-center"
-          >
-            <p className="text-[11px] uppercase tracking-[0.25em] text-neutral-400 font-medium mb-8">
-              Trusted by teams at leading companies
-            </p>
-            <div className="flex flex-wrap items-center justify-center gap-x-10 sm:gap-x-16 gap-y-6">
-              {[
-                { name: 'Meridian', style: 'font-serif font-bold text-xl' },
-                { name: 'AXON', style: 'font-mono font-bold text-lg tracking-[0.15em]' },
-                { name: 'Vaultbridge', style: 'font-serif font-medium text-xl italic' },
-                { name: 'NovaCrest', style: 'font-sans font-bold text-lg' },
-                { name: 'LEDGR', style: 'font-mono font-bold text-lg tracking-[0.2em]' },
-                { name: 'Finworth', style: 'font-serif font-bold text-xl' },
-              ].map((company) => (
-                <span
-                  key={company.name}
-                  className={`${company.style} text-neutral-300 select-none transition-colors duration-300 hover:text-neutral-500`}
+      <div className="relative">
+        <div className="h-24 sm:h-32 bg-gradient-to-b from-white to-neutral-950" />
+
+        <div className="bg-neutral-950">
+          <section className="pt-16 sm:pt-24 pb-20 sm:pb-28">
+            <div className="max-w-4xl mx-auto px-5 sm:px-8 text-center">
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-20px" }}
+                custom={0}
+                variants={fade}
+              >
+                <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl tracking-tight text-white mb-4">
+                  Give it a goal.
+                  <br />
+                  <span className="bg-gradient-to-r from-primary via-amber-400 to-primary bg-clip-text text-transparent">Get it done.</span>
+                </h2>
+                <p className="text-base text-white/40 font-light mb-10">
+                  See Grysics in action.
+                </p>
+                <Link
+                  href="/demo"
+                  className="inline-flex items-center gap-2 px-10 py-4 bg-primary text-white text-sm font-medium rounded-full hover:bg-primary-dark transition-all duration-200 shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30"
                 >
-                  {company.name}
-                </span>
-              ))}
+                  Request a Demo <ArrowRight className="w-4 h-4" />
+                </Link>
+              </motion.div>
             </div>
-          </motion.div>
+          </section>
+
+          <section className="pb-16 sm:pb-20">
+            <div className="max-w-5xl mx-auto px-5 sm:px-8">
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-20px" }}
+                custom={0}
+                variants={fade}
+                className="text-center"
+              >
+                <div className="w-12 h-px bg-white/[0.08] mx-auto mb-10" />
+                <p className="text-[11px] uppercase tracking-[0.25em] text-white/25 font-medium mb-8">
+                  Trusted by teams at leading companies
+                </p>
+                <div className="flex flex-wrap items-center justify-center gap-x-10 sm:gap-x-16 gap-y-6">
+                  {[
+                    { name: 'Meridian', style: 'font-serif font-bold text-xl' },
+                    { name: 'AXON', style: 'font-mono font-bold text-lg tracking-[0.15em]' },
+                    { name: 'Vaultbridge', style: 'font-serif font-medium text-xl italic' },
+                    { name: 'NovaCrest', style: 'font-sans font-bold text-lg' },
+                    { name: 'LEDGR', style: 'font-mono font-bold text-lg tracking-[0.2em]' },
+                    { name: 'Finworth', style: 'font-serif font-bold text-xl' },
+                  ].map((company) => (
+                    <span
+                      key={company.name}
+                      className={`${company.style} text-white/15 select-none transition-colors duration-300 hover:text-white/35`}
+                    >
+                      {company.name}
+                    </span>
+                  ))}
+                </div>
+              </motion.div>
+            </div>
+          </section>
         </div>
-      </section>
+      </div>
       </main>
 
       <Footer />

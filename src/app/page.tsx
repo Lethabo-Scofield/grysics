@@ -21,22 +21,18 @@ function DiagramFallback() {
 const UseCaseCards = memo(function UseCaseCards() {
   const cases = [
     {
-      image: '/images/usecase-finance.png',
       title: 'Finance',
       items: ['Monthly reporting packs', 'Expense reconciliation', 'Financial summaries'],
     },
     {
-      image: '/images/usecase-compliance.png',
       title: 'Compliance',
       items: ['Audit-ready reports', 'Regulatory reporting', 'Data validation workflows'],
     },
     {
-      image: '/images/usecase-hr.png',
       title: 'HR Operations',
       items: ['Onboarding/offboarding execution', 'Employee data updates', 'Reporting'],
     },
     {
-      image: '/images/usecase-reporting.png',
       title: 'Enterprise Reporting',
       items: ['Cross-system data aggregation', 'Executive dashboards and summaries'],
     },
@@ -51,27 +47,18 @@ const UseCaseCards = memo(function UseCaseCards() {
           viewport={{ once: true, margin: "-20px" }}
           custom={i}
           variants={fade}
-          className="relative rounded-xl sm:rounded-2xl overflow-hidden min-h-[280px] sm:min-h-[320px] group"
+          className="p-5 sm:p-8 rounded-xl sm:rounded-2xl border border-neutral-100 bg-neutral-50/50"
         >
-          <Image
-            src={uc.image}
-            alt={uc.title}
-            fill
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
-          <div className="absolute inset-0 flex flex-col justify-end p-5 sm:p-6">
-            <h3 className="text-base sm:text-lg font-medium text-white mb-2 sm:mb-3">{uc.title}</h3>
-            <ul className="space-y-1.5">
-              {uc.items.map((item) => (
-                <li key={item} className="flex items-start gap-2">
-                  <div className="w-1 h-1 rounded-full bg-primary mt-1.5 flex-shrink-0" />
-                  <span className="text-xs sm:text-sm text-white/70 font-light leading-relaxed">{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <p className="font-serif text-2xl sm:text-3xl italic text-primary mb-2 sm:mb-3">{String(i + 1).padStart(2, '0')}</p>
+          <h3 className="text-sm sm:text-base font-medium text-neutral-900 mb-2 sm:mb-3">{uc.title}</h3>
+          <ul className="space-y-1.5">
+            {uc.items.map((item) => (
+              <li key={item} className="flex items-start gap-2">
+                <div className="w-1 h-1 rounded-full bg-primary/40 mt-1.5 flex-shrink-0" />
+                <span className="text-xs sm:text-sm text-neutral-500 font-light leading-relaxed">{item}</span>
+              </li>
+            ))}
+          </ul>
         </motion.div>
       ))}
     </div>
@@ -216,32 +203,15 @@ export default function HomePage() {
             </h2>
           </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-20px" }}
-              custom={1}
-              variants={fade}
-              className="relative w-full aspect-[4/3] rounded-xl sm:rounded-2xl overflow-hidden"
-            >
-              <Image
-                src="/images/business-docs.png"
-                alt="Manual business document processing"
-                fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
-            </motion.div>
-
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-20px" }}
-              custom={1}
-              variants={fade}
-            >
-            <p className="text-sm sm:text-base text-neutral-500 font-light leading-relaxed mb-6 sm:mb-8">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-20px" }}
+            custom={1}
+            variants={fade}
+            className="max-w-2xl mx-auto"
+          >
+            <p className="text-sm sm:text-base text-neutral-500 font-light leading-relaxed mb-6 sm:mb-8 text-center">
               Most companies rely on multiple systems like ERP, Excel, HR platforms, and reporting tools. Teams still spend hours on tasks that should be automatic.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
@@ -276,7 +246,6 @@ export default function HomePage() {
               Even with modern tools, execution remains manual and time-consuming.
             </motion.p>
           </motion.div>
-          </div>
         </div>
       </section>
 

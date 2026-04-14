@@ -199,78 +199,118 @@ export default function HomePage() {
 
       <section className="py-20 sm:py-32 overflow-hidden">
         <div className="max-w-6xl mx-auto px-5 sm:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-0 items-center">
-            <div className="lg:pr-16">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-20px" }}
+            custom={0}
+            variants={fade}
+            className="text-center mb-14 sm:mb-20"
+          >
+            <p className="text-[11px] uppercase tracking-[0.25em] text-neutral-400 font-medium mb-4">The problem</p>
+            <h2 className="font-serif text-3xl sm:text-5xl tracking-tight text-neutral-900 mb-4">
+              Your team is stuck on
+              <span className="text-neutral-300"> operational busywork</span>
+            </h2>
+            <p className="text-base text-neutral-500 font-light max-w-lg mx-auto">
+              Finance, compliance, and operations teams lose days every month on tasks that follow the same pattern every time.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-14">
+            {[
+              {
+                stat: '40+',
+                unit: 'hours/month',
+                title: 'Spent on reconciliation',
+                desc: 'Teams manually pull data from ERP, match it against bank statements, and chase discrepancies across email.',
+              },
+              {
+                stat: '5',
+                unit: 'systems',
+                title: 'Touched per report',
+                desc: 'One financial report needs data from ERP, Excel, payment platforms, HR tools, and email threads.',
+              },
+              {
+                stat: '3-5',
+                unit: 'days',
+                title: 'To close the books',
+                desc: 'Month-end close involves manual checks, approvals, and back-and-forth that stretches for days.',
+              },
+            ].map((item, i) => (
               <motion.div
+                key={item.title}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, margin: "-20px" }}
-                custom={0}
+                custom={i + 1}
                 variants={fade}
-                className="mb-8"
+                className="p-6 sm:p-8 rounded-2xl border border-neutral-200/60 bg-white shadow-[0_1px_3px_rgba(0,0,0,0.04)]"
               >
-                <p className="text-[11px] uppercase tracking-[0.25em] text-neutral-400 font-medium mb-4">The problem</p>
-                <h2 className="font-serif text-3xl sm:text-5xl tracking-tight text-neutral-900 mb-5">
-                  Business operations are still
-                  <span className="text-neutral-300"> manual and fragmented</span>
-                </h2>
-                <p className="text-base text-neutral-500 font-light">
-                  Multiple systems. Manual steps. Hours wasted on tasks that should be automatic.
-                </p>
+                <div className="flex items-baseline gap-1.5 mb-4">
+                  <span className="font-serif text-4xl sm:text-5xl text-neutral-900 tracking-tight">{item.stat}</span>
+                  <span className="text-sm text-neutral-400 font-light">{item.unit}</span>
+                </div>
+                <h3 className="text-base font-semibold text-neutral-900 mb-2">{item.title}</h3>
+                <p className="text-sm text-neutral-500 leading-relaxed">{item.desc}</p>
               </motion.div>
-
-              <div className="space-y-2.5 mb-6">
-                {[
-                  'Collecting data across systems',
-                  'Cleaning and reconciling records',
-                  'Building reports manually',
-                  'Coordinating across departments',
-                ].map((item, i) => (
-                  <motion.div
-                    key={item}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, margin: "-20px" }}
-                    custom={i + 1}
-                    variants={fade}
-                    className="flex items-center gap-3 py-3 px-4 rounded-xl bg-red-50/50 border border-red-100/60"
-                  >
-                    <div className="w-1.5 h-1.5 rounded-full bg-red-400 flex-shrink-0" />
-                    <span className="text-sm text-neutral-600">{item}</span>
-                  </motion.div>
-                ))}
-              </div>
-
-              <motion.p
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-20px" }}
-                custom={5}
-                variants={fade}
-                className="text-sm text-neutral-400 font-light italic"
-              >
-                It adds up. Every single day.
-              </motion.p>
-            </div>
-
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-20px" }}
-              custom={2}
-              variants={fade}
-              className="relative lg:-mr-8 xl:-mr-20"
-            >
-              <Image
-                src="/images/business-docs.png"
-                alt="Manual business document processing"
-                width={800}
-                height={533}
-                className="w-full h-auto rounded-2xl lg:rounded-r-none shadow-2xl shadow-neutral-200/50"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
-            </motion.div>
+            ))}
           </div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-20px" }}
+            custom={4}
+            variants={fade}
+            className="rounded-2xl bg-neutral-950 p-6 sm:p-10 text-white"
+          >
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+              <div>
+                <p className="text-xs uppercase tracking-[0.2em] text-red-400/70 font-medium mb-3">A typical Monday morning</p>
+                <h3 className="font-serif text-2xl sm:text-3xl tracking-tight mb-4">
+                  &quot;Can someone pull the Q1 numbers?&quot;
+                </h3>
+                <div className="space-y-3">
+                  {[
+                    { time: '9:00 AM', text: 'CFO requests Q1 reconciliation report' },
+                    { time: '9:30 AM', text: 'Analyst opens ERP, Excel, and payment platform' },
+                    { time: '11:00 AM', text: 'Data copied into spreadsheet, formulas break' },
+                    { time: '2:00 PM', text: 'Three discrepancies found, two emails sent' },
+                    { time: '4:30 PM', text: 'Report v3 sent for review. Missing one source.' },
+                    { time: 'Next day', text: 'Start over with updated data.' },
+                  ].map((step, i) => (
+                    <div key={i} className="flex items-start gap-3">
+                      <span className="text-xs text-white/25 font-mono w-16 flex-shrink-0 pt-0.5">{step.time}</span>
+                      <span className="text-sm text-white/50">{step.text}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="relative lg:-mr-10 xl:-mr-16">
+                <Image
+                  src="/images/business-docs.png"
+                  alt="Manual business document processing"
+                  width={800}
+                  height={533}
+                  className="w-full h-auto rounded-xl lg:rounded-r-none opacity-60"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-neutral-950/40 to-transparent rounded-xl lg:rounded-r-none" />
+              </div>
+            </div>
+          </motion.div>
+
+          <motion.p
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-20px" }}
+            custom={5}
+            variants={fade}
+            className="text-center text-sm text-neutral-400 font-light mt-8 italic"
+          >
+            Sound familiar? This is what Grysics eliminates.
+          </motion.p>
         </div>
       </section>
 

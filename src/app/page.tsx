@@ -186,66 +186,80 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-16 sm:py-32 border-b border-neutral-100">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-20px" }}
-            custom={0}
-            variants={fade}
-            className="text-center mb-10 sm:mb-16"
-          >
-            <p className="text-xs uppercase tracking-[0.2em] text-neutral-400 font-medium mb-3 sm:mb-4">The problem</p>
-            <h2 className="font-serif text-2xl sm:text-5xl tracking-tight text-neutral-900 mb-4 sm:mb-6">
-              Business operations are still
-              <span className="text-neutral-400"> manual and fragmented</span>
-            </h2>
-          </motion.div>
+      <section className="py-16 sm:py-32 border-b border-neutral-100 overflow-hidden">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-0 items-center">
+            <div className="lg:pr-12">
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-20px" }}
+                custom={0}
+                variants={fade}
+                className="mb-6 sm:mb-8"
+              >
+                <p className="text-xs uppercase tracking-[0.2em] text-neutral-400 font-medium mb-3 sm:mb-4">The problem</p>
+                <h2 className="font-serif text-2xl sm:text-5xl tracking-tight text-neutral-900 mb-4 sm:mb-6">
+                  Business operations are still
+                  <span className="text-neutral-400"> manual and fragmented</span>
+                </h2>
+                <p className="text-sm sm:text-base text-neutral-500 font-light leading-relaxed">
+                  Most companies rely on multiple systems like ERP, Excel, HR platforms, and reporting tools. Teams still spend hours on tasks that should be automatic.
+                </p>
+              </motion.div>
 
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-20px" }}
-            custom={1}
-            variants={fade}
-            className="max-w-2xl mx-auto"
-          >
-            <p className="text-sm sm:text-base text-neutral-500 font-light leading-relaxed mb-6 sm:mb-8 text-center">
-              Most companies rely on multiple systems like ERP, Excel, HR platforms, and reporting tools. Teams still spend hours on tasks that should be automatic.
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-              {[
-                'Collecting data across systems',
-                'Cleaning and reconciling records',
-                'Building reports manually',
-                'Coordinating across departments',
-              ].map((item, i) => (
-                <motion.div
-                  key={item}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, margin: "-20px" }}
-                  custom={i + 2}
-                  variants={fade}
-                  className="flex items-center gap-3 p-4 rounded-xl border border-neutral-100 bg-neutral-50/50"
-                >
-                  <div className="w-1.5 h-1.5 rounded-full bg-red-400 flex-shrink-0" />
-                  <span className="text-sm text-neutral-600">{item}</span>
-                </motion.div>
-              ))}
+              <div className="space-y-3 mb-6">
+                {[
+                  'Collecting data across systems',
+                  'Cleaning and reconciling records',
+                  'Building reports manually',
+                  'Coordinating across departments',
+                ].map((item, i) => (
+                  <motion.div
+                    key={item}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, margin: "-20px" }}
+                    custom={i + 1}
+                    variants={fade}
+                    className="flex items-center gap-3 p-4 rounded-xl border border-neutral-100 bg-neutral-50/50"
+                  >
+                    <div className="w-1.5 h-1.5 rounded-full bg-red-400 flex-shrink-0" />
+                    <span className="text-sm text-neutral-600">{item}</span>
+                  </motion.div>
+                ))}
+              </div>
+
+              <motion.p
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-20px" }}
+                custom={5}
+                variants={fade}
+                className="text-sm text-neutral-400 font-light"
+              >
+                Even with modern tools, execution remains manual and time-consuming.
+              </motion.p>
             </div>
-            <motion.p
+
+            <motion.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-20px" }}
-              custom={6}
+              custom={2}
               variants={fade}
-              className="text-sm text-neutral-400 font-light text-center mt-6 sm:mt-8"
+              className="relative lg:-mr-6 xl:-mr-16"
             >
-              Even with modern tools, execution remains manual and time-consuming.
-            </motion.p>
-          </motion.div>
+              <Image
+                src="/images/business-docs.png"
+                alt="Manual business document processing"
+                width={800}
+                height={533}
+                className="w-full h-auto rounded-xl sm:rounded-2xl lg:rounded-r-none"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
+            </motion.div>
+          </div>
         </div>
       </section>
 

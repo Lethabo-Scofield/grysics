@@ -527,57 +527,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-20 sm:py-32 bg-neutral-50/70">
-        <div className="max-w-6xl mx-auto px-5 sm:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-20px" }}
-              custom={0}
-              variants={fade}
-            >
-              <p className="text-[11px] uppercase tracking-[0.25em] text-neutral-400 font-medium mb-4">Differentiation</p>
-              <h2 className="font-serif text-3xl sm:text-4xl tracking-tight text-neutral-900 mb-4">
-                Beyond dashboards and
-                <span className="text-neutral-300"> automation tools.</span>
-              </h2>
-              <p className="text-base text-neutral-500 font-light mb-8">
-                Other tools visualize. Grysics completes.
-              </p>
-              <div className="space-y-3">
-                {[
-                  'No workflow setup required',
-                  'No manual data coordination',
-                  'No fragmented processes',
-                ].map((item) => (
-                  <div key={item} className="flex items-center gap-3">
-                    <div className="w-5 h-5 rounded-full bg-primary/[0.08] flex items-center justify-center flex-shrink-0">
-                      <Check className="w-3 h-3 text-primary" />
-                    </div>
-                    <span className="text-sm text-neutral-600">{item}</span>
-                  </div>
-                ))}
-              </div>
-              <p className="text-sm text-neutral-400 font-light mt-8 italic">
-                From request to result. Fully executed.
-              </p>
-            </motion.div>
-
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-20px" }}
-              custom={1}
-              variants={fade}
-              className="bg-neutral-950 rounded-2xl p-5 sm:p-8 border border-neutral-200/10 shadow-xl"
-            >
-              <BenchmarkChart />
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
       <section className="py-20 sm:py-32 bg-neutral-950 text-white">
         <div className="max-w-5xl mx-auto px-5 sm:px-8">
           <motion.div

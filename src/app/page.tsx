@@ -20,7 +20,7 @@ function DiagramFallback() {
   return <div className="w-full h-48 animate-pulse bg-white/5 rounded-xl" />;
 }
 
-const UseCaseCards = memo(function UseCaseCards() {
+const UseCaseRows = memo(function UseCaseRows() {
   const cases = [
     {
       title: 'Finance',
@@ -40,7 +40,7 @@ const UseCaseCards = memo(function UseCaseCards() {
     },
   ];
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+    <div className="divide-y divide-neutral-100">
       {cases.map((uc, i) => (
         <motion.div
           key={uc.title}
@@ -49,20 +49,24 @@ const UseCaseCards = memo(function UseCaseCards() {
           viewport={{ once: true, margin: "-20px" }}
           custom={i}
           variants={fade}
-          className="group p-6 sm:p-7 rounded-2xl bg-white border border-neutral-200/60 shadow-[0_1px_3px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.06)] hover:border-primary/20 transition-all duration-300"
+          className="group grid grid-cols-1 sm:grid-cols-[200px_1fr] gap-4 sm:gap-8 py-8 sm:py-10 first:pt-0 last:pb-0"
         >
-          <div className="w-10 h-10 rounded-xl bg-primary/[0.08] flex items-center justify-center mb-5 group-hover:bg-primary/[0.12] transition-colors">
-            <span className="font-serif text-lg text-primary font-medium">{String(i + 1).padStart(2, '0')}</span>
+          <div className="flex items-baseline gap-4">
+            <span className="font-serif text-3xl sm:text-4xl text-neutral-200 font-medium leading-none select-none group-hover:text-primary/30 transition-colors duration-300">
+              {String(i + 1).padStart(2, '0')}
+            </span>
+            <h3 className="text-lg font-semibold text-neutral-900">{uc.title}</h3>
           </div>
-          <h3 className="text-base font-semibold text-neutral-900 mb-3">{uc.title}</h3>
-          <ul className="space-y-2">
+          <div className="flex flex-wrap gap-2 sm:gap-2.5 items-start sm:pt-2">
             {uc.items.map((item) => (
-              <li key={item} className="flex items-start gap-2.5">
-                <div className="w-1 h-1 rounded-full bg-primary/50 mt-2 flex-shrink-0" />
-                <span className="text-sm text-neutral-500 leading-relaxed">{item}</span>
-              </li>
+              <span
+                key={item}
+                className="inline-block text-sm text-neutral-500 px-4 py-2 rounded-full border border-neutral-200/80 bg-neutral-50/50 group-hover:border-primary/20 group-hover:bg-primary/[0.03] transition-all duration-300"
+              >
+                {item}
+              </span>
             ))}
-          </ul>
+          </div>
         </motion.div>
       ))}
     </div>
@@ -470,7 +474,7 @@ export default function HomePage() {
             </h2>
           </motion.div>
 
-          <UseCaseCards />
+          <UseCaseRows />
 
           <motion.div
             initial="hidden"
@@ -510,12 +514,12 @@ export default function HomePage() {
             </h2>
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl mx-auto">
+          <div className="max-w-3xl mx-auto">
             {[
-              { icon: Eye, title: 'Full traceability', desc: 'Every action logged.' },
-              { icon: FileText, title: 'Recorded transformations', desc: 'All data changes tracked.' },
-              { icon: Lock, title: 'Approval workflows', desc: 'Human checkpoints built in.' },
-              { icon: Shield, title: 'Enterprise-grade', desc: 'Built for regulated industries.' },
+              { icon: Eye, title: 'Full traceability', desc: 'Every action Grysics takes is logged with timestamps, inputs, and outputs.' },
+              { icon: FileText, title: 'Recorded transformations', desc: 'All data changes are tracked and reversible. Nothing happens silently.' },
+              { icon: Lock, title: 'Approval workflows', desc: 'Set human checkpoints at any stage. Grysics pauses and waits for sign-off.' },
+              { icon: Shield, title: 'Enterprise-grade', desc: 'Built for regulated industries with SOC 2 and compliance-first architecture.' },
             ].map((item, i) => (
               <motion.div
                 key={item.title}
@@ -524,13 +528,15 @@ export default function HomePage() {
                 viewport={{ once: true, margin: "-20px" }}
                 custom={i}
                 variants={fade}
-                className="p-6 rounded-2xl border border-white/[0.06] bg-white/[0.02] hover:bg-white/[0.04] transition-colors duration-300"
+                className="group flex items-start gap-5 sm:gap-8 py-7 sm:py-8 border-b border-white/[0.06] last:border-b-0 first:pt-0"
               >
-                <div className="w-10 h-10 rounded-xl bg-primary/[0.08] flex items-center justify-center mb-4">
-                  <item.icon className="w-4.5 h-4.5 text-primary" />
+                <div className="flex-shrink-0 w-11 h-11 rounded-full border border-white/[0.08] flex items-center justify-center group-hover:border-primary/30 transition-colors duration-300">
+                  <item.icon className="w-5 h-5 text-white/40 group-hover:text-primary transition-colors duration-300" />
                 </div>
-                <h3 className="text-base font-medium text-white mb-1.5">{item.title}</h3>
-                <p className="text-sm text-white/50">{item.desc}</p>
+                <div>
+                  <h3 className="text-base font-medium text-white mb-1">{item.title}</h3>
+                  <p className="text-sm text-white/40 leading-relaxed">{item.desc}</p>
+                </div>
               </motion.div>
             ))}
           </div>

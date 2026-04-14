@@ -51,9 +51,7 @@ export default function LiveTerminal() {
 
   useEffect(() => {
     if (phase !== 'running') return;
-    let current = -1;
     let totalDelay = 300;
-
     const timeouts: NodeJS.Timeout[] = [];
 
     lines.forEach((line, idx) => {
@@ -75,6 +73,8 @@ export default function LiveTerminal() {
 
     return () => timeouts.forEach(clearTimeout);
   }, [phase]);
+
+  const started = phase !== 'idle';
 
   return (
     <div ref={ref} className="rounded-xl overflow-hidden shadow-2xl shadow-black/40 border border-white/[0.08]">
@@ -116,90 +116,56 @@ export default function LiveTerminal() {
           <span className="text-green-400">grysics</span>
           <span className="text-white/30"> ~ </span>
           <span className="text-blue-400">$</span>
-          <span className="text-white/80"> {commandTyped}</span>
+          <span className="text-white/80"> {started ? commandTyped : ''}</span>
           {phase === 'typing' && (
             <span className="inline-block w-2 h-4 bg-white/60 ml-0.5 animate-pulse align-middle" />
           )}
+          {!started && (
+            <span className="inline-block w-2 h-4 bg-white/50 ml-0.5 animate-pulse align-middle" />
+          )}
         </div>
 
-        {phase !== 'idle' && phase !== 'typing' && (
-          <div className="border-t border-white/[0.06] pt-4 space-y-3">
-            {lines.map((line, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, x: -8 }}
-                animate={visibleLines >= i ? { opacity: 1, x: 0 } : { opacity: 0, x: -8 }}
-                transition={{ duration: 0.25 }}
-                className="flex items-start gap-3"
-              >
-                <span className="text-white/20 select-none flex-shrink-0 w-4 text-right">{i + 1}</span>
-                {visibleLines >= i ? (
-                  <motion.span
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ duration: 0.15, delay: 0.1 }}
-                    className={line.status === 'done' ? 'text-green-400/80' : 'text-amber-400/80'}
-                  >
-                    {line.status === 'done' ? '✓' : '⚠'}
-                  </motion.span>
-                ) : (
-                  <span className="text-white/10">·</span>
-                )}
-                <span className="text-white/60">{line.text}</span>
-                {visibleLines === i && !showSummary && (
-                  <div className="w-3 h-3 border-2 border-white/10 border-t-primary/50 rounded-full animate-spin flex-shrink-0 mt-0.5" />
-                )}
-              </motion.div>
-            ))}
+        <div className="border-t border-white/[0.06] pt-4 space-y-3">
+          {lines.map((line, i) => (
+            <div
+              key={i}
+              className={`flex items-start gap-3 transition-opacity duration-300 ${
+                visibleLines >= i ? 'opacity-100' : 'opacity-0'
+              }`}
+            >
+              <span className="text-white/20 select-none flex-shrink-0 w-4 text-right">{i + 1}</span>
+              <span className={line.status === 'done' ? 'text-green-400/80' : 'text-amber-400/80'}>
+                {line.status === 'done' ? '✓' : '⚠'}
+              </span>
+              <span className="text-white/60">{line.text}</span>
+              {visibleLines === i && !showSummary && (
+                <div className="w-3 h-3 border-2 border-white/10 border-t-primary/50 rounded-full animate-spin flex-shrink-0 mt-0.5" />
+              )}
+            </div>
+          ))}
+        </div>
+
+        <div className={`mt-6 pt-4 border-t border-white/[0.06] transition-opacity duration-400 ${showSummary ? 'opacity-100' : 'opacity-0'}`}>
+          <div className="flex items-center gap-2 text-green-400 mb-2">
+            <span>✓</span>
+            <span className="font-semibold">Execution complete</span>
           </div>
-        )}
+          <div className="text-white/40 space-y-1 pl-5">
+            {summaryLines.map((s, i) => (
+              <p key={i}>{s}</p>
+            ))}
+            <p>
+              Audit trail: <span className="text-blue-400 underline underline-offset-2">view full log →</span>
+            </p>
+          </div>
+        </div>
 
-        {showSummary && (
-          <motion.div
-            initial={{ opacity: 0, y: 6 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.35 }}
-            className="mt-6 pt-4 border-t border-white/[0.06]"
-          >
-            <div className="flex items-center gap-2 text-green-400 mb-2">
-              <span>✓</span>
-              <span className="font-semibold">Execution complete</span>
-            </div>
-            <div className="text-white/40 space-y-1 pl-5">
-              {summaryLines.map((s, i) => (
-                <motion.p
-                  key={i}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: i * 0.15 }}
-                >
-                  {s}
-                </motion.p>
-              ))}
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.5 }}
-              >
-                Audit trail: <span className="text-blue-400 underline underline-offset-2">view full log →</span>
-              </motion.p>
-            </div>
-          </motion.div>
-        )}
-
-        {showCursor && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
-            className="mt-4 pt-3"
-          >
-            <span className="text-green-400">grysics</span>
-            <span className="text-white/30"> ~ </span>
-            <span className="text-blue-400">$</span>
-            <span className="inline-block w-2 h-4 bg-white/50 ml-1 animate-pulse" />
-          </motion.div>
-        )}
+        <div className={`mt-4 pt-3 transition-opacity duration-300 ${showCursor ? 'opacity-100' : 'opacity-0'}`}>
+          <span className="text-green-400">grysics</span>
+          <span className="text-white/30"> ~ </span>
+          <span className="text-blue-400">$</span>
+          <span className="inline-block w-2 h-4 bg-white/50 ml-1 animate-pulse" />
+        </div>
       </div>
     </div>
   );

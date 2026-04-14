@@ -13,6 +13,7 @@ import HeroBackground from '@/components/hero-background';
 
 const ArchitectureDiagram = dynamic(() => import('@/components/diagrams/architecture-diagram'), { ssr: false, loading: () => <DiagramFallback /> });
 const WorkflowDemo = dynamic(() => import('@/components/workflow-demo'), { ssr: false, loading: () => <DiagramFallback /> });
+const LiveTerminal = dynamic(() => import('@/components/live-terminal'), { ssr: false, loading: () => <DiagramFallback /> });
 const BenchmarkChart = dynamic(() => import('@/components/diagrams/benchmark-chart'), { ssr: false, loading: () => <DiagramFallback /> });
 
 function DiagramFallback() {
@@ -483,95 +484,7 @@ export default function HomePage() {
             </p>
           </motion.div>
 
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-20px" }}
-            custom={1}
-            variants={fade}
-            className="rounded-xl overflow-hidden shadow-2xl shadow-black/40 border border-white/[0.08]"
-          >
-            <div className="bg-[#2a2a2e] px-4 py-3 flex items-center gap-2 border-b border-white/[0.06]">
-              <div className="flex items-center gap-1.5">
-                <div className="w-3 h-3 rounded-full bg-[#ff5f57]" />
-                <div className="w-3 h-3 rounded-full bg-[#febc2e]" />
-                <div className="w-3 h-3 rounded-full bg-[#28c840]" />
-              </div>
-              <div className="flex-1 text-center">
-                <span className="text-xs text-white/40 font-mono">grysics — reconcile-q1</span>
-              </div>
-              <div className="w-[52px]" />
-            </div>
-
-            <div className="bg-[#1e1e22] p-5 sm:p-8 font-mono text-sm leading-relaxed">
-              <div className="mb-4">
-                <span className="text-green-400">grysics</span>
-                <span className="text-white/30"> ~ </span>
-                <span className="text-blue-400">$</span>
-                <span className="text-white/80"> grysics run &quot;Reconcile Q1 transactions&quot;</span>
-              </div>
-
-              <div className="border-t border-white/[0.06] pt-4 space-y-3">
-                {[
-                  { text: 'Connecting to financial systems...', status: 'done', delay: 1 },
-                  { text: 'Pulling 847 transactions from payment records...', status: 'done', delay: 2 },
-                  { text: 'Cross-referencing with accounting data...', status: 'done', delay: 3 },
-                  { text: 'Found 3 discrepancies — resolved 2 automatically', status: 'review', delay: 4 },
-                  { text: 'Report generated and ready for download', status: 'done', delay: 5 },
-                ].map((line, i) => (
-                  <motion.div
-                    key={i}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, margin: "-20px" }}
-                    custom={i + 2}
-                    variants={fade}
-                    className="flex items-start gap-3"
-                  >
-                    <span className="text-white/20 select-none flex-shrink-0 w-4 text-right">{i + 1}</span>
-                    <span className={line.status === 'done' ? 'text-green-400/80' : 'text-amber-400/80'}>
-                      {line.status === 'done' ? '✓' : '⚠'}
-                    </span>
-                    <span className="text-white/60">{line.text}</span>
-                  </motion.div>
-                ))}
-              </div>
-
-              <motion.div
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-20px" }}
-                custom={7}
-                variants={fade}
-                className="mt-6 pt-4 border-t border-white/[0.06]"
-              >
-                <div className="flex items-center gap-2 text-green-400 mb-2">
-                  <span>✓</span>
-                  <span className="font-semibold">Execution complete</span>
-                </div>
-                <div className="text-white/40 space-y-1 pl-5">
-                  <p>Time: 2m 14s</p>
-                  <p>Records: 847 processed</p>
-                  <p>Variance: $12.4K identified</p>
-                  <p>Audit trail: <span className="text-blue-400 underline underline-offset-2">view full log →</span></p>
-                </div>
-              </motion.div>
-
-              <motion.div
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-20px" }}
-                custom={8}
-                variants={fade}
-                className="mt-4 pt-3"
-              >
-                <span className="text-green-400">grysics</span>
-                <span className="text-white/30"> ~ </span>
-                <span className="text-blue-400">$</span>
-                <span className="inline-block w-2 h-4 bg-white/50 ml-1 animate-pulse" />
-              </motion.div>
-            </div>
-          </motion.div>
+          <LiveTerminal />
         </div>
       </section>
 

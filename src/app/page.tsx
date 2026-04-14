@@ -60,7 +60,7 @@ const UseCaseCards = memo(function UseCaseCards() {
             className="object-cover transition-transform duration-500 group-hover:scale-105"
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
           <div className="absolute inset-0 flex flex-col justify-end p-5 sm:p-6">
             <h3 className="text-base sm:text-lg font-medium text-white mb-2 sm:mb-3">{uc.title}</h3>
             <ul className="space-y-1.5">

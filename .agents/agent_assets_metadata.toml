@@ -5,22 +5,22 @@ outputs = []
 id = "Xk6qLkOz9Yrwcl7uZpGFT"
 uri = "file://public/images/usecase-finance.png"
 type = "image"
-title = "finance operations illustration"
+title = "bright finance illustration"
 
 [[generated]]
 id = "VDhBNYctjDSDVHVKwPawr"
 uri = "file://public/images/usecase-compliance.png"
 type = "image"
-title = "compliance operations illustration"
+title = "bright compliance illustration"
 
 [[generated]]
 id = "0YvS-15h-p1_e2IOIs7Pt"
 uri = "file://public/images/usecase-hr.png"
 type = "image"
-title = "hr operations illustration"
+title = "bright HR illustration"
 
 [[generated]]
 id = "mX9sCzrP6UGFjsCcrSFe5"
 uri = "file://public/images/usecase-reporting.png"
 type = "image"
-title = "enterprise reporting illustration"
+title = "bright reporting illustration"

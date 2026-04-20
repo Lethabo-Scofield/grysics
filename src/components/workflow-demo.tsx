@@ -52,6 +52,16 @@ export default function WorkflowDemo() {
     }
   }, [phase]);
 
+  useEffect(() => {
+    if (phase === 'done') {
+      const t = setTimeout(() => {
+        setExecIndex(-1);
+        setPhase('goal');
+      }, 3500);
+      return () => clearTimeout(t);
+    }
+  }, [phase]);
+
   const phaseActive = (p: Phase) => {
     const order: Phase[] = ['waiting', 'goal', 'planning', 'executing', 'delivering', 'done'];
     return order.indexOf(phase) >= order.indexOf(p);

@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { motion, useInView, useReducedMotion } from 'framer-motion';
 import Image from 'next/image';
 import { Target, Database, FileSpreadsheet, FileText, Bell, ShieldCheck, Sparkles } from 'lucide-react';
@@ -17,11 +17,43 @@ const outputs = [
   { label: 'Audit Trail', icon: ShieldCheck },
 ];
 
+const inPaths = [
+  'M50 4 C50 32 150 32 150 56',
+  'M150 4 L150 56',
+  'M250 4 C250 32 150 32 150 56',
+];
+const outPaths = [
+  'M150 4 C150 32 50 32 50 56',
+  'M150 4 L150 56',
+  'M150 4 C150 32 250 32 250 56',
+];
+
+type Phase = 0 | 1 | 2 | 3;
+
 export default function SolutionDiagram() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { margin: '-10%' });
   const prefersReducedMotion = useReducedMotion();
   const animate = isInView && !prefersReducedMotion;
+
+  const [phase, setPhase] = useState<Phase>(0);
+
+  useEffect(() => {
+    if (!animate) {
+      setPhase(0);
+      return;
+    }
+    const t = setInterval(() => {
+      setPhase((p) => (((p + 1) % 4) as Phase));
+    }, 1400);
+    return () => clearInterval(t);
+  }, [animate]);
+
+  const inputActive = !animate || phase === 0;
+  const flowIn = animate && phase === 0;
+  const engineActive = !animate || phase === 1;
+  const flowOut = animate && phase === 2;
+  const outputActive = !animate || phase === 2 || phase === 3;
 
   return (
     <div
@@ -35,7 +67,7 @@ export default function SolutionDiagram() {
         }}
       />
 
-      <div className="relative flex flex-col items-stretch gap-3 sm:gap-4">
+      <div className="relative flex flex-col items-stretch gap-2 sm:gap-3">
         <div className="grid grid-cols-3 gap-2 sm:gap-3">
           {inputs.map((item, i) => (
             <motion.div
@@ -44,31 +76,64 @@ export default function SolutionDiagram() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.08, duration: 0.4 }}
-              className="relative flex flex-col items-center gap-1.5 sm:gap-2 px-2 py-3 sm:py-4 rounded-xl bg-white/[0.04] border border-white/[0.08] hover:border-white/15 hover:bg-white/[0.06] transition-colors"
+              className={`relative flex flex-col items-center gap-1.5 sm:gap-2 px-2 py-3 sm:py-4 rounded-xl border transition-all duration-500 ${
+                inputActive
+                  ? 'bg-white/[0.08] border-white/20 shadow-[0_0_20px_-8px_rgba(255,255,255,0.4)]'
+                  : 'bg-white/[0.03] border-white/[0.06]'
+              }`}
             >
-              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-white/[0.06] border border-white/[0.06] flex items-center justify-center">
-                <item.icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white/70" strokeWidth={1.75} />
+              <div
+                className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg border flex items-center justify-center transition-colors duration-500 ${
+                  inputActive ? 'bg-white/[0.10] border-white/15' : 'bg-white/[0.04] border-white/[0.05]'
+                }`}
+              >
+                <item.icon
+                  className={`w-3.5 h-3.5 sm:w-4 sm:h-4 transition-colors duration-500 ${
+                    inputActive ? 'text-white/90' : 'text-white/40'
+                  }`}
+                  strokeWidth={1.75}
+                />
               </div>
-              <span className="text-[10px] sm:text-[11px] text-white/65 font-medium text-center leading-tight tracking-wide">
+              <span
+                className={`text-[10px] sm:text-[11px] font-medium text-center leading-tight tracking-wide transition-colors duration-500 ${
+                  inputActive ? 'text-white/85' : 'text-white/40'
+                }`}
+              >
                 {item.label}
               </span>
             </motion.div>
           ))}
         </div>
 
-        <FlowConnectors color="primary" animate={animate} />
+        <Connectors paths={inPaths} active={flowIn} stroke="rgba(249,115,22,0.22)" dotColor="rgb(249,115,22)" glow="rgba(249,115,22,0.9)" cycleKey={phase} />
 
-        <div className="relative w-full p-4 sm:p-5 rounded-xl bg-gradient-to-br from-primary/[0.12] via-primary/[0.06] to-amber-500/[0.04] border border-primary/25 overflow-hidden">
+        <div
+          className={`relative w-full p-4 sm:p-5 rounded-xl border overflow-hidden transition-all duration-500 ${
+            engineActive
+              ? 'bg-gradient-to-br from-primary/[0.18] via-primary/[0.10] to-amber-500/[0.06] border-primary/40 shadow-[0_0_40px_-12px_rgba(249,115,22,0.6)]'
+              : 'bg-gradient-to-br from-primary/[0.08] via-primary/[0.04] to-amber-500/[0.02] border-primary/20'
+          }`}
+        >
           {animate && (
             <motion.div
-              className="absolute -inset-px rounded-xl border border-primary/40 pointer-events-none"
-              animate={{ opacity: [0.2, 0.6, 0.2] }}
-              transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
+              key={phase === 1 ? 'engine-pulse' : 'idle'}
+              className="absolute -inset-px rounded-xl border border-primary/50 pointer-events-none"
+              initial={{ opacity: 0, scale: 1 }}
+              animate={
+                phase === 1
+                  ? { opacity: [0, 0.7, 0], scale: [1, 1.02, 1] }
+                  : { opacity: 0 }
+              }
+              transition={{ duration: 1.4, ease: 'easeOut' }}
             />
           )}
           <div className="relative flex items-center justify-between gap-3">
             <div className="flex items-center gap-2.5">
-              <div className="relative w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-primary/20 border border-primary/30 flex items-center justify-center">
+              <div
+                className={`relative w-8 h-8 sm:w-9 sm:h-9 rounded-lg border flex items-center justify-center transition-all duration-500 ${
+                  engineActive ? 'bg-primary/30 border-primary/45' : 'bg-primary/15 border-primary/25'
+                }`}
+              >
                 <Image
                   src="/images/grysics-logo.png"
                   alt="Grysics"
@@ -80,27 +145,37 @@ export default function SolutionDiagram() {
               </div>
               <div className="flex flex-col">
                 <span className="text-sm sm:text-base font-semibold text-white leading-tight">Grysics</span>
-                <span className="text-[10px] sm:text-[11px] text-white/50 font-mono tracking-wide">execution engine</span>
+                <span className="text-[10px] sm:text-[11px] text-white/55 font-mono tracking-wide">execution engine</span>
               </div>
             </div>
-            <div className="flex items-center gap-1.5 px-2 py-1 rounded-full bg-green-500/10 border border-green-500/20">
+            <div
+              className={`flex items-center gap-1.5 px-2 py-1 rounded-full border transition-colors duration-500 ${
+                phase === 1 && animate
+                  ? 'bg-primary/15 border-primary/35'
+                  : 'bg-green-500/10 border-green-500/20'
+              }`}
+            >
               <span
-                className={`w-1.5 h-1.5 rounded-full bg-green-400 ${animate ? 'animate-pulse' : ''}`}
+                className={`w-1.5 h-1.5 rounded-full transition-colors duration-500 ${
+                  phase === 1 && animate ? 'bg-primary' : 'bg-green-400'
+                } ${animate ? 'animate-pulse' : ''}`}
               />
-              <span className="text-[9px] sm:text-[10px] text-green-400/90 font-mono uppercase tracking-wider">
-                Active
+              <span
+                className={`text-[9px] sm:text-[10px] font-mono uppercase tracking-wider transition-colors duration-500 ${
+                  phase === 1 && animate ? 'text-primary' : 'text-green-400/90'
+                }`}
+              >
+                {phase === 1 && animate ? 'Working' : 'Active'}
               </span>
             </div>
           </div>
           <div className="relative mt-3 pt-3 border-t border-white/[0.06] flex items-center gap-1.5">
             <Sparkles className="w-3 h-3 text-primary/70" strokeWidth={2} />
-            <span className="text-[10px] sm:text-[11px] text-white/55 font-mono">
-              plan · execute · verify · deliver
-            </span>
+            <span className="text-[10px] sm:text-[11px] text-white/55 font-mono">plan · execute · verify · deliver</span>
           </div>
         </div>
 
-        <FlowConnectors color="green" animate={animate} delayOffset={0.4} />
+        <Connectors paths={outPaths} active={flowOut} stroke="rgba(34,197,94,0.25)" dotColor="rgb(74,222,128)" glow="rgba(74,222,128,0.9)" cycleKey={phase} />
 
         <div className="grid grid-cols-3 gap-2 sm:gap-3">
           {outputs.map((item, i) => (
@@ -110,12 +185,29 @@ export default function SolutionDiagram() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.3 + i * 0.08, duration: 0.4 }}
-              className="relative flex flex-col items-center gap-1.5 sm:gap-2 px-2 py-3 sm:py-4 rounded-xl bg-green-500/[0.05] border border-green-500/15 hover:border-green-500/25 hover:bg-green-500/[0.08] transition-colors"
+              className={`relative flex flex-col items-center gap-1.5 sm:gap-2 px-2 py-3 sm:py-4 rounded-xl border transition-all duration-500 ${
+                outputActive
+                  ? 'bg-green-500/[0.10] border-green-500/30 shadow-[0_0_20px_-8px_rgba(34,197,94,0.5)]'
+                  : 'bg-green-500/[0.03] border-green-500/10'
+              }`}
             >
-              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-green-500/10 border border-green-500/15 flex items-center justify-center">
-                <item.icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-400/85" strokeWidth={1.75} />
+              <div
+                className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg border flex items-center justify-center transition-colors duration-500 ${
+                  outputActive ? 'bg-green-500/15 border-green-500/25' : 'bg-green-500/5 border-green-500/10'
+                }`}
+              >
+                <item.icon
+                  className={`w-3.5 h-3.5 sm:w-4 sm:h-4 transition-colors duration-500 ${
+                    outputActive ? 'text-green-300' : 'text-green-400/40'
+                  }`}
+                  strokeWidth={1.75}
+                />
               </div>
-              <span className="text-[10px] sm:text-[11px] text-green-400/85 font-medium text-center leading-tight tracking-wide">
+              <span
+                className={`text-[10px] sm:text-[11px] font-medium text-center leading-tight tracking-wide transition-colors duration-500 ${
+                  outputActive ? 'text-green-300' : 'text-green-400/40'
+                }`}
+              >
                 {item.label}
               </span>
             </motion.div>
@@ -125,13 +217,21 @@ export default function SolutionDiagram() {
 
       <div className="relative flex justify-center gap-5 sm:gap-6 mt-5 pt-4 border-t border-white/[0.05]">
         {[
-          { label: 'Input', color: 'bg-white/30' },
-          { label: 'Processing', color: 'bg-primary' },
-          { label: 'Output', color: 'bg-green-400' },
+          { label: 'Input', color: 'bg-white/30', on: inputActive },
+          { label: 'Processing', color: 'bg-primary', on: engineActive },
+          { label: 'Output', color: 'bg-green-400', on: outputActive },
         ].map((item) => (
           <div key={item.label} className="flex items-center gap-1.5">
-            <div className={`w-1.5 h-1.5 rounded-full ${item.color}`} />
-            <span className="text-[10px] sm:text-xs text-white/40 font-mono uppercase tracking-wider">
+            <div
+              className={`w-1.5 h-1.5 rounded-full ${item.color} transition-opacity duration-500 ${
+                item.on ? 'opacity-100' : 'opacity-30'
+              }`}
+            />
+            <span
+              className={`text-[10px] sm:text-xs font-mono uppercase tracking-wider transition-colors duration-500 ${
+                item.on ? 'text-white/65' : 'text-white/30'
+              }`}
+            >
               {item.label}
             </span>
           </div>
@@ -141,43 +241,52 @@ export default function SolutionDiagram() {
   );
 }
 
-function FlowConnectors({
-  color,
-  animate,
-  delayOffset = 0,
+function Connectors({
+  paths,
+  active,
+  stroke,
+  dotColor,
+  glow,
+  cycleKey,
 }: {
-  color: 'primary' | 'green';
-  animate: boolean;
-  delayOffset?: number;
+  paths: string[];
+  active: boolean;
+  stroke: string;
+  dotColor: string;
+  glow: string;
+  cycleKey: number;
 }) {
-  const lineCls =
-    color === 'primary'
-      ? 'bg-gradient-to-b from-transparent via-primary/25 to-transparent'
-      : 'bg-gradient-to-b from-transparent via-green-500/30 to-transparent';
-  const dotCls =
-    color === 'primary'
-      ? 'bg-primary shadow-[0_0_8px_rgba(249,115,22,0.8)]'
-      : 'bg-green-400 shadow-[0_0_8px_rgba(34,197,94,0.8)]';
-
   return (
-    <div className="relative h-10 sm:h-12 flex items-stretch justify-around">
-      {[0, 1, 2].map((i) => (
-        <div key={i} className={`relative w-px overflow-hidden ${lineCls}`}>
-          {animate && (
-            <motion.div
-              className={`absolute left-1/2 -translate-x-1/2 w-1 h-1 rounded-full ${dotCls}`}
-              initial={{ y: -4 }}
-              animate={{ y: ['0%', '100%'] }}
-              transition={{
-                duration: 1.6,
-                repeat: Infinity,
-                ease: 'easeIn',
-                delay: delayOffset + i * 0.35,
-              }}
-            />
-          )}
-        </div>
-      ))}
+    <div className="relative h-10 sm:h-14">
+      <svg
+        viewBox="0 0 300 60"
+        preserveAspectRatio="none"
+        className="absolute inset-0 w-full h-full pointer-events-none"
+      >
+        {paths.map((d, i) => (
+          <path key={i} d={d} stroke={stroke} strokeWidth={1} fill="none" />
+        ))}
+        {active &&
+          paths.map((d, i) => (
+            <circle
+              key={`dot-${i}-${cycleKey}`}
+              r={2.5}
+              fill={dotColor}
+              opacity={0}
+              style={{ filter: `drop-shadow(0 0 4px ${glow})` }}
+            >
+              <animate
+                attributeName="opacity"
+                values="0;1;1;0"
+                keyTimes="0;0.1;0.9;1"
+                dur="1.1s"
+                begin={`${i * 0.12}s`}
+                fill="freeze"
+              />
+              <animateMotion dur="1.1s" path={d} begin={`${i * 0.12}s`} fill="freeze" />
+            </circle>
+          ))}
+      </svg>
     </div>
   );
 }

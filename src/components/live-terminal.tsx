@@ -104,8 +104,8 @@ export default function LiveTerminal() {
         </div>
       </div>
 
-      <div className="bg-[#1e1e22] p-5 sm:p-8 font-mono text-sm leading-relaxed">
-        <div className="mb-4">
+      <div className="bg-[#1e1e22] p-4 sm:p-8 font-mono text-xs sm:text-sm leading-relaxed">
+        <div className="mb-4 break-all">
           <span className="text-green-400">grysics</span>
           <span className="text-white/30"> ~ </span>
           <span className="text-blue-400">$</span>
@@ -119,15 +119,15 @@ export default function LiveTerminal() {
           {LINES.map((line, i) => (
             <div
               key={i}
-              className={`flex items-start gap-3 transition-opacity duration-300 ${
+              className={`flex items-start gap-2 sm:gap-3 transition-opacity duration-300 ${
                 visibleLines >= i ? 'opacity-100' : 'opacity-0'
               }`}
             >
               <span className="text-white/20 select-none flex-shrink-0 w-4 text-right">{i + 1}</span>
-              <span className={line.status === 'done' ? 'text-green-400/80' : 'text-amber-400/80'}>
+              <span className={`flex-shrink-0 ${line.status === 'done' ? 'text-green-400/80' : 'text-amber-400/80'}`}>
                 {line.status === 'done' ? '✓' : '⚠'}
               </span>
-              <span className="text-white/60">{line.text}</span>
+              <span className="text-white/60 flex-1 min-w-0 break-words">{line.text}</span>
               {visibleLines === i && isRunning && (
                 <div className="w-3 h-3 border-2 border-white/10 border-t-primary/50 rounded-full animate-spin flex-shrink-0 mt-0.5" />
               )}

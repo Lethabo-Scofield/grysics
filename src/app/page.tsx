@@ -119,7 +119,7 @@ export default function HomePage() {
       <Header />
 
       <main>
-      <section className="relative min-h-[100svh] flex items-center justify-center px-5 sm:px-8 overflow-hidden">
+      <section className="relative min-h-[100svh] flex items-center justify-center px-4 sm:px-8 overflow-hidden">
         <HeroBackground />
 
         <div className="max-w-4xl mx-auto text-center relative z-10 w-full">
@@ -138,7 +138,7 @@ export default function HomePage() {
             animate="visible"
             custom={1}
             variants={fade}
-            className="font-serif text-[2rem] leading-[1.1] sm:text-6xl lg:text-[5.5rem] text-white tracking-tight sm:leading-[1.05] mb-6 sm:mb-8"
+            className="font-serif text-[1.75rem] leading-[1.1] sm:text-6xl lg:text-[5.5rem] text-white tracking-tight sm:leading-[1.05] mb-8 sm:mb-10"
           >
             Finance work,
             <br />
@@ -168,7 +168,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="how-it-works" className="py-20 sm:py-32 bg-neutral-950 text-white">
+      <section id="how-it-works" className="py-16 sm:py-32 bg-neutral-950 text-white">
         <div className="max-w-6xl mx-auto px-5 sm:px-8">
           <motion.div
             initial="hidden"
@@ -192,7 +192,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-20 sm:py-32 overflow-hidden">
+      <section className="py-16 sm:py-32 overflow-hidden">
         <div className="max-w-6xl mx-auto px-5 sm:px-8">
           <motion.div
             initial="hidden"
@@ -248,9 +248,9 @@ export default function HomePage() {
                 variants={fade}
                 className="p-6 sm:p-8 rounded-2xl border border-neutral-200/60 bg-white shadow-[0_1px_3px_rgba(0,0,0,0.04)]"
               >
-                <div className="flex items-baseline gap-2 mb-4">
+                <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-4">
                   <span className="font-serif text-4xl sm:text-5xl text-neutral-900 tracking-tight">{item.stat}</span>
-                  <span className="text-xs uppercase tracking-[0.18em] text-primary font-medium">{item.unit}</span>
+                  <span className="text-[11px] sm:text-xs uppercase tracking-[0.18em] text-primary font-medium">{item.unit}</span>
                 </div>
                 <h3 className="text-base font-semibold text-neutral-900 mb-2">{item.title}</h3>
                 <p className="text-sm text-neutral-500 leading-relaxed">{item.desc}</p>
@@ -317,7 +317,7 @@ export default function HomePage() {
 
       <div className="section-divider" />
 
-      <section className="py-20 sm:py-32 bg-neutral-950 text-white">
+      <section className="py-16 sm:py-32 bg-neutral-950 text-white">
         <div className="max-w-6xl mx-auto px-5 sm:px-8">
           <motion.div
             initial="hidden"
@@ -430,7 +430,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-20 sm:py-32 bg-neutral-950">
+      <section className="py-16 sm:py-32 bg-neutral-950">
         <div className="max-w-5xl mx-auto px-5 sm:px-8">
           <motion.div
             initial="hidden"
@@ -454,7 +454,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-20 sm:py-32">
+      <section className="py-16 sm:py-32">
         <div className="max-w-6xl mx-auto px-5 sm:px-8">
           <motion.div
             initial="hidden"
@@ -493,7 +493,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-20 sm:py-32 bg-neutral-950 text-white">
+      <section className="py-16 sm:py-32 bg-neutral-950 text-white">
         <div className="max-w-5xl mx-auto px-5 sm:px-8">
           <motion.div
             initial="hidden"

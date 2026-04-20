@@ -140,20 +140,10 @@ export default function HomePage() {
             variants={fade}
             className="font-serif text-[2rem] leading-[1.1] sm:text-6xl lg:text-[5.5rem] text-white tracking-tight sm:leading-[1.05] mb-6 sm:mb-8"
           >
-            Finance and compliance work,
+            Finance work,
             <br />
-            <span className="bg-gradient-to-r from-primary via-amber-400 to-primary bg-clip-text text-transparent">completed automatically.</span>
+            <span className="bg-gradient-to-r from-primary via-amber-400 to-primary bg-clip-text text-transparent">done automatically.</span>
           </motion.h1>
-
-          <motion.p
-            initial="hidden"
-            animate="visible"
-            custom={2}
-            variants={fade}
-            className="text-[15px] leading-relaxed sm:text-lg text-white/60 font-light mb-10 sm:mb-14 max-w-lg mx-auto"
-          >
-            Even under load shedding, audits, and disrupted systems. You describe what needs to be done. Grysics delivers the audit-ready result.
-          </motion.p>
 
           <motion.div
             initial="hidden"

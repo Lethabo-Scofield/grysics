@@ -184,7 +184,7 @@ export default function HomePage() {
               <span className="text-white/30"> Audit-ready result out.</span>
             </h2>
             <p className="text-sm text-neutral-500 max-w-sm mx-auto">
-              You set the goal. Grysics plans, executes, and delivers it — fully traceable.
+              You set the goal. Grysics plans, executes, and delivers it, fully traceable.
             </p>
           </motion.div>
 
@@ -208,7 +208,7 @@ export default function HomePage() {
               <span className="text-neutral-300"> South African finance teams</span>
             </h2>
             <p className="text-base text-neutral-500 font-light max-w-xl mx-auto">
-              Reconciliation, reporting, and audit work isn&apos;t just &ldquo;manual&rdquo; — it&apos;s manual under regulatory pressure, fragmented systems, and operational disruption.
+              Reconciliation, reporting, and audit work isn&apos;t just &ldquo;manual&rdquo;. It&apos;s manual under regulatory pressure, fragmented systems, and operational disruption.
             </p>
           </motion.div>
 
@@ -224,7 +224,7 @@ export default function HomePage() {
                 stat: '02',
                 unit: 'Fragmented systems',
                 title: 'No single source of truth',
-                desc: 'ERP, Excel, payment platforms, and email scattered across the business — leading to reconciliation errors and inconsistent reports.',
+                desc: 'ERP, Excel, payment platforms, and email scattered across the business, leading to reconciliation errors and inconsistent reports.',
               },
               {
                 stat: '03',
@@ -276,7 +276,7 @@ export default function HomePage() {
                   {[
                     { time: '08:30', text: 'Finance lead requests month-end reconciliation' },
                     { time: '09:15', text: 'Analyst pulls data from ERP, Excel, and payments' },
-                    { time: '11:00', text: 'Load shedding hits — work is lost mid-export' },
+                    { time: '11:00', text: 'Load shedding hits, work is lost mid-export' },
                     { time: '13:30', text: 'Discrepancies found between branches and bank' },
                     { time: '16:45', text: 'Report v3 sent for review. Audit trail incomplete.' },
                     { time: 'Next day', text: 'Restart. Re-verify. Re-format for SARS.' },
@@ -310,7 +310,7 @@ export default function HomePage() {
             variants={fade}
             className="text-center text-sm text-neutral-400 font-light mt-8 italic"
           >
-            Sound familiar? Grysics removes this entire process — even when the lights go out.
+            Sound familiar? Grysics removes this entire process, even when the lights go out.
           </motion.p>
         </div>
       </section>
@@ -329,7 +329,7 @@ export default function HomePage() {
           >
             <p className="text-[11px] uppercase tracking-[0.25em] text-neutral-500 font-medium mb-4">The solution</p>
             <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl tracking-tight mb-4">
-              Grysics completes the work —
+              Grysics completes the work,
               <br className="hidden sm:block" />
               <span className="text-white/30"> even under real-world conditions.</span>
             </h2>
@@ -512,9 +512,9 @@ export default function HomePage() {
 
           <div className="max-w-3xl mx-auto">
             {[
-              { icon: Eye, title: 'SARS-ready audit trail', desc: 'Every action logged with timestamps, inputs, and outputs — ready for inspectors and external audit.' },
+              { icon: Eye, title: 'SARS-ready audit trail', desc: 'Every action logged with timestamps, inputs, and outputs, ready for inspectors and external audit.' },
               { icon: Lock, title: 'POPIA-aware data handling', desc: 'Strict permissions and clear control over what data is touched, shared, or stored.' },
-              { icon: FileText, title: 'Resilient by design', desc: 'Pauses through load shedding and outages. Resumes automatically — no lost work.' },
+              { icon: FileText, title: 'Resilient by design', desc: 'Pauses through load shedding and outages. Resumes automatically with no lost work.' },
               { icon: Shield, title: 'Human approval checkpoints', desc: 'Set sign-off gates at any regulated step. Explainable outputs, never silent.' },
             ].map((item, i) => (
               <motion.div

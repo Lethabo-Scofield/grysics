@@ -7,7 +7,7 @@ const LINES = [
   { text: 'Connecting to financial systems...', status: 'done' as const, delay: 800 },
   { text: 'Pulling 847 transactions from ERP system...', status: 'done' as const, delay: 1200 },
   { text: 'Cross-referencing with accounting data...', status: 'done' as const, delay: 1400 },
-  { text: 'Found 3 discrepancies — resolved 2 automatically', status: 'review' as const, delay: 1000 },
+  { text: 'Found 3 discrepancies, resolved 2 automatically', status: 'review' as const, delay: 1000 },
   { text: 'Report generated and ready for download', status: 'done' as const, delay: 800 },
 ];
 
@@ -86,7 +86,7 @@ export default function LiveTerminal() {
           <div className="w-3 h-3 rounded-full bg-[#28c840]" />
         </div>
         <div className="flex-1 text-center">
-          <span className="text-xs text-white/40 font-mono">grysics — reconcile-q1</span>
+          <span className="text-xs text-white/40 font-mono">grysics : reconcile-q1</span>
         </div>
         <div className="flex items-center gap-1.5 min-w-[52px] justify-end">
           {isRunning && (

@@ -99,7 +99,7 @@ export default function WorkflowDemo() {
           </div>
           <div className="flex-1 text-center">
             <span className="text-xs text-white/35 font-mono">
-              {phase === 'done' ? 'Grysics — Complete' : phase === 'waiting' ? 'Grysics' : 'Grysics — Working...'}
+              {phase === 'done' ? 'Grysics : Complete' : phase === 'waiting' ? 'Grysics' : 'Grysics : Working...'}
             </span>
           </div>
           <div className="w-[52px]" />

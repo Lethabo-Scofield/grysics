@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     template: "%s | Grysics",
   },
   description:
-    "Grysics completes finance and compliance work automatically — even under load shedding, audits, and disrupted systems. POPIA-aware, SARS audit-ready.",
+    "Grysics completes finance and compliance work automatically, even under load shedding, audits, and disrupted systems. POPIA-aware, SARS audit-ready.",
   keywords: [
     "finance automation South Africa",
     "POPIA compliance",

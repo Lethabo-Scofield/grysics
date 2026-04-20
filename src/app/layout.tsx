@@ -15,22 +15,22 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL("https://grysics.com"),
   title: {
-    default: "Grysics - AI Execution System",
+    default: "Grysics - Automated Finance & Compliance Execution",
     template: "%s | Grysics",
   },
   description:
-    "Grysics turns business goals into completed real-world operations. AI that executes across multiple tools and data sources.",
+    "Grysics completes finance and compliance work automatically — even under load shedding, audits, and disrupted systems. POPIA-aware, SARS audit-ready.",
   keywords: [
-    "AI execution",
-    "business automation",
-    "AI operations",
-    "goal-driven AI",
-    "financial reconciliation",
-    "sales automation",
-    "enterprise reporting",
-    "AI workflow execution",
-    "business intelligence",
-    "automated operations",
+    "finance automation South Africa",
+    "POPIA compliance",
+    "SARS audit",
+    "automated reconciliation",
+    "load shedding resilient",
+    "compliance automation",
+    "audit-ready reporting",
+    "month-end close automation",
+    "regulatory reporting South Africa",
+    "AI execution system",
   ],
   authors: [{ name: "Grysics", url: "https://grysics.com" }],
   creator: "Grysics",
@@ -52,11 +52,11 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    locale: "en_US",
+    locale: "en_ZA",
     siteName: "Grysics",
-    title: "Grysics - AI Execution System",
+    title: "Grysics - Automated Finance & Compliance Execution",
     description:
-      "AI that turns business goals into completed operations across multiple tools and data sources.",
+      "Finance and compliance work, completed automatically. Resilient under load shedding, POPIA-aware, SARS audit-ready.",
     images: [
       {
         url: "/images/grysics-logo.png",
@@ -68,9 +68,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Grysics - AI Execution System",
+    title: "Grysics - Automated Finance & Compliance Execution",
     description:
-      "AI that turns business goals into completed operations across multiple tools and data sources.",
+      "Finance and compliance work, completed automatically. Resilient under load shedding, POPIA-aware, SARS audit-ready.",
     images: ["/images/grysics-logo.png"],
     creator: "@olyxee",
   },
@@ -87,7 +87,7 @@ const jsonLd = [
     name: "Grysics",
     applicationCategory: "BusinessApplication",
     description:
-      "AI execution system that turns business goals into completed real-world operations across multiple tools and data sources.",
+      "Automated execution system for finance and compliance teams. POPIA-aware, SARS audit-ready, and resilient under load shedding and disrupted systems.",
     url: "https://grysics.com",
     creator: {
       "@type": "Organization",
@@ -103,12 +103,12 @@ const jsonLd = [
     },
     operatingSystem: "Web",
     featureList: [
-      "Goal-driven execution",
-      "Financial reconciliation",
-      "Sales lead processing",
-      "Enterprise reporting",
-      "Cross-system operations",
-      "Automated error handling",
+      "Automated reconciliation across ERP, Excel, and payment systems",
+      "POPIA-aware data handling",
+      "SARS-ready audit trail",
+      "Regulatory and statutory reporting",
+      "Resilient execution through load shedding and outages",
+      "Human approval checkpoints for regulated steps",
     ],
   },
   {

@@ -23,20 +23,20 @@ function DiagramFallback() {
 const UseCaseRows = memo(function UseCaseRows() {
   const cases = [
     {
-      title: 'Finance',
-      items: ['Monthly reporting packs', 'Expense reconciliation', 'Financial summaries'],
+      title: 'Reconciliation',
+      items: ['Cross-system matching', 'Bank vs ERP vs payments', 'Discrepancy resolution'],
     },
     {
-      title: 'Compliance',
-      items: ['Audit-ready reports', 'Regulatory reporting', 'Data validation workflows'],
+      title: 'Audit Readiness',
+      items: ['SARS-ready audit trails', 'Traceable outputs', 'Evidence packs on demand'],
     },
     {
-      title: 'HR Operations',
-      items: ['Onboarding/offboarding execution', 'Employee data updates', 'Reporting'],
+      title: 'Regulatory Reporting',
+      items: ['POPIA-aware data handling', 'Statutory submissions', 'Recurring compliance reports'],
     },
     {
-      title: 'Enterprise Reporting',
-      items: ['Cross-system data aggregation', 'Executive dashboards and summaries'],
+      title: 'Multi-branch Operations',
+      items: ['Consolidated reporting', 'Cross-branch data aggregation', 'Resilient month-end close'],
     },
   ];
   return (
@@ -75,12 +75,12 @@ const UseCaseRows = memo(function UseCaseRows() {
 
 const BenefitsSlider = memo(function BenefitsSlider() {
   const benefits = [
-    { title: 'No manual workflows', desc: 'Stop building complex automations. Just describe the goal.', icon: '01' },
-    { title: 'Works with your systems', desc: 'Connects to ERP, Excel, databases, and more.', icon: '02' },
-    { title: 'Reduces workload', desc: 'Free your team from repetitive operational tasks.', icon: '03' },
-    { title: 'Accurate outputs', desc: 'Consistent results every time. No human error.', icon: '04' },
-    { title: 'Full audit trail', desc: 'Every action logged and traceable for compliance.', icon: '05' },
-    { title: 'Enterprise-ready', desc: 'Built for regulated industries from day one.', icon: '06' },
+    { title: 'Resilient execution', desc: 'Runs through load shedding and outages. Resumes automatically.', icon: '01' },
+    { title: 'POPIA-aware', desc: 'Data handling that respects local privacy law from day one.', icon: '02' },
+    { title: 'SARS-ready audit trail', desc: 'Every action logged and traceable for inspectors and auditors.', icon: '03' },
+    { title: 'Works with your stack', desc: 'Connects to ERP, Excel, payment platforms, databases, and email.', icon: '04' },
+    { title: 'Replaces manual reconciliation', desc: 'Days of cross-system matching, eliminated.', icon: '05' },
+    { title: 'You stay in control', desc: 'Human approval checkpoints at any regulated step.', icon: '06' },
   ];
 
   const duplicated = [...benefits, ...benefits];
@@ -140,9 +140,9 @@ export default function HomePage() {
             variants={fade}
             className="font-serif text-[2rem] leading-[1.1] sm:text-6xl lg:text-[5.5rem] text-white tracking-tight sm:leading-[1.05] mb-6 sm:mb-8"
           >
-            Turn business goals
+            Finance and compliance work,
             <br />
-            <span className="bg-gradient-to-r from-primary via-amber-400 to-primary bg-clip-text text-transparent">into completed work.</span>
+            <span className="bg-gradient-to-r from-primary via-amber-400 to-primary bg-clip-text text-transparent">completed automatically.</span>
           </motion.h1>
 
           <motion.p
@@ -150,9 +150,9 @@ export default function HomePage() {
             animate="visible"
             custom={2}
             variants={fade}
-            className="text-[15px] leading-relaxed sm:text-lg text-white/60 font-light mb-10 sm:mb-14 max-w-md mx-auto"
+            className="text-[15px] leading-relaxed sm:text-lg text-white/60 font-light mb-10 sm:mb-14 max-w-lg mx-auto"
           >
-            Describe what needs to be done. Grysics handles the rest.
+            Even under load shedding, audits, and disrupted systems. You describe what needs to be done. Grysics delivers the audit-ready result.
           </motion.p>
 
           <motion.div
@@ -191,10 +191,10 @@ export default function HomePage() {
             <p className="text-[11px] uppercase tracking-[0.25em] text-neutral-500 font-medium mb-4">How it works</p>
             <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl tracking-tight mb-3">
               Goal in.
-              <span className="text-white/30"> Task done.</span>
+              <span className="text-white/30"> Audit-ready result out.</span>
             </h2>
             <p className="text-sm text-neutral-500 max-w-sm mx-auto">
-              You set the goal. Grysics delivers the result.
+              You set the goal. Grysics plans, executes, and delivers it — fully traceable.
             </p>
           </motion.div>
 
@@ -214,33 +214,39 @@ export default function HomePage() {
           >
             <p className="text-[11px] uppercase tracking-[0.25em] text-neutral-400 font-medium mb-4">The problem</p>
             <h2 className="font-serif text-3xl sm:text-5xl tracking-tight text-neutral-900 mb-4">
-              Your team is stuck on
-              <span className="text-neutral-300"> operational busywork</span>
+              Four pressures hitting
+              <span className="text-neutral-300"> South African finance teams</span>
             </h2>
-            <p className="text-base text-neutral-500 font-light max-w-lg mx-auto">
-              Finance, compliance, and operations teams lose days every month on tasks that follow the same pattern every time.
+            <p className="text-base text-neutral-500 font-light max-w-xl mx-auto">
+              Reconciliation, reporting, and audit work isn&apos;t just &ldquo;manual&rdquo; — it&apos;s manual under regulatory pressure, fragmented systems, and operational disruption.
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-14">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-14">
             {[
               {
-                stat: '40+',
-                unit: 'hours/month',
-                title: 'Spent on reconciliation',
-                desc: 'Teams manually pull data from ERP, match it against bank statements, and chase discrepancies across email.',
+                stat: '01',
+                unit: 'Regulatory pressure',
+                title: 'SARS audits and POPIA exposure',
+                desc: 'Constant compliance changes mean high risk of fines and a heavy audit burden every cycle.',
               },
               {
-                stat: '5',
-                unit: 'systems',
-                title: 'Touched per report',
-                desc: 'One financial report needs data from ERP, Excel, payment platforms, HR tools, and email threads.',
+                stat: '02',
+                unit: 'Fragmented systems',
+                title: 'No single source of truth',
+                desc: 'ERP, Excel, payment platforms, and email scattered across the business — leading to reconciliation errors and inconsistent reports.',
               },
               {
-                stat: '3-5',
-                unit: 'days',
-                title: 'To close the books',
-                desc: 'Month-end close involves manual checks, approvals, and back-and-forth that stretches for days.',
+                stat: '03',
+                unit: 'Operational disruption',
+                title: 'Load shedding breaks workflows',
+                desc: 'Outages and system downtime delay reporting and force teams to repeat work they had already completed.',
+              },
+              {
+                stat: '04',
+                unit: 'Skills shortage',
+                title: 'Limited automation expertise',
+                desc: 'Heavy reliance on manual processes drives slow execution and rising operational cost.',
               },
             ].map((item, i) => (
               <motion.div
@@ -252,9 +258,9 @@ export default function HomePage() {
                 variants={fade}
                 className="p-6 sm:p-8 rounded-2xl border border-neutral-200/60 bg-white shadow-[0_1px_3px_rgba(0,0,0,0.04)]"
               >
-                <div className="flex items-baseline gap-1.5 mb-4">
+                <div className="flex items-baseline gap-2 mb-4">
                   <span className="font-serif text-4xl sm:text-5xl text-neutral-900 tracking-tight">{item.stat}</span>
-                  <span className="text-sm text-neutral-400 font-light">{item.unit}</span>
+                  <span className="text-xs uppercase tracking-[0.18em] text-primary font-medium">{item.unit}</span>
                 </div>
                 <h3 className="text-base font-semibold text-neutral-900 mb-2">{item.title}</h3>
                 <p className="text-sm text-neutral-500 leading-relaxed">{item.desc}</p>
@@ -272,18 +278,18 @@ export default function HomePage() {
           >
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
               <div>
-                <p className="text-xs uppercase tracking-[0.2em] text-red-400/70 font-medium mb-3">A typical Monday morning</p>
+                <p className="text-xs uppercase tracking-[0.2em] text-red-400/70 font-medium mb-3">A typical month-end</p>
                 <h3 className="font-serif text-2xl sm:text-3xl tracking-tight mb-4">
-                  &quot;Can someone pull the Q1 numbers?&quot;
+                  &quot;We need the recon before the SARS deadline.&quot;
                 </h3>
                 <div className="space-y-3">
                   {[
-                    { time: '9:00 AM', text: 'CFO requests Q1 reconciliation report' },
-                    { time: '9:30 AM', text: 'Analyst opens ERP, Excel, and payment platform' },
-                    { time: '11:00 AM', text: 'Data copied into spreadsheet, formulas break' },
-                    { time: '2:00 PM', text: 'Three discrepancies found, two emails sent' },
-                    { time: '4:30 PM', text: 'Report v3 sent for review. Missing one source.' },
-                    { time: 'Next day', text: 'Start over with updated data.' },
+                    { time: '08:30', text: 'Finance lead requests month-end reconciliation' },
+                    { time: '09:15', text: 'Analyst pulls data from ERP, Excel, and payments' },
+                    { time: '11:00', text: 'Load shedding hits — work is lost mid-export' },
+                    { time: '13:30', text: 'Discrepancies found between branches and bank' },
+                    { time: '16:45', text: 'Report v3 sent for review. Audit trail incomplete.' },
+                    { time: 'Next day', text: 'Restart. Re-verify. Re-format for SARS.' },
                   ].map((step, i) => (
                     <div key={i} className="flex items-start gap-3">
                       <span className="text-xs text-white/25 font-mono w-16 flex-shrink-0 pt-0.5">{step.time}</span>
@@ -314,7 +320,7 @@ export default function HomePage() {
             variants={fade}
             className="text-center text-sm text-neutral-400 font-light mt-8 italic"
           >
-            Sound familiar? This is what Grysics eliminates.
+            Sound familiar? Grysics removes this entire process — even when the lights go out.
           </motion.p>
         </div>
       </section>
@@ -333,9 +339,9 @@ export default function HomePage() {
           >
             <p className="text-[11px] uppercase tracking-[0.25em] text-neutral-500 font-medium mb-4">The solution</p>
             <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl tracking-tight mb-4">
-              Grysics executes business
+              Grysics completes the work —
               <br className="hidden sm:block" />
-              <span className="text-white/30"> operations for you</span>
+              <span className="text-white/30"> even under real-world conditions.</span>
             </h2>
           </motion.div>
 
@@ -348,7 +354,7 @@ export default function HomePage() {
               variants={fade}
             >
               <p className="text-base text-neutral-400 font-light mb-8">
-                One goal in. Finished work out.
+                One goal in. Audit-ready work out.
               </p>
               <div className="space-y-4">
                 <div className="flex items-center gap-4">
@@ -362,7 +368,7 @@ export default function HomePage() {
                   <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center flex-shrink-0">
                     <span className="text-white/50 text-sm font-semibold">2</span>
                   </div>
-                  <p className="font-serif text-lg italic text-white/50">Grysics plans, executes, and delivers it.</p>
+                  <p className="font-serif text-lg italic text-white/50">Grysics pulls data, resolves issues, and delivers an audit-ready result.</p>
                 </div>
               </div>
             </motion.div>
@@ -446,11 +452,11 @@ export default function HomePage() {
           >
             <p className="text-[11px] uppercase tracking-[0.25em] text-neutral-500 font-medium mb-4">Transparent execution</p>
             <h2 className="font-serif text-3xl sm:text-5xl tracking-tight text-white mb-3">
-              You stay in control.
-              <span className="text-white/30"> Every step is visible.</span>
+              Every step visible.
+              <span className="text-white/30"> Every action audit-ready.</span>
             </h2>
             <p className="text-sm text-neutral-500 max-w-sm mx-auto">
-              See every step. No black boxes.
+              See exactly what Grysics did, and why. No black boxes for SARS, your auditor, or your CFO.
             </p>
           </motion.div>
 
@@ -470,7 +476,7 @@ export default function HomePage() {
           >
             <p className="text-[11px] uppercase tracking-[0.25em] text-neutral-400 font-medium mb-4">Use cases</p>
             <h2 className="font-serif text-3xl sm:text-5xl tracking-tight text-neutral-900">
-              Built for business operations.
+              Built for finance and compliance teams.
             </h2>
           </motion.div>
 
@@ -487,7 +493,7 @@ export default function HomePage() {
             <div className="text-center mb-10">
               <p className="text-[11px] uppercase tracking-[0.25em] text-neutral-400 font-medium mb-4">Key benefits</p>
               <h2 className="font-serif text-2xl sm:text-4xl tracking-tight text-neutral-900">
-                Why teams choose Grysics.
+                Why South African teams choose Grysics.
               </h2>
             </div>
             <div className="-mx-5 sm:-mx-8">
@@ -509,17 +515,17 @@ export default function HomePage() {
           >
             <p className="text-[11px] uppercase tracking-[0.25em] text-neutral-500 font-medium mb-4">Trust & control</p>
             <h2 className="font-serif text-3xl sm:text-5xl tracking-tight mb-4">
-              Built for reliability
-              <span className="text-white/30"> and control.</span>
+              Resilient, compliant,
+              <span className="text-white/30"> and audit-ready.</span>
             </h2>
           </motion.div>
 
           <div className="max-w-3xl mx-auto">
             {[
-              { icon: Eye, title: 'Full traceability', desc: 'Every action Grysics takes is logged with timestamps, inputs, and outputs.' },
-              { icon: FileText, title: 'Recorded transformations', desc: 'All data changes are tracked and reversible. Nothing happens silently.' },
-              { icon: Lock, title: 'Approval workflows', desc: 'Set human checkpoints at any stage. Grysics pauses and waits for sign-off.' },
-              { icon: Shield, title: 'Enterprise-grade', desc: 'Built for regulated industries with SOC 2 and compliance-first architecture.' },
+              { icon: Eye, title: 'SARS-ready audit trail', desc: 'Every action logged with timestamps, inputs, and outputs — ready for inspectors and external audit.' },
+              { icon: Lock, title: 'POPIA-aware data handling', desc: 'Strict permissions and clear control over what data is touched, shared, or stored.' },
+              { icon: FileText, title: 'Resilient by design', desc: 'Pauses through load shedding and outages. Resumes automatically — no lost work.' },
+              { icon: Shield, title: 'Human approval checkpoints', desc: 'Set sign-off gates at any regulated step. Explainable outputs, never silent.' },
             ].map((item, i) => (
               <motion.div
                 key={item.title}
@@ -557,12 +563,12 @@ export default function HomePage() {
                 variants={fade}
               >
                 <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl tracking-tight text-white mb-4">
-                  Give it a goal.
+                  Describe the work.
                   <br />
-                  <span className="bg-gradient-to-r from-primary via-amber-400 to-primary bg-clip-text text-transparent">Get it done.</span>
+                  <span className="bg-gradient-to-r from-primary via-amber-400 to-primary bg-clip-text text-transparent">Receive the result.</span>
                 </h2>
                 <p className="text-base text-white/40 font-light mb-10">
-                  See Grysics in action.
+                  See Grysics handle a real reconciliation, end to end.
                 </p>
                 <Link
                   href="/demo"

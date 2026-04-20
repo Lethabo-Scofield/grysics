@@ -3,25 +3,25 @@ import DemoContent from './content';
 
 export const metadata: Metadata = {
   title: 'Book a Demo',
-  description: 'Request a personalized demo of Grysics. See how AI execution completes real business operations like financial reconciliation, lead processing, and enterprise reporting.',
+  description: 'Request a personalized demo of Grysics. See how it completes month-end reconciliation, regulatory reporting, and audit-ready outputs — even under load shedding.',
   keywords: [
-    'AI execution demo',
     'Grysics demo',
-    'business automation demo',
-    'financial reconciliation',
-    'sales lead processing',
-    'enterprise reporting',
+    'finance automation demo South Africa',
+    'POPIA-compliant automation',
+    'SARS audit-ready reporting',
+    'automated reconciliation demo',
+    'compliance automation',
   ],
   openGraph: {
-    title: 'Book a Demo - Grysics AI Execution System',
-    description: 'See Grysics in action. Watch AI complete real business tasks end-to-end.',
+    title: 'Book a Demo - Grysics',
+    description: 'See Grysics complete a real reconciliation end-to-end — POPIA-aware and audit-ready.',
     url: '/demo',
     type: 'website',
   },
   twitter: {
     card: 'summary',
-    title: 'Book a Demo - Grysics AI Execution System',
-    description: 'See Grysics in action. Watch AI complete real business tasks end-to-end.',
+    title: 'Book a Demo - Grysics',
+    description: 'See Grysics complete a real reconciliation end-to-end — POPIA-aware and audit-ready.',
   },
   alternates: {
     canonical: '/demo',

@@ -67,10 +67,10 @@ export function DemoForm() {
         <label htmlFor="demo-usecase" className="block text-[12px] uppercase tracking-wider text-neutral-400 font-medium mb-1.5">What operations do you need?</label>
         <select id="demo-usecase" value={formData.useCase} onChange={(e) => setFormData({ ...formData, useCase: e.target.value })} className="w-full px-4 py-3 text-sm text-neutral-900 bg-white border border-neutral-200 rounded-xl focus:outline-none focus:border-primary/40 focus:ring-2 focus:ring-primary/10 transition-all appearance-none">
           <option value="">Select a category</option>
-          <option value="reconciliation">Financial Reconciliation</option>
-          <option value="leads">Sales Lead Processing</option>
-          <option value="reporting">Enterprise Reporting</option>
-          <option value="operations">General Operations</option>
+          <option value="reconciliation">Reconciliation (cross-system)</option>
+          <option value="audit">Audit Readiness (SARS / POPIA)</option>
+          <option value="reporting">Regulatory Reporting</option>
+          <option value="multibranch">Multi-branch Operations</option>
           <option value="other">Other</option>
         </select>
       </div>

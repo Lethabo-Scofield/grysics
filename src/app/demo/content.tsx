@@ -29,13 +29,13 @@ export default function DemoContent() {
                 See Grysics execute.
               </h1>
               <p className="text-sm sm:text-base text-neutral-500 font-light leading-relaxed mb-6 sm:mb-8">
-                Watch AI complete real business operations end-to-end. From goal to finished output, in minutes.
+                Watch Grysics complete a real reconciliation end-to-end. From goal to audit-ready output, in minutes.
               </p>
               <div className="space-y-3 sm:space-y-4">
                 {[
-                  'Live execution of a real business workflow',
-                  'See multi-step operations across systems',
-                  'Custom setup for your business goals',
+                  'Live month-end reconciliation across your systems',
+                  'POPIA-aware data handling and SARS-ready audit trail',
+                  'Tailored to your finance and compliance workflows',
                   'Q&A with our engineering team',
                 ].map((item) => (
                   <div key={item} className="flex items-center gap-3">

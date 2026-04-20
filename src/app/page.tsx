@@ -14,6 +14,7 @@ import HeroBackground from '@/components/hero-background';
 const ArchitectureDiagram = dynamic(() => import('@/components/diagrams/architecture-diagram'), { ssr: false, loading: () => <DiagramFallback /> });
 const WorkflowDemo = dynamic(() => import('@/components/workflow-demo'), { ssr: false, loading: () => <DiagramFallback /> });
 const LiveTerminal = dynamic(() => import('@/components/live-terminal'), { ssr: false, loading: () => <DiagramFallback /> });
+const SolutionDiagram = dynamic(() => import('@/components/solution-diagram'), { ssr: false, loading: () => <DiagramFallback /> });
 const BenchmarkChart = dynamic(() => import('@/components/diagrams/benchmark-chart'), { ssr: false, loading: () => <DiagramFallback /> });
 
 function DiagramFallback() {
@@ -369,62 +370,8 @@ export default function HomePage() {
               viewport={{ once: true, margin: "-20px" }}
               custom={2}
               variants={fade}
-              className="relative w-full rounded-2xl overflow-hidden bg-white/[0.02] border border-white/[0.08] p-6 sm:p-8"
             >
-              <div className="flex flex-col items-center gap-5">
-                <div className="grid grid-cols-3 gap-3 w-full">
-                  {['Your Goal', 'ERP System', 'Excel / Data'].map((label) => (
-                    <div key={label} className="flex flex-col items-center gap-2">
-                      <div className="w-full py-3 rounded-lg bg-white/[0.04] border border-white/[0.08] text-center">
-                        <span className="text-xs text-white/60 font-medium">{label}</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="flex items-center gap-2">
-                  <div className="w-px h-6 bg-primary/30" />
-                  <div className="w-px h-6 bg-primary/30" />
-                  <div className="w-px h-6 bg-primary/30" />
-                </div>
-
-                <div className="w-full py-4 sm:py-5 rounded-xl bg-primary/[0.08] border border-primary/20 text-center">
-                  <div className="flex items-center justify-center gap-2 mb-1">
-                    <Image src="/images/grysics-logo.png" alt="Grysics" width={20} height={20} className="rounded" style={{ width: 20, height: 20 }} />
-                    <span className="text-sm sm:text-base font-medium text-primary">Grysics</span>
-                  </div>
-                  <span className="text-xs text-white/50">AI Execution Engine</span>
-                </div>
-
-                <div className="flex items-center gap-2">
-                  <div className="w-px h-6 bg-green-500/30" />
-                  <div className="w-px h-6 bg-green-500/30" />
-                  <div className="w-px h-6 bg-green-500/30" />
-                </div>
-
-                <div className="grid grid-cols-3 gap-3 w-full">
-                  {['Reports', 'Notifications', 'Audit Trail'].map((label) => (
-                    <div key={label} className="flex flex-col items-center gap-2">
-                      <div className="w-full py-3 rounded-lg bg-green-500/[0.06] border border-green-500/15 text-center">
-                        <span className="text-xs text-green-400/80 font-medium">{label}</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="flex justify-center gap-6 mt-6 pt-4 border-t border-white/[0.04]">
-                {[
-                  { label: 'Input', color: 'bg-white/20' },
-                  { label: 'Processing', color: 'bg-primary' },
-                  { label: 'Output', color: 'bg-green-500' },
-                ].map((item) => (
-                  <div key={item.label} className="flex items-center gap-1.5">
-                    <div className={`w-2 h-2 rounded-full ${item.color}`} />
-                    <span className="text-xs text-white/40">{item.label}</span>
-                  </div>
-                ))}
-              </div>
+              <SolutionDiagram />
             </motion.div>
           </div>
         </div>
